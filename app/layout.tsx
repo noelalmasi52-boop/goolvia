@@ -17,8 +17,8 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "GOOLVIA — Live The Game",
-  description: "Premium football match experiences. Football trips you'll remember.",
+  title: "GOOLVIA — Zaži To Naživo",
+  description: "Futbalové zážitky za najlepšiu cenu. Dostaň sa na zápas lacno.",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${antonio.variable} ${geist.variable}`}>
+    <html lang="sk" className={`${antonio.variable} ${geist.variable}`}>
       <body>{children}</body>
     </html>
   );

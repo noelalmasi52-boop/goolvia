@@ -106,7 +106,7 @@ export default function HeroUI() {
               textTransform: "uppercase",
             }}
           >
-            Match Experiences
+            Zážitky zo zápasov
           </span>
         </div>
       </nav>
@@ -134,9 +134,8 @@ export default function HeroUI() {
               display: "block",
             }}
           >
-            Live<br />
-            <span style={{ color: "var(--goolvia-gold)" }}>The</span><br />
-            Game.
+            Zaži To<br />
+            <span style={{ color: "var(--goolvia-gold)" }}>Naživo</span>
           </h1>
         </div>
 
@@ -151,7 +150,7 @@ export default function HeroUI() {
             textTransform: "uppercase",
           }}
         >
-          Football trips you&apos;ll remember.
+          Futbalové zážitky, na ktoré nezabudneš.
         </p>
 
         <div ref={ctaRef} style={{ marginTop: "2.4rem", pointerEvents: "auto" }}>
@@ -200,7 +199,7 @@ export default function HeroUI() {
               }}
             />
             <span style={{ position: "relative", zIndex: 1 }}>
-              Explore Matches
+              Pozrieť zápasy
             </span>
             <span style={{ position: "relative", zIndex: 1, fontSize: "0.65rem", opacity: 0.7 }}>
               →
@@ -237,7 +236,7 @@ export default function HeroUI() {
               transform: "rotate(180deg)",
             }}
           >
-            Scroll to explore
+            Rolovať nadol
           </span>
           <div
             ref={lineRef}

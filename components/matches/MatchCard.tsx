@@ -259,7 +259,7 @@ export default function MatchCard({ match }: { match: Match }) {
             (e.currentTarget as HTMLElement).style.color = "#F5F0E8";
           }}
         >
-          Repülő
+          Let
         </a>
         <a
           href={ticketUrl}
@@ -291,7 +291,7 @@ export default function MatchCard({ match }: { match: Match }) {
             (e.currentTarget as HTMLElement).style.color = "#F5F0E8";
           }}
         >
-          Jegy
+          Lístok
         </a>
       </div>
     </div>

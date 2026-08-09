@@ -170,7 +170,7 @@ export default function MatchesSection() {
             textTransform: "uppercase",
             marginBottom: "20px",
           }}>
-            Best Deals This Season
+            Najlepšie ponuky tejto sezóny
           </p>
           <h2 style={{
             fontFamily: "var(--font-antonio)",
@@ -182,8 +182,8 @@ export default function MatchesSection() {
             textTransform: "uppercase",
             marginBottom: "24px",
           }}>
-            The Cheapest<br />
-            <span style={{ color: "#C8963C" }}>Seats</span> In Europe.
+            Najlacnejšie<br />
+            <span style={{ color: "#C8963C" }}>Miesta</span> v Európe.
           </h2>
           <p style={{
             fontFamily: "var(--font-geist)",
@@ -193,7 +193,7 @@ export default function MatchesSection() {
             lineHeight: 1.65,
             letterSpacing: "0.01em",
           }}>
-            We find the best hotel and flight combinations so you can attend live football across every major European league — for a fraction of what others pay.
+            Nájdeme ti najlepšiu kombináciu hotela a letu, aby si mohol zažiť futbal naživo vo všetkých veľkých európskych ligách — za zlomok bežnej ceny.
           </p>
         </div>
 
@@ -261,9 +261,9 @@ export default function MatchesSection() {
           border: "1px solid #1c2030",
         }}>
           {[
-            { num: "01", title: "Pick a Match", desc: "Browse upcoming fixtures across all major European leagues and find the one you want to attend." },
-            { num: "02", title: "Find Your Hotel", desc: "We connect you directly to Booking.com with the best available hotels near the stadium for match night." },
-            { num: "03", title: "Book Your Flight", desc: "Kiwi.com finds the cheapest flights from your city to the match destination — often for under €50." },
+            { num: "01", title: "Vyber zápas", desc: "Prehľadaj nadchádzajúce zápasy vo všetkých veľkých európskych ligách a nájdi ten, ktorý chceš zažiť." },
+            { num: "02", title: "Nájdi hotel", desc: "Priamo ťa prepojíme s Booking.com — najlepšie hotely blízko štadióna na noc zápasu." },
+            { num: "03", title: "Zarezervuj let", desc: "Kiwi.com nájde najlacnejšie lety z tvojho mesta na miesto zápasu — často za menej ako 50 €." },
           ].map(({ num, title, desc }) => (
             <div key={num} style={{ background: "#0e1420", padding: "48px 36px" }}>
               <div style={{
