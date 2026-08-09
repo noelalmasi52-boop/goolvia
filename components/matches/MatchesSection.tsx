@@ -16,8 +16,9 @@ export type Match = {
   date: string;
   time: string;
   league: string;
-  price: number;
-  regular: number;
+  ticketFrom: number;
+  hotelFrom: number;
+  flightFrom: number;
   bookingCity: string;
   kiwiCity: string;
   dateISO: string;
@@ -55,7 +56,7 @@ const MATCHES: Match[] = [
     homeCl: "#6CABDD", awayCl: "#EF0107",
     stadium: "Etihad Stadium", city: "Manchester", country: "ENG",
     date: "15 AUG", time: "17:30", league: "PREMIER LEAGUE",
-    price: 18, regular: 95,
+    ticketFrom: 18, hotelFrom: 52, flightFrom: 34,
     bookingCity: "Manchester", kiwiCity: "manchester-united-kingdom", dateISO: "2026-08-15",
   },
   {
@@ -64,7 +65,7 @@ const MATCHES: Match[] = [
     homeCl: "#FEBE10", awayCl: "#A50044",
     stadium: "Santiago Bernabéu", city: "Madrid", country: "ESP",
     date: "22 AUG", time: "20:00", league: "LA LIGA",
-    price: 24, regular: 130,
+    ticketFrom: 24, hotelFrom: 48, flightFrom: 29,
     bookingCity: "Madrid", kiwiCity: "madrid-spain", dateISO: "2026-08-22",
   },
   {
@@ -73,7 +74,7 @@ const MATCHES: Match[] = [
     homeCl: "#004170", awayCl: "#2CBFEF",
     stadium: "Parc des Princes", city: "Paris", country: "FRA",
     date: "29 AUG", time: "21:00", league: "LIGUE 1",
-    price: 15, regular: 75,
+    ticketFrom: 15, hotelFrom: 61, flightFrom: 39,
     bookingCity: "Paris", kiwiCity: "paris-france", dateISO: "2026-08-29",
   },
   {
@@ -82,7 +83,7 @@ const MATCHES: Match[] = [
     homeCl: "#DC052D", awayCl: "#FDE100",
     stadium: "Allianz Arena", city: "Munich", country: "GER",
     date: "05 SEP", time: "18:30", league: "BUNDESLIGA",
-    price: 16, regular: 68,
+    ticketFrom: 16, hotelFrom: 44, flightFrom: 27,
     bookingCity: "Munich", kiwiCity: "munich-germany", dateISO: "2026-09-05",
   },
   {
@@ -91,7 +92,7 @@ const MATCHES: Match[] = [
     homeCl: "#0068A8", awayCl: "#FB090B",
     stadium: "San Siro", city: "Milan", country: "ITA",
     date: "12 SEP", time: "20:45", league: "SERIE A",
-    price: 20, regular: 90,
+    ticketFrom: 20, hotelFrom: 55, flightFrom: 31,
     bookingCity: "Milan", kiwiCity: "milan-italy", dateISO: "2026-09-12",
   },
   {
@@ -100,7 +101,7 @@ const MATCHES: Match[] = [
     homeCl: "#034694", awayCl: "#132257",
     stadium: "Stamford Bridge", city: "London", country: "ENG",
     date: "19 SEP", time: "16:00", league: "PREMIER LEAGUE",
-    price: 22, regular: 110,
+    ticketFrom: 22, hotelFrom: 68, flightFrom: 38,
     bookingCity: "London", kiwiCity: "london-united-kingdom", dateISO: "2026-09-19",
   },
   {
@@ -109,7 +110,7 @@ const MATCHES: Match[] = [
     homeCl: "#CB3524", awayCl: "#D4AF37",
     stadium: "Metropolitano", city: "Madrid", country: "ESP",
     date: "26 SEP", time: "19:00", league: "LA LIGA",
-    price: 19, regular: 72,
+    ticketFrom: 19, hotelFrom: 46, flightFrom: 29,
     bookingCity: "Madrid", kiwiCity: "madrid-spain", dateISO: "2026-09-26",
   },
   {
@@ -118,7 +119,7 @@ const MATCHES: Match[] = [
     homeCl: "#000000", awayCl: "#12A0C8",
     stadium: "Allianz Stadium", city: "Turin", country: "ITA",
     date: "03 OCT", time: "20:45", league: "SERIE A",
-    price: 21, regular: 88,
+    ticketFrom: 21, hotelFrom: 42, flightFrom: 33,
     bookingCity: "Turin", kiwiCity: "turin-italy", dateISO: "2026-10-03",
   },
   {
@@ -127,7 +128,7 @@ const MATCHES: Match[] = [
     homeCl: "#C8102E", awayCl: "#DA291C",
     stadium: "Anfield", city: "Liverpool", country: "ENG",
     date: "10 OCT", time: "17:30", league: "PREMIER LEAGUE",
-    price: 25, regular: 120,
+    ticketFrom: 25, hotelFrom: 58, flightFrom: 36,
     bookingCity: "Liverpool", kiwiCity: "liverpool-united-kingdom", dateISO: "2026-10-10",
   },
 ];

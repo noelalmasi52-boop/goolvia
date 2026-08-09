@@ -6,7 +6,6 @@ import { buildBookingUrl, buildKiwiUrl, buildTicketUrl } from "./MatchesSection"
 
 export default function MatchCard({ match }: { match: Match }) {
   const [hovered, setHovered] = useState(false);
-  const saving = Math.round(((match.regular - match.price) / match.regular) * 100);
   const hotelUrl = buildBookingUrl(match.bookingCity, match.dateISO);
   const flightUrl = buildKiwiUrl(match.kiwiCity, match.dateISO);
   const ticketUrl = buildTicketUrl(match.home, match.away);
@@ -17,21 +16,18 @@ export default function MatchCard({ match }: { match: Match }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         background: hovered ? "#161c2c" : "#0e1420",
-        padding: "32px 28px",
-        cursor: "pointer",
+        padding: "28px 24px",
         transition: "background 0.2s ease",
         position: "relative",
         display: "flex",
         flexDirection: "column",
-        gap: "20px",
+        gap: "0",
       }}
     >
       {/* Team color top bar */}
       <div style={{
         position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
+        top: 0, left: 0, right: 0,
         height: "2px",
         background: `linear-gradient(90deg, ${match.homeCl}, ${match.awayCl})`,
         opacity: hovered ? 1 : 0.4,
@@ -43,6 +39,7 @@ export default function MatchCard({ match }: { match: Match }) {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        marginBottom: "16px",
       }}>
         <span style={{
           fontFamily: "var(--font-antonio)",
@@ -63,88 +60,49 @@ export default function MatchCard({ match }: { match: Match }) {
         </span>
       </div>
 
-      {/* Teams */}
+      {/* Teams row */}
       <div style={{
         display: "flex",
         alignItems: "center",
-        gap: "16px",
+        gap: "12px",
+        marginBottom: "12px",
       }}>
-        {/* Home badge */}
         <div style={{
-          width: "40px",
-          height: "40px",
-          borderRadius: "50%",
+          width: "36px", height: "36px", borderRadius: "50%",
           background: match.homeCl + "22",
           border: `1.5px solid ${match.homeCl}55`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
+          display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
         }}>
-          <span style={{
-            fontFamily: "var(--font-antonio)",
-            fontSize: "0.6rem",
-            fontWeight: 700,
-            color: match.homeCl,
-            letterSpacing: "0.05em",
-          }}>
+          <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.55rem", fontWeight: 700, color: match.homeCl }}>
             {match.homeAbbr}
           </span>
         </div>
 
         <div style={{ flex: 1 }}>
           <div style={{
-            fontFamily: "var(--font-antonio)",
-            fontSize: "1.15rem",
-            fontWeight: 700,
-            color: "#F5F0E8",
-            letterSpacing: "0.04em",
-            textTransform: "uppercase",
-            lineHeight: 1.1,
+            fontFamily: "var(--font-antonio)", fontSize: "1.05rem", fontWeight: 700,
+            color: "#F5F0E8", letterSpacing: "0.04em", textTransform: "uppercase", lineHeight: 1.1,
           }}>
             {match.home}
           </div>
-          <div style={{
-            fontFamily: "var(--font-antonio)",
-            fontSize: "0.65rem",
-            color: "#444",
-            letterSpacing: "0.2em",
-            marginTop: "3px",
-          }}>
+          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", color: "#333", letterSpacing: "0.2em", margin: "2px 0" }}>
             VS
           </div>
           <div style={{
-            fontFamily: "var(--font-antonio)",
-            fontSize: "1.15rem",
-            fontWeight: 700,
-            color: "#F5F0E8",
-            letterSpacing: "0.04em",
-            textTransform: "uppercase",
-            lineHeight: 1.1,
+            fontFamily: "var(--font-antonio)", fontSize: "1.05rem", fontWeight: 700,
+            color: "#F5F0E8", letterSpacing: "0.04em", textTransform: "uppercase", lineHeight: 1.1,
           }}>
             {match.away}
           </div>
         </div>
 
-        {/* Away badge */}
         <div style={{
-          width: "40px",
-          height: "40px",
-          borderRadius: "50%",
+          width: "36px", height: "36px", borderRadius: "50%",
           background: match.awayCl + "22",
           border: `1.5px solid ${match.awayCl}55`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
+          display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
         }}>
-          <span style={{
-            fontFamily: "var(--font-antonio)",
-            fontSize: "0.6rem",
-            fontWeight: 700,
-            color: match.awayCl,
-            letterSpacing: "0.05em",
-          }}>
+          <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.55rem", fontWeight: 700, color: match.awayCl }}>
             {match.awayAbbr}
           </span>
         </div>
@@ -152,146 +110,167 @@ export default function MatchCard({ match }: { match: Match }) {
 
       {/* Venue */}
       <div style={{
-        fontFamily: "var(--font-geist)",
-        fontSize: "0.75rem",
-        color: "#555",
-        letterSpacing: "0.04em",
+        fontFamily: "var(--font-geist)", fontSize: "0.72rem", color: "#444",
+        letterSpacing: "0.03em", marginBottom: "20px",
       }}>
-        {match.stadium} · {match.city}, {match.country}
+        📍 {match.stadium} · {match.city}, {match.country}
       </div>
 
-      {/* Pricing row */}
+      {/* Deal tiles — always visible */}
       <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        paddingTop: "16px",
-        borderTop: "1px solid #141414",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr 1fr",
+        gap: "6px",
+        marginBottom: "0",
       }}>
-        <div>
-          <div style={{
-            fontFamily: "var(--font-antonio)",
-            fontSize: "1.6rem",
-            fontWeight: 700,
-            color: "#C8963C",
-            lineHeight: 1,
-          }}>
-            from €{match.price}
-          </div>
-          <div style={{
-            fontFamily: "var(--font-geist)",
-            fontSize: "0.68rem",
-            color: "#444",
-            marginTop: "4px",
-            textDecoration: "line-through",
-          }}>
-            Regular ~€{match.regular}
-          </div>
-        </div>
-
-        <div style={{
-          fontFamily: "var(--font-antonio)",
-          fontSize: "0.65rem",
-          letterSpacing: "0.1em",
-          padding: "5px 10px",
-          background: "#C8963C18",
-          border: "1px solid #C8963C33",
-          color: "#C8963C",
-        }}>
-          −{saving}%
-        </div>
-      </div>
-
-      {/* CTA Buttons */}
-      <div style={{ display: "flex", gap: "6px" }}>
+        {/* Hotel tile */}
         <a
           href={hotelUrl}
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "12px 8px",
-            background: "#C8963C",
-            color: "#0c1018",
-            fontFamily: "var(--font-antonio)",
-            fontSize: "0.68rem",
-            fontWeight: 700,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            textDecoration: "none",
-            transition: "opacity 0.2s ease",
-          }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.85"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
+          style={{ textDecoration: "none" }}
         >
-          Hotel
+          <div style={{
+            background: "#C8963C12",
+            border: "1px solid #C8963C33",
+            padding: "12px 10px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "5px",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+          }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#C8963C22";
+              (e.currentTarget as HTMLElement).style.borderColor = "#C8963C88";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#C8963C12";
+              (e.currentTarget as HTMLElement).style.borderColor = "#C8963C33";
+            }}
+          >
+            <span style={{ fontSize: "1rem" }}>🏨</span>
+            <span style={{
+              fontFamily: "var(--font-antonio)", fontSize: "0.58rem",
+              color: "#888", letterSpacing: "0.15em", textTransform: "uppercase",
+            }}>Hotel</span>
+            <span style={{
+              fontFamily: "var(--font-antonio)", fontSize: "1rem",
+              fontWeight: 700, color: "#C8963C", lineHeight: 1,
+            }}>
+              od €{match.hotelFrom}
+            </span>
+            <span style={{
+              fontFamily: "var(--font-geist)", fontSize: "0.58rem",
+              color: "#555", letterSpacing: "0.05em",
+            }}>/ noc</span>
+            <span style={{
+              fontFamily: "var(--font-antonio)", fontSize: "0.6rem",
+              color: "#C8963C", letterSpacing: "0.12em",
+              marginTop: "4px", textTransform: "uppercase",
+            }}>Rezervovať →</span>
+          </div>
         </a>
+
+        {/* Flight tile */}
         <a
           href={flightUrl}
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "12px 8px",
-            background: "transparent",
-            color: "#F5F0E8",
-            fontFamily: "var(--font-antonio)",
-            fontSize: "0.68rem",
-            fontWeight: 700,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            textDecoration: "none",
+          style={{ textDecoration: "none" }}
+        >
+          <div style={{
+            background: "#ffffff08",
             border: "1px solid #2a3040",
+            padding: "12px 10px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "5px",
+            cursor: "pointer",
             transition: "all 0.2s ease",
           }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = "#C8963C55";
-            (e.currentTarget as HTMLElement).style.color = "#C8963C";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = "#2a3040";
-            (e.currentTarget as HTMLElement).style.color = "#F5F0E8";
-          }}
-        >
-          Let
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#C8963C10";
+              (e.currentTarget as HTMLElement).style.borderColor = "#C8963C55";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#ffffff08";
+              (e.currentTarget as HTMLElement).style.borderColor = "#2a3040";
+            }}
+          >
+            <span style={{ fontSize: "1rem" }}>✈️</span>
+            <span style={{
+              fontFamily: "var(--font-antonio)", fontSize: "0.58rem",
+              color: "#888", letterSpacing: "0.15em", textTransform: "uppercase",
+            }}>Let</span>
+            <span style={{
+              fontFamily: "var(--font-antonio)", fontSize: "1rem",
+              fontWeight: 700, color: "#F5F0E8", lineHeight: 1,
+            }}>
+              od €{match.flightFrom}
+            </span>
+            <span style={{
+              fontFamily: "var(--font-geist)", fontSize: "0.58rem",
+              color: "#555", letterSpacing: "0.05em",
+            }}>spiatočný</span>
+            <span style={{
+              fontFamily: "var(--font-antonio)", fontSize: "0.6rem",
+              color: "#C8963C", letterSpacing: "0.12em",
+              marginTop: "4px", textTransform: "uppercase",
+            }}>Hľadať →</span>
+          </div>
         </a>
+
+        {/* Ticket tile */}
         <a
           href={ticketUrl}
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "12px 8px",
-            background: "transparent",
-            color: "#F5F0E8",
-            fontFamily: "var(--font-antonio)",
-            fontSize: "0.68rem",
-            fontWeight: 700,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            textDecoration: "none",
+          style={{ textDecoration: "none" }}
+        >
+          <div style={{
+            background: "#ffffff08",
             border: "1px solid #2a3040",
+            padding: "12px 10px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "5px",
+            cursor: "pointer",
             transition: "all 0.2s ease",
           }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = "#C8963C55";
-            (e.currentTarget as HTMLElement).style.color = "#C8963C";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = "#2a3040";
-            (e.currentTarget as HTMLElement).style.color = "#F5F0E8";
-          }}
-        >
-          Lístok
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#C8963C10";
+              (e.currentTarget as HTMLElement).style.borderColor = "#C8963C55";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#ffffff08";
+              (e.currentTarget as HTMLElement).style.borderColor = "#2a3040";
+            }}
+          >
+            <span style={{ fontSize: "1rem" }}>🎟️</span>
+            <span style={{
+              fontFamily: "var(--font-antonio)", fontSize: "0.58rem",
+              color: "#888", letterSpacing: "0.15em", textTransform: "uppercase",
+            }}>Lístok</span>
+            <span style={{
+              fontFamily: "var(--font-antonio)", fontSize: "1rem",
+              fontWeight: 700, color: "#F5F0E8", lineHeight: 1,
+            }}>
+              od €{match.ticketFrom}
+            </span>
+            <span style={{
+              fontFamily: "var(--font-geist)", fontSize: "0.58rem",
+              color: "#555", letterSpacing: "0.05em",
+            }}>na osobu</span>
+            <span style={{
+              fontFamily: "var(--font-antonio)", fontSize: "0.6rem",
+              color: "#C8963C", letterSpacing: "0.12em",
+              marginTop: "4px", textTransform: "uppercase",
+            }}>Kúpiť →</span>
+          </div>
         </a>
       </div>
     </div>
