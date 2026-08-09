@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  --goolvia-black: #0c1018;
+  --goolvia-white: #F5F0E8;
+  --goolvia-gold: #C8963C;
+  --goolvia-muted: #8a8f9a;
+  --goolvia-dim: #1c2030;
+}
+
+@theme inline {
+  --color-background: var(--goolvia-black);
+  --color-foreground: var(--goolvia-white);
+  --font-antonio: var(--font-antonio);
+  --font-sans: var(--font-geist);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--goolvia-black);
+  color: var(--goolvia-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--goolvia-gold);
+  color: var(--goolvia-black);
+}
