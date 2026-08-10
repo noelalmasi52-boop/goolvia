@@ -1,15 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --goolvia-black: #0c1018;
-  --goolvia-white: #F5F0E8;
-  --goolvia-gold: #C8963C;
-  --goolvia-muted: #8a8f9a;
-  --goolvia-dim: #1c2030;
+  --goolvia-bg: #0a0c12;
+  --goolvia-surface: #10141e;
+  --goolvia-surface2: #161c2a;
+  --goolvia-border: #1f2638;
+  --goolvia-black: #0a0c12;
+  --goolvia-white: #eef0f6;
+  --goolvia-gold: #d4a843;
+  --goolvia-gold-dim: #d4a84322;
+  --goolvia-muted: #5a6278;
+  --goolvia-dim: #1f2638;
 }
 
 @theme inline {
-  --color-background: var(--goolvia-black);
+  --color-background: var(--goolvia-bg);
   --color-foreground: var(--goolvia-white);
   --font-antonio: var(--font-antonio);
   --font-sans: var(--font-geist);
@@ -25,7 +30,7 @@
 
 html,
 body {
-  background: var(--goolvia-black);
+  background: var(--goolvia-bg);
   color: var(--goolvia-white);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;

@@ -49,12 +49,12 @@ export default function HeroScene({ scrollProgress }: HeroSceneProps) {
         width: "100vw",
         height: "100vh",
         zIndex: 0,
-        background: "#0c1018",
+        background: "#0a0c12",
       }}
     >
       <CanvasSizer />
       <Suspense fallback={null}>
-        <fog attach="fog" args={["#0c1018", 16, 45]} />
+        <fog attach="fog" args={["#0a0c12", 16, 45]} />
         <SceneLighting />
         <VisualGround />
         <Physics gravity={[0, -14, 0]}>

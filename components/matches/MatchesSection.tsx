@@ -24,7 +24,6 @@ export type Match = {
   dateISO: string;
 };
 
-// Placeholder affiliate IDs — replace with real ones when approved
 const BOOKING_AID = "YOUR_BOOKING_AID";
 const KIWI_AID = "YOUR_KIWI_AID";
 const VIAGOGO_AID = "YOUR_VIAGOGO_AID";
@@ -135,6 +134,15 @@ const MATCHES: Match[] = [
 
 const LEAGUES = ["ALL", "PREMIER LEAGUE", "LA LIGA", "BUNDESLIGA", "SERIE A", "LIGUE 1"];
 
+const PREMIUM_FEATURES = [
+  { icon: "🗺️", title: "Kompletný itinerár", desc: "Minutu po minúte plán celého výletu — od odchodu z domu až po návrat." },
+  { icon: "🚗", title: "Transfer zabezpečený", desc: "Uber alebo taxi z letiska priamo k hotelu, aj späť. Žiadne čakanie, žiadny stres." },
+  { icon: "✅", title: "Check-in a doklady", desc: "Online check-in na let, potvrdenia a všetky doklady prichystané vopred na telefón." },
+  { icon: "📞", title: "Podpora 24/7", desc: "Počas celého výletu sme k dispozícii — stačí zavolať a postaráme sa o zvyšok." },
+  { icon: "🏨", title: "Výber hotela", desc: "Vyberieme ti najlepší hotel pri štadióne v danej cenovej kategórii a zarezervujeme." },
+  { icon: "🎟️", title: "Vstupenky", desc: "Pomôžeme nájsť a zaobstarať vstupenky — v tribúne, na sektore, kde chceš sedieť." },
+];
+
 export default function MatchesSection() {
   const [active, setActive] = useState("ALL");
 
@@ -143,98 +151,66 @@ export default function MatchesSection() {
     : MATCHES.filter((m) => m.league === active);
 
   return (
-    <section
-      style={{
-        background: "#0c1018",
-        position: "relative",
-        zIndex: 2,
-        paddingTop: "120px",
-        paddingBottom: "120px",
-      }}
-    >
-      {/* Top rule */}
-      <div style={{
-        height: "1px",
-        background: "linear-gradient(90deg, transparent, #C8963C55, transparent)",
-        marginBottom: "80px",
-      }} />
+    <section style={{ background: "#0a0c12", position: "relative", zIndex: 2 }}>
 
-      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 40px" }}>
+      {/* Separator */}
+      <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, #d4a84333, transparent)" }} />
 
-        {/* Section header */}
-        <div style={{ marginBottom: "64px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "100px 40px 0" }}>
+
+        {/* Header */}
+        <div style={{ marginBottom: "56px", maxWidth: "640px" }}>
           <p style={{
-            fontFamily: "var(--font-antonio)",
-            fontSize: "0.75rem",
-            letterSpacing: "0.35em",
-            color: "#C8963C",
-            textTransform: "uppercase",
-            marginBottom: "20px",
+            fontFamily: "var(--font-antonio)", fontSize: "0.68rem",
+            letterSpacing: "0.3em", color: "#d4a843", textTransform: "uppercase", marginBottom: "16px",
           }}>
             Najlepšie ponuky tejto sezóny
           </p>
           <h2 style={{
-            fontFamily: "var(--font-antonio)",
-            fontSize: "clamp(3rem, 7vw, 6rem)",
-            fontWeight: 700,
-            color: "#F5F0E8",
-            lineHeight: 0.92,
-            letterSpacing: "-0.01em",
-            textTransform: "uppercase",
-            marginBottom: "24px",
+            fontFamily: "var(--font-antonio)", fontSize: "clamp(2.6rem, 6vw, 5rem)",
+            fontWeight: 700, color: "#eef0f6", lineHeight: 0.94,
+            letterSpacing: "-0.01em", textTransform: "uppercase", marginBottom: "20px",
           }}>
             Najlacnejšie<br />
-            <span style={{ color: "#C8963C" }}>Miesta</span> v Európe.
+            <span style={{ color: "#d4a843" }}>miesta</span> v Európe.
           </h2>
           <p style={{
-            fontFamily: "var(--font-geist)",
-            fontSize: "1rem",
-            color: "#888",
-            maxWidth: "480px",
-            lineHeight: 1.65,
-            letterSpacing: "0.01em",
+            fontFamily: "var(--font-geist)", fontSize: "0.95rem",
+            color: "#5a6278", lineHeight: 1.7,
           }}>
-            Nájdeme ti najlepšiu kombináciu hotela a letu, aby si mohol zažiť futbal naživo vo všetkých veľkých európskych ligách — za zlomok bežnej ceny.
+            Vyber zápas, klikni a okamžite uvidíš najlepšie ceny hotelov, letov aj vstupeniek — všetko na jednom mieste.
           </p>
         </div>
 
         {/* League filter */}
-        <div style={{
-          display: "flex",
-          gap: "4px",
-          marginBottom: "52px",
-          flexWrap: "wrap",
-        }}>
+        <div style={{ display: "flex", gap: "6px", marginBottom: "40px", flexWrap: "wrap" }}>
           {LEAGUES.map((league) => (
             <button
               key={league}
               onClick={() => setActive(league)}
               style={{
-                fontFamily: "var(--font-antonio)",
-                fontSize: "0.72rem",
-                letterSpacing: "0.2em",
-                padding: "9px 18px",
-                background: active === league ? "#C8963C" : "transparent",
-                color: active === league ? "#070708" : "#666",
-                border: `1px solid ${active === league ? "#C8963C" : "#2a2a2a"}`,
-                cursor: "pointer",
-                transition: "all 0.2s ease",
+                fontFamily: "var(--font-antonio)", fontSize: "0.68rem",
+                letterSpacing: "0.18em", padding: "8px 16px",
+                background: active === league ? "#d4a843" : "transparent",
+                color: active === league ? "#0a0c12" : "#3a4560",
+                border: `1px solid ${active === league ? "#d4a843" : "#1a2030"}`,
+                borderRadius: "6px", cursor: "pointer", transition: "all 0.18s ease",
                 textTransform: "uppercase",
               }}
               onMouseEnter={(e) => {
                 if (active !== league) {
-                  (e.currentTarget as HTMLElement).style.borderColor = "#C8963C55";
-                  (e.currentTarget as HTMLElement).style.color = "#F5F0E8";
+                  (e.currentTarget as HTMLElement).style.borderColor = "#d4a84355";
+                  (e.currentTarget as HTMLElement).style.color = "#eef0f6";
                 }
               }}
               onMouseLeave={(e) => {
                 if (active !== league) {
-                  (e.currentTarget as HTMLElement).style.borderColor = "#2a2a2a";
-                  (e.currentTarget as HTMLElement).style.color = "#666";
+                  (e.currentTarget as HTMLElement).style.borderColor = "#1a2030";
+                  (e.currentTarget as HTMLElement).style.color = "#3a4560";
                 }
               }}
             >
-              {league}
+              {league === "ALL" ? "Všetky" : league}
             </button>
           ))}
         </div>
@@ -242,64 +218,96 @@ export default function MatchesSection() {
         {/* Match grid */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))",
-          gap: "1px",
-          background: "#1c2030",
-          border: "1px solid #1c2030",
+          gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+          gap: "12px",
         }}>
           {filtered.map((match, i) => (
             <MatchCard key={`${match.home}-${match.away}-${i}`} match={match} />
           ))}
         </div>
-
-        {/* How it works */}
-        <div style={{
-          marginTop: "100px",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: "1px",
-          background: "#1c2030",
-          border: "1px solid #1c2030",
-        }}>
-          {[
-            { num: "01", title: "Vyber zápas", desc: "Prehľadaj nadchádzajúce zápasy vo všetkých veľkých európskych ligách a nájdi ten, ktorý chceš zažiť." },
-            { num: "02", title: "Nájdi hotel", desc: "Priamo ťa prepojíme s Booking.com — najlepšie hotely blízko štadióna na noc zápasu." },
-            { num: "03", title: "Zarezervuj let", desc: "Kiwi.com nájde najlacnejšie lety z tvojho mesta na miesto zápasu — často za menej ako 50 €." },
-          ].map(({ num, title, desc }) => (
-            <div key={num} style={{ background: "#0e1420", padding: "48px 36px" }}>
-              <div style={{
-                fontFamily: "var(--font-antonio)",
-                fontSize: "0.65rem",
-                letterSpacing: "0.3em",
-                color: "#C8963C",
-                marginBottom: "20px",
-              }}>
-                {num}
-              </div>
-              <div style={{
-                fontFamily: "var(--font-antonio)",
-                fontSize: "1.5rem",
-                fontWeight: 700,
-                color: "#F5F0E8",
-                textTransform: "uppercase",
-                letterSpacing: "0.03em",
-                marginBottom: "14px",
-              }}>
-                {title}
-              </div>
-              <p style={{
-                fontFamily: "var(--font-geist)",
-                fontSize: "0.85rem",
-                color: "#666",
-                lineHeight: 1.7,
-              }}>
-                {desc}
-              </p>
-            </div>
-          ))}
-        </div>
-
       </div>
+
+      {/* Premium service section */}
+      <div style={{
+        marginTop: "120px",
+        borderTop: "1px solid #1a2030",
+        background: "#0d1018",
+      }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "100px 40px 100px" }}>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}>
+
+            {/* Left — copy */}
+            <div>
+              <p style={{
+                fontFamily: "var(--font-antonio)", fontSize: "0.68rem",
+                letterSpacing: "0.3em", color: "#d4a843", textTransform: "uppercase", marginBottom: "16px",
+              }}>
+                Prémiová služba
+              </p>
+              <h2 style={{
+                fontFamily: "var(--font-antonio)", fontSize: "clamp(2.2rem, 4vw, 3.6rem)",
+                fontWeight: 700, color: "#eef0f6", lineHeight: 1,
+                textTransform: "uppercase", marginBottom: "24px",
+              }}>
+                Ty len prídeš.<br />
+                <span style={{ color: "#d4a843" }}>Zvyšok</span><br />
+                zariadime my.
+              </h2>
+              <p style={{
+                fontFamily: "var(--font-geist)", fontSize: "0.92rem",
+                color: "#5a6278", lineHeight: 1.75, marginBottom: "36px",
+              }}>
+                Pre tých, ktorí chcú zažiť zápas bez starostí — postaráme sa o každý detail tvojho výletu. Od vstupeniek a hotela až po transfer a check-in. Dostupní kedykoľvek, po celý čas.
+              </p>
+              <a
+                href="mailto:info@goolvia.com"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: "10px",
+                  fontFamily: "var(--font-antonio)", fontSize: "0.72rem",
+                  fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase",
+                  textDecoration: "none", color: "#0a0c12",
+                  background: "#d4a843", padding: "14px 28px", borderRadius: "8px",
+                  transition: "opacity 0.2s",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.88"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
+              >
+                Mám záujem →
+              </a>
+            </div>
+
+            {/* Right — feature list */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+              {PREMIUM_FEATURES.map(({ icon, title, desc }) => (
+                <div
+                  key={title}
+                  style={{
+                    background: "#10141e", border: "1px solid #1a2030",
+                    borderRadius: "10px", padding: "20px 18px",
+                  }}
+                >
+                  <div style={{ fontSize: "1.2rem", marginBottom: "10px" }}>{icon}</div>
+                  <div style={{
+                    fontFamily: "var(--font-antonio)", fontSize: "0.82rem",
+                    fontWeight: 700, color: "#eef0f6", textTransform: "uppercase",
+                    letterSpacing: "0.05em", marginBottom: "8px",
+                  }}>
+                    {title}
+                  </div>
+                  <p style={{
+                    fontFamily: "var(--font-geist)", fontSize: "0.72rem",
+                    color: "#3a4560", lineHeight: 1.65,
+                  }}>
+                    {desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
   );
 }
