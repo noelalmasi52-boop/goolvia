@@ -7,24 +7,62 @@ import * as THREE from "three";
 
 const BALL_RADIUS = 0.56;
 
-// UCL Finale ball: navy pentagons, white hexagons, gold seams
+const PHI = (1 + Math.sqrt(5)) / 2;
+const RAW_VERTS: [number, number, number][] = [
+  [0, 1, PHI], [0, -1, PHI], [0, 1, -PHI], [0, -1, -PHI],
+  [1, PHI, 0], [-1, PHI, 0], [1, -PHI, 0], [-1, -PHI, 0],
+  [PHI, 0, 1], [-PHI, 0, 1], [PHI, 0, -1], [-PHI, 0, -1],
+];
+
+type Frame = { v: [number, number, number]; t: [number, number, number]; b: [number, number, number] };
+
+function buildFrames(): Frame[] {
+  return RAW_VERTS.map(([x, y, z]) => {
+    const l = Math.sqrt(x * x + y * y + z * z);
+    const v: [number, number, number] = [x / l, y / l, z / l];
+    const ref: [number, number, number] = Math.abs(v[2]) < 0.9 ? [0, 0, 1] : [1, 0, 0];
+    let t: [number, number, number] = [
+      v[1] * ref[2] - v[2] * ref[1],
+      v[2] * ref[0] - v[0] * ref[2],
+      v[0] * ref[1] - v[1] * ref[0],
+    ];
+    const tl = Math.hypot(t[0], t[1], t[2]);
+    t = [t[0] / tl, t[1] / tl, t[2] / tl];
+    const b: [number, number, number] = [
+      v[1] * t[2] - v[2] * t[1],
+      v[2] * t[0] - v[0] * t[2],
+      v[0] * t[1] - v[1] * t[0],
+    ];
+    return { v, t, b };
+  });
+}
+
+const STAR_OUT = 0.50;
+const STAR_IN = 0.205;
+const SEG = (Math.PI * 2) / 5;
+const HALF_SEG = SEG / 2;
+const SIN_HALF = Math.sin(HALF_SEG);
+const GOLD_W = 0.032;
+
+function starRadius(phi: number): number {
+  let psi = phi % SEG;
+  if (psi < 0) psi += SEG;
+  const u = psi < HALF_SEG ? psi : SEG - psi;
+  return (STAR_OUT * STAR_IN * SIN_HALF) / (STAR_OUT * Math.sin(u) + STAR_IN * Math.sin(HALF_SEG - u));
+}
+
+function hash(x: number, y: number): number {
+  const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+  return s - Math.floor(s);
+}
+
 function createUCLTexture(): THREE.CanvasTexture {
-  const size = 1024;
+  const size = 1400;
   const canvas = document.createElement("canvas");
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext("2d")!;
-
-  const phi = (1 + Math.sqrt(5)) / 2;
-  const rawVerts = [
-    [0, 1, phi], [0, -1, phi], [0, 1, -phi], [0, -1, -phi],
-    [1, phi, 0], [-1, phi, 0], [1, -phi, 0], [-1, -phi, 0],
-    [phi, 0, 1], [-phi, 0, 1], [phi, 0, -1], [-phi, 0, -1],
-  ];
-  const verts = rawVerts.map(([x, y, z]) => {
-    const l = Math.sqrt(x * x + y * y + z * z);
-    return [x / l, y / l, z / l] as [number, number, number];
-  });
+  const frames = buildFrames();
 
   const img = ctx.createImageData(size, size);
   const d = img.data;
@@ -37,49 +75,87 @@ function createUCLTexture(): THREE.CanvasTexture {
 
     for (let px = 0; px < size; px++) {
       const lon = (px / size) * TAU - Math.PI;
-      const sx = sy * Math.cos(lon);
-      const y3 = cy;
-      const sz = sy * Math.sin(lon);
+      const nx = sy * Math.cos(lon);
+      const ny = cy;
+      const nz = sy * Math.sin(lon);
 
-      let maxDot = -1, secDot = -1;
-      for (const [vx, vy, vz] of verts) {
-        const dot = sx * vx + y3 * vy + sz * vz;
-        if (dot > maxDot) { secDot = maxDot; maxDot = dot; }
-        else if (dot > secDot) { secDot = dot; }
+      let best = -2, second = -2, bestIdx = 0;
+      for (let i = 0; i < 12; i++) {
+        const v = frames[i].v;
+        const dot = nx * v[0] + ny * v[1] + nz * v[2];
+        if (dot > best) { second = best; best = dot; bestIdx = i; }
+        else if (dot > second) { second = dot; }
       }
-      const border = maxDot - secDot;
-      const i = (py * size + px) * 4;
 
-      if (maxDot > 0.86) {
-        // Pentagon: UCL deep navy
-        const t = (maxDot - 0.86) / 0.14;
-        d[i] = Math.round(12 + t * 10);
-        d[i + 1] = Math.round(28 + t * 14);
-        d[i + 2] = Math.round(80 + t * 40);
+      const f = frames[bestIdx];
+      const ang = Math.acos(Math.min(1, Math.max(-1, best)));
 
-      } else if (border < 0.055) {
-        // Seam zone
-        const t = border / 0.055;
-        if (t < 0.18) {
-          d[i] = 6; d[i + 1] = 14; d[i + 2] = 44;
-        } else if (t < 0.45) {
-          const gt = (t - 0.18) / 0.27;
-          d[i] = Math.round(160 + gt * 40);
-          d[i + 1] = Math.round(110 + gt * 30);
-          d[i + 2] = Math.round(30 + gt * 15);
-        } else {
-          const wt = (t - 0.45) / 0.55;
-          d[i] = Math.round(200 + wt * 52);
-          d[i + 1] = Math.round(140 + wt * 110);
-          d[i + 2] = Math.round(45 + wt * 205);
+      const px3 = nx - best * f.v[0];
+      const py3 = ny - best * f.v[1];
+      const pz3 = nz - best * f.v[2];
+      const phi = Math.atan2(
+        px3 * f.b[0] + py3 * f.b[1] + pz3 * f.b[2],
+        px3 * f.t[0] + py3 * f.t[1] + pz3 * f.t[2]
+      );
+
+      const edge = starRadius(phi);
+      const panelSeam = best - second;
+      const i4 = (py * size + px) * 4;
+
+      let r: number, g: number, b: number;
+
+      if (ang < edge) {
+        // Blue star field
+        const depth = ang / edge;
+        r = 26 + depth * 22;
+        g = 138 + depth * 30;
+        b = 210 + depth * 24;
+
+        // White speckle stars scattered on blue
+        const h = hash(Math.floor(px * 0.9), Math.floor(py * 0.9));
+        if (h > 0.988) {
+          const bright = (h - 0.988) / 0.012;
+          r += (250 - r) * bright;
+          g += (252 - g) * bright;
+          b += (255 - b) * bright;
         }
 
+        // Navy pooling toward the star tips
+        if (depth > 0.62) {
+          const nvy = Math.min(1, (depth - 0.62) / 0.38);
+          r = r + (18 - r) * nvy * 0.72;
+          g = g + (34 - g) * nvy * 0.72;
+          b = b + (86 - b) * nvy * 0.72;
+        }
+
+      } else if (ang < edge + GOLD_W) {
+        // Gold rim tracing the star
+        const t = (ang - edge) / GOLD_W;
+        const glow = 1 - Math.abs(t - 0.45) * 1.6;
+        r = 186 + glow * 62;
+        g = 148 + glow * 58;
+        b = 52 + glow * 40;
+
+      } else if (panelSeam < 0.028) {
+        // Faint stitch line between panels
+        const t = panelSeam / 0.028;
+        const k = 0.55 + t * 0.45;
+        r = 214 * k + 30;
+        g = 218 * k + 30;
+        b = 226 * k + 30;
+
       } else {
-        // Hexagon: bright white
-        d[i] = 248; d[i + 1] = 248; d[i + 2] = 252;
+        // White leather panel with soft shading
+        const grain = hash(Math.floor(px * 0.35), Math.floor(py * 0.35)) * 5;
+        r = 242 + grain;
+        g = 244 + grain;
+        b = 249 + grain;
       }
 
-      d[i + 3] = 255;
+      d[i4] = Math.round(Math.min(255, Math.max(0, r)));
+      d[i4 + 1] = Math.round(Math.min(255, Math.max(0, g)));
+      d[i4 + 2] = Math.round(Math.min(255, Math.max(0, b)));
+      d[i4 + 3] = 255;
     }
   }
 
@@ -91,22 +167,12 @@ function createUCLTexture(): THREE.CanvasTexture {
 }
 
 function createRoughnessMap(): THREE.CanvasTexture {
-  const size = 512;
+  const size = 700;
   const canvas = document.createElement("canvas");
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext("2d")!;
-
-  const phi = (1 + Math.sqrt(5)) / 2;
-  const rawVerts = [
-    [0, 1, phi], [0, -1, phi], [0, 1, -phi], [0, -1, -phi],
-    [1, phi, 0], [-1, phi, 0], [1, -phi, 0], [-1, -phi, 0],
-    [phi, 0, 1], [-phi, 0, 1], [phi, 0, -1], [-phi, 0, -1],
-  ];
-  const verts = rawVerts.map(([x, y, z]) => {
-    const l = Math.sqrt(x * x + y * y + z * z);
-    return [x / l, y / l, z / l] as [number, number, number];
-  });
+  const frames = buildFrames();
 
   const img = ctx.createImageData(size, size);
   const d = img.data;
@@ -116,28 +182,44 @@ function createRoughnessMap(): THREE.CanvasTexture {
     const lat = (py / size) * Math.PI;
     const sy = Math.sin(lat);
     const cy = Math.cos(lat);
+
     for (let px = 0; px < size; px++) {
       const lon = (px / size) * TAU - Math.PI;
-      const sx = sy * Math.cos(lon);
-      const y3 = cy;
-      const sz = sy * Math.sin(lon);
+      const nx = sy * Math.cos(lon);
+      const ny = cy;
+      const nz = sy * Math.sin(lon);
 
-      let maxDot = -1, secDot = -1;
-      for (const [vx, vy, vz] of verts) {
-        const dot = sx * vx + y3 * vy + sz * vz;
-        if (dot > maxDot) { secDot = maxDot; maxDot = dot; }
-        else if (dot > secDot) { secDot = dot; }
+      let best = -2, second = -2, bestIdx = 0;
+      for (let i = 0; i < 12; i++) {
+        const v = frames[i].v;
+        const dot = nx * v[0] + ny * v[1] + nz * v[2];
+        if (dot > best) { second = best; best = dot; bestIdx = i; }
+        else if (dot > second) { second = dot; }
       }
-      const border = maxDot - secDot;
 
-      const idx = (py * size + px) * 4;
+      const f = frames[bestIdx];
+      const ang = Math.acos(Math.min(1, Math.max(-1, best)));
+      const px3 = nx - best * f.v[0];
+      const py3 = ny - best * f.v[1];
+      const pz3 = nz - best * f.v[2];
+      const phi = Math.atan2(
+        px3 * f.b[0] + py3 * f.b[1] + pz3 * f.b[2],
+        px3 * f.t[0] + py3 * f.t[1] + pz3 * f.t[2]
+      );
+      const edge = starRadius(phi);
+      const panelSeam = best - second;
+
       let rough: number;
-      if (maxDot > 0.86) rough = 140;
-      else if (border < 0.055) rough = 220;
-      else rough = 100;
-      d[idx] = rough; d[idx + 1] = rough; d[idx + 2] = rough; d[idx + 3] = 255;
+      if (ang < edge) rough = 118;
+      else if (ang < edge + GOLD_W) rough = 74;
+      else if (panelSeam < 0.028) rough = 205;
+      else rough = 132;
+
+      const i4 = (py * size + px) * 4;
+      d[i4] = rough; d[i4 + 1] = rough; d[i4 + 2] = rough; d[i4 + 3] = 255;
     }
   }
+
   ctx.putImageData(img, 0, 0);
   const tex = new THREE.CanvasTexture(canvas);
   tex.anisotropy = 4;
@@ -190,12 +272,12 @@ export default function FootballBall({ scrollProgress }: { scrollProgress: numbe
           ref={matRef}
           map={colorMap}
           roughnessMap={roughMap}
-          roughness={0.55}
+          roughness={0.5}
           metalness={0.0}
-          clearcoat={0.35}
-          clearcoatRoughness={0.15}
+          clearcoat={0.45}
+          clearcoatRoughness={0.12}
           envMapIntensity={1.8}
-          reflectivity={0.5}
+          reflectivity={0.55}
         />
       </mesh>
     </RigidBody>
