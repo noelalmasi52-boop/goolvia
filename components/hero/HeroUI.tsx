@@ -155,7 +155,11 @@ export default function HeroUI() {
 
         <div ref={ctaRef} style={{ marginTop: "2.4rem", pointerEvents: "auto" }}>
           <a
-            href="#"
+            href="#zapasy"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("zapasy")?.scrollIntoView({ behavior: "smooth" });
+            }}
             style={{
               display: "inline-flex",
               alignItems: "center",
