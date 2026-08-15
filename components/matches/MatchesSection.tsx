@@ -360,7 +360,7 @@ export default function MatchesSection() {
                 Pre tých, ktorí chcú zažiť zápas bez starostí — postaráme sa o každý detail tvojho výletu. Od vstupeniek a hotela až po transfer a check-in. Dostupní kedykoľvek, po celý čas.
               </p>
               <a
-                href="mailto:info@goolvia.com"
+                href="/ponuka"
                 style={{
                   display: "inline-flex", alignItems: "center", gap: "10px",
                   fontFamily: "var(--font-antonio)", fontSize: "0.72rem",
