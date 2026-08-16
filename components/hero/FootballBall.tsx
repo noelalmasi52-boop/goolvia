@@ -307,6 +307,7 @@ export default function FootballBall({ scrollProgress }: { scrollProgress: numbe
   const matRef = useRef<THREE.MeshPhysicalMaterial>(null);
   const [bodyType, setBodyType] = useState<"dynamic" | "kinematicPosition">("dynamic");
   const settled = useRef(false);
+  const segments = typeof window !== "undefined" && window.innerWidth <= 768 ? 80 : 160;
 
   const { colorMap, roughnessMap, normalMap } = useMemo(() => createBallMaps(), []);
 
@@ -349,7 +350,7 @@ export default function FootballBall({ scrollProgress }: { scrollProgress: numbe
       colliders="ball"
     >
       <mesh ref={meshRef} castShadow receiveShadow>
-        <sphereGeometry args={[BALL_RADIUS, 160, 160]} />
+        <sphereGeometry args={[BALL_RADIUS, segments, segments]} />
         <meshPhysicalMaterial
           ref={matRef}
           map={colorMap}

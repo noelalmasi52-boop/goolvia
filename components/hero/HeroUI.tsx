@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
 const NAV_LINKS = ["Zážitky", "Destinácie", "O nás", "Kontakt"];
@@ -15,6 +15,15 @@ export default function HeroUI() {
   const ratingRef     = useRef<HTMLDivElement>(null);
   const scrollHintRef = useRef<HTMLDivElement>(null);
   const lineRef       = useRef<HTMLDivElement>(null);
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+    const fn = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", fn);
+    return () => mq.removeEventListener("change", fn);
+  }, []);
 
   useEffect(() => {
     gsap.set(
@@ -68,7 +77,7 @@ export default function HeroUI() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "2rem 3rem",
+        padding: isMobile ? "1rem 1.2rem" : "2rem 3rem",
         pointerEvents: "auto",
         borderBottom: "1px solid rgba(255,255,255,0.05)",
       }}>
@@ -85,7 +94,7 @@ export default function HeroUI() {
           </span>
         </div>
 
-        <div ref={navRef} style={{ display: "flex", alignItems: "center", gap: "2.4rem" }}>
+        <div ref={navRef} style={{ display: isMobile ? "none" : "flex", alignItems: "center", gap: "2.4rem" }}>
           {NAV_LINKS.map((link, i) => (
             <a
               key={link}
@@ -154,7 +163,7 @@ export default function HeroUI() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
-        padding: "0 3rem 2.8rem",
+        padding: isMobile ? "0 1.2rem 1.8rem" : "0 3rem 2.8rem",
       }}>
         <div style={{ overflow: "hidden" }}>
           <h1
@@ -162,7 +171,7 @@ export default function HeroUI() {
             style={{
               fontFamily: "var(--font-antonio)",
               fontWeight: 700,
-              fontSize: "clamp(5rem, 12vw, 11.5rem)",
+              fontSize: "clamp(3rem, 13vw, 11.5rem)",
               lineHeight: 0.88,
               letterSpacing: "-0.02em",
               textTransform: "uppercase",
@@ -272,7 +281,7 @@ export default function HeroUI() {
       {/* SCROLL HINT */}
       <div style={{
         position: "absolute", right: "2.8rem", bottom: "3rem",
-        display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem",
+        display: isMobile ? "none" : "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem",
         zIndex: 1,
       }}>
         <div ref={scrollHintRef} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem" }}>

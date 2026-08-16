@@ -36,6 +36,7 @@ export default function HeroScene({ scrollProgress }: HeroSceneProps) {
     <Canvas
       shadows
       camera={{ position: [0, 2.8, 9], fov: 52 }}
+      dpr={[1, 2]}
       gl={{
         antialias: true,
         alpha: false,
