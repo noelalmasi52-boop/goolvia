@@ -4,83 +4,84 @@ import { useRef, useEffect } from "react";
 import * as THREE from "three";
 
 export default function SceneLighting() {
-  const keyLightRef = useRef<THREE.SpotLight>(null);
+  const keyRef  = useRef<THREE.SpotLight>(null);
+  const fill1Ref = useRef<THREE.SpotLight>(null);
 
   useEffect(() => {
-    if (!keyLightRef.current) return;
-    const light = keyLightRef.current;
-    light.shadow.mapSize.set(2048, 2048);
-    light.shadow.camera.near = 0.5;
-    light.shadow.camera.far = 40;
-    light.shadow.bias = -0.0008;
-    light.shadow.camera.updateProjectionMatrix();
+    [keyRef, fill1Ref].forEach((r) => {
+      if (!r.current) return;
+      r.current.shadow.mapSize.set(2048, 2048);
+      r.current.shadow.camera.near = 0.5;
+      r.current.shadow.camera.far  = 40;
+      r.current.shadow.bias = -0.0008;
+      r.current.shadow.camera.updateProjectionMatrix();
+    });
   }, []);
 
   return (
     <>
-      {/* Stadium sky — blue-white from above, warm from ground */}
-      <hemisphereLight
-        args={["#b8d4f0", "#2a3a1a", 0.9]}
-      />
+      {/* Very dim ambient — let spotlights do the drama */}
+      <ambientLight intensity={0.08} color="#c8d8ff" />
 
-      {/* Warm ambient fill */}
-      <ambientLight intensity={0.35} color="#c8d8f0" />
+      {/* Stadium sky — faint blue-white from above */}
+      <hemisphereLight args={["#d0e4ff", "#080c10", 0.4]} />
 
-      {/* Key light — harsh warm flood from above-right */}
+      {/* KEY — harsh white stadium floodlight from high above-right */}
       <spotLight
-        ref={keyLightRef}
-        position={[3, 14, 5]}
-        angle={0.3}
-        penumbra={0.5}
-        intensity={200}
-        color="#fff6e8"
+        ref={keyRef}
+        position={[4, 18, 6]}
+        angle={0.22}
+        penumbra={0.35}
+        intensity={320}
+        color="#fff8f0"
         castShadow
       />
 
-      {/* Fill — cool blue from left, simulates stadium floodlight */}
+      {/* Second floodlight from upper-left — classic twin-light stadium look */}
       <spotLight
-        position={[-5, 12, 4]}
-        angle={0.4}
-        penumbra={0.9}
-        intensity={80}
-        color="#d0e8ff"
-        castShadow={false}
-      />
-
-      {/* Second fill from right */}
-      <spotLight
-        position={[6, 10, -2]}
-        angle={0.35}
-        penumbra={0.8}
-        intensity={50}
+        ref={fill1Ref}
+        position={[-6, 16, 5]}
+        angle={0.28}
+        penumbra={0.55}
+        intensity={140}
         color="#e8f4ff"
         castShadow={false}
       />
 
-      {/* Rim — warm orange from behind */}
+      {/* Cool blue rim from behind-right */}
+      <spotLight
+        position={[5, 10, -6]}
+        angle={0.3}
+        penumbra={0.8}
+        intensity={60}
+        color="#a8c8ff"
+        castShadow={false}
+      />
+
+      {/* Warm amber from behind — subtle rim light */}
       <pointLight
-        position={[0, 2, -8]}
-        intensity={18}
-        color="#7a4820"
-        distance={18}
+        position={[0, 3, -7]}
+        intensity={22}
+        color="#6a3810"
+        distance={16}
         decay={2}
       />
 
-      {/* Ground bounce */}
+      {/* Dedicated ball light — strong from above the resting spot */}
       <pointLight
-        position={[0, 0.3, 2]}
-        intensity={4}
-        color="#4a5820"
-        distance={8}
-        decay={2}
-      />
-
-      {/* Dedicated ball light — directly above resting position */}
-      <pointLight
-        position={[0, 4, 1]}
-        intensity={35}
+        position={[0, 5, 1]}
+        intensity={48}
         color="#ffffff"
-        distance={10}
+        distance={9}
+        decay={2}
+      />
+
+      {/* Ground glow — faint blue underneath */}
+      <pointLight
+        position={[0, 0.2, 0.5]}
+        intensity={5}
+        color="#2244aa"
+        distance={5}
         decay={2}
       />
     </>
