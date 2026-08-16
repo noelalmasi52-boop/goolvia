@@ -58,30 +58,14 @@ export default function SceneLighting() {
         castShadow={false}
       />
 
-      {/* Warm amber from behind — subtle rim light */}
-      <pointLight
-        position={[0, 3, -7]}
-        intensity={22}
-        color="#6a3810"
-        distance={16}
-        decay={2}
-      />
-
-      {/* Dedicated ball light — strong from above the resting spot */}
+      {/* Dedicated ball light — strong from above the resting spot.
+          Kept neutral white: coloured lights sitting near the floor threw
+          tinted hotspots into the reflection under the ball. */}
       <pointLight
         position={[0, 5, 1]}
         intensity={48}
         color="#ffffff"
         distance={9}
-        decay={2}
-      />
-
-      {/* Ground glow — faint blue underneath */}
-      <pointLight
-        position={[0, 0.2, 0.5]}
-        intensity={5}
-        color="#2244aa"
-        distance={5}
         decay={2}
       />
     </>

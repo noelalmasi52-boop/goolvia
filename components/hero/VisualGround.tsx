@@ -15,12 +15,15 @@ export default function VisualGround() {
         resolution={1024}
         mixBlur={1.0}
         mixStrength={60}
-        roughness={0.85}
+        roughness={0.9}
         depthScale={1.2}
         minDepthThreshold={0.3}
         maxDepthThreshold={1.4}
-        color="#141c28"
-        metalness={0.6}
+        // Neutral near-black so the floor reads as a continuation of the
+        // photo's pitch rather than a separate navy slab. Low metalness keeps
+        // point lights from burning coloured hotspots into the reflection.
+        color="#0a0d12"
+        metalness={0.2}
         mirror={0}
       />
     </mesh>
