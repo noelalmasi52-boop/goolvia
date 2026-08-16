@@ -23,7 +23,15 @@ const DIST = 60;
 
 // Multiplied over the photo. Lower = darker. The source is already a dark
 // night shot, so this only needs a gentle pull-down to sit with the design.
-const DIM = "#96a0ad";
+const DIM = "#a4aeba";
+
+// Extra size beyond the frustum, so panning never exposes an edge.
+const COVER_MARGIN = 1.12;
+
+// Vertical pan in world units. Negative moves the plane down, which brings
+// higher parts of the photo to screen centre — putting the ball against the
+// crowd and floodlights rather than the pitch.
+const PAN_Y = -4;
 
 export default function StadiumBackdrop() {
   const groupRef = useRef<THREE.Group>(null);
@@ -82,9 +90,9 @@ export default function StadiumBackdrop() {
     // Frustum size at DIST, then cover-fit the photo into it.
     const visibleH = 2 * DIST * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2);
     const visibleW = visibleH * (size.width / size.height);
-    const h = Math.max(visibleH, visibleW / aspect);
+    const h = Math.max(visibleH, visibleW / aspect) * COVER_MARGIN;
 
-    g.position.set(0, 0, -DIST);
+    g.position.set(0, PAN_Y, -DIST);
     g.scale.set(h * aspect, h, 1);
   });
 
