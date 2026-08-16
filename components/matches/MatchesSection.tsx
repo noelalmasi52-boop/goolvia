@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MatchCard from "./MatchCard";
 
 export type Hotel = {
@@ -254,16 +254,24 @@ const PREMIUM_FEATURES = [
 
 export default function MatchesSection() {
   const [active, setActive] = useState("ALL");
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+    const fn = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", fn);
+    return () => mq.removeEventListener("change", fn);
+  }, []);
 
   const filtered = active === "ALL"
     ? MATCHES
     : MATCHES.filter((m) => m.league === active);
 
   return (
-    <section id="zapasy" style={{ background: "#0c1220", position: "relative", zIndex: 2 }}>
+    <section id="zapasy" style={{ background: "#0c1220", position: "relative", zIndex: 4 }}>
       <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, #e8b84b33, transparent)" }} />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "100px 40px 0" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px 0" : "100px 40px 0" }}>
 
         <div style={{ marginBottom: "56px", maxWidth: "640px" }}>
           <p style={{
@@ -324,7 +332,7 @@ export default function MatchesSection() {
         {/* Match grid */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(340px, 1fr))",
           gap: "12px",
         }}>
           {filtered.map((match, i) => (
@@ -334,9 +342,9 @@ export default function MatchesSection() {
       </div>
 
       {/* Premium service section */}
-      <div style={{ marginTop: "120px", borderTop: "1px solid #243452", background: "#0e1828" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "100px 40px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}>
+      <div style={{ marginTop: isMobile ? "60px" : "120px", borderTop: "1px solid #243452", background: "#0e1828" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px" : "100px 40px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? "40px" : "80px", alignItems: "start" }}>
             <div>
               <p style={{
                 fontFamily: "var(--font-antonio)", fontSize: "0.68rem",
@@ -375,7 +383,7 @@ export default function MatchesSection() {
                 Mám záujem →
               </a>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "10px" }}>
               {PREMIUM_FEATURES.map(({ icon, title, desc }) => (
                 <div key={title} style={{
                   background: "#131d2e", border: "1px solid #243452",

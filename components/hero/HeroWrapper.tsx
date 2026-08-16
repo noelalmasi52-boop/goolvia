@@ -12,7 +12,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroWrapper() {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isPastHero, setIsPastHero] = useState(false);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -37,8 +36,6 @@ export default function HeroWrapper() {
       const maxScroll = heroHeight - window.innerHeight;
       const progress = Math.max(0, Math.min(1, scroll / maxScroll));
       setScrollProgress(progress);
-      // User has scrolled past the hero section
-      setIsPastHero(scroll > maxScroll + 20);
     });
 
     return () => {
@@ -48,10 +45,9 @@ export default function HeroWrapper() {
     };
   }, []);
 
-  // Fade overlay opacity: fades in over last 30% of hero scroll, max at 0.97
-  const overlayOpacity = isPastHero
-    ? 0
-    : Math.max(0, Math.min(0.97, (scrollProgress - 0.68) / 0.32));
+  // Fades in over last 30% of hero scroll, reaching 0.97 at scrollProgress=1.
+  // No snap-to-zero: MatchesSection (zIndex 4) slides over the canvas naturally.
+  const overlayOpacity = Math.max(0, Math.min(0.97, (scrollProgress - 0.68) / 0.32));
 
   return (
     <>

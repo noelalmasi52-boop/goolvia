@@ -1,31 +1,14 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { useThree } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import FootballBall from "./FootballBall";
 import PhysicsGround from "./PhysicsGround";
 import VisualGround from "./VisualGround";
 import StadiumBackdrop from "./StadiumBackdrop";
 import SceneLighting from "./SceneLighting";
 import SceneCamera from "./SceneCamera";
-
-function CanvasSizer() {
-  const { gl } = useThree();
-  useEffect(() => {
-    const sync = () => gl.setSize(window.innerWidth, window.innerHeight);
-    sync();
-    window.addEventListener("resize", sync);
-    const onVisible = () => { if (!document.hidden) sync(); };
-    document.addEventListener("visibilitychange", onVisible);
-    return () => {
-      window.removeEventListener("resize", sync);
-      document.removeEventListener("visibilitychange", onVisible);
-    };
-  }, [gl]);
-  return null;
-}
 
 interface HeroSceneProps {
   scrollProgress: number;
@@ -54,7 +37,6 @@ export default function HeroScene({ scrollProgress }: HeroSceneProps) {
         background: "#050608",
       }}
     >
-      <CanvasSizer />
       <Suspense fallback={null}>
         <fog attach="fog" args={["#050608", 20, 60]} />
         <SceneLighting />

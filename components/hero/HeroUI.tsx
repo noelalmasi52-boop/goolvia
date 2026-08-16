@@ -195,8 +195,7 @@ export default function HeroUI() {
             marginBottom: "2.2rem",
           }}
         >
-          Futbalové zápasy, atmosféra a spomienky,<br />
-          ktoré ostanú s tebou navždy.
+          Futbalové zápasy, atmosféra a spomienky, ktoré ostanú s tebou navždy.
         </p>
 
         <div ref={ctaRef} style={{ pointerEvents: "auto", marginBottom: "2.8rem" }}>
