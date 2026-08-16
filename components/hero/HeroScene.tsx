@@ -7,6 +7,7 @@ import { Suspense, useEffect } from "react";
 import FootballBall from "./FootballBall";
 import PhysicsGround from "./PhysicsGround";
 import VisualGround from "./VisualGround";
+import StadiumBackdrop from "./StadiumBackdrop";
 import SceneLighting from "./SceneLighting";
 import SceneCamera from "./SceneCamera";
 
@@ -54,8 +55,9 @@ export default function HeroScene({ scrollProgress }: HeroSceneProps) {
     >
       <CanvasSizer />
       <Suspense fallback={null}>
-        <fog attach="fog" args={["#050608", 14, 38]} />
+        <fog attach="fog" args={["#050608", 20, 60]} />
         <SceneLighting />
+        <StadiumBackdrop />
         <VisualGround />
         <Physics gravity={[0, -14, 0]}>
           <FootballBall scrollProgress={scrollProgress} />
