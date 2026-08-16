@@ -17,216 +17,168 @@ function createStadiumTexture(): THREE.CanvasTexture {
   canvas.height = H;
   const ctx = canvas.getContext("2d")!;
 
-  // Deep navy sky
-  const sky = ctx.createLinearGradient(0, 0, 0, H * 0.18);
-  sky.addColorStop(0, "#060810");
-  sky.addColorStop(1, "#090e1a");
-  ctx.fillStyle = sky;
-  ctx.fillRect(0, 0, W, H * 0.18);
+  // Pure black base
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, W, H);
 
-  // Curved roof overhang
-  ctx.fillStyle = "#040608";
-  ctx.beginPath();
-  ctx.moveTo(0, H * 0.16);
-  ctx.quadraticCurveTo(W * 0.5, H * 0.04, W, H * 0.16);
-  ctx.lineTo(W, 0);
-  ctx.lineTo(0, 0);
-  ctx.closePath();
-  ctx.fill();
+  // ---- Blurred stadium stands, tapering toward the centre like a tunnel ----
+  // Two soft wedges of bokeh light, bright at the outer edges, fading toward the middle.
+  const drawStandWedge = (side: "left" | "right") => {
+    const sign = side === "left" ? 1 : -1;
+    const originX = side === "left" ? 0 : W;
 
-  // Upper tier concrete structure
-  ctx.fillStyle = "#0d1420";
-  ctx.fillRect(0, H * 0.16, W, H * 0.02);
+    for (let i = 0; i < 900; i++) {
+      const s = i + (side === "left" ? 0 : 90000);
+      const depth = rand(s); // 0 = near/outer edge, 1 = far/centre
+      const rowT = rand(s + 0.31);
 
-  // Two crowd tiers — much brighter
-  const tiers = [
-    { top: 0.18, bottom: 0.46, density: 5000, size: 4.5, bright: 0.72 },
-    { top: 0.48, bottom: 0.74, density: 6000, size: 5.2, bright: 0.88 },
-  ];
+      // Wedge narrows and rises as it goes toward centre (perspective)
+      const bandTop = H * (0.30 - depth * 0.10);
+      const bandBottom = H * (0.68 - depth * 0.05);
+      const y = bandTop + rowT * (bandBottom - bandTop);
 
-  tiers.forEach((tier, ti) => {
-    const yTop = H * tier.top;
-    const yBot = H * tier.bottom;
+      const edgeX = originX + sign * -1 * 0; // unused, kept for clarity
+      const spread = (1 - depth) * W * 0.34 + depth * W * 0.06;
+      const x = side === "left"
+        ? rand(s + 0.6) * spread
+        : W - rand(s + 0.6) * spread;
 
-    // Tier base — visible dark blue-grey
-    const grad = ctx.createLinearGradient(0, yTop, 0, yBot);
-    grad.addColorStop(0, "#10182a");
-    grad.addColorStop(1, "#141e30");
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, yTop, W, yBot - yTop);
+      const bright = (0.35 + rand(s + 0.8) * 0.65) * (1 - depth * 0.55);
+      const r = 2.0 + rand(s + 0.2) * 3.2;
 
-    // Row lines — visible separators
-    ctx.strokeStyle = "rgba(0,0,0,0.45)";
-    ctx.lineWidth = 1.5;
-    const rowHeight = 8;
-    for (let y = yTop; y < yBot; y += rowHeight) {
+      ctx.filter = `blur(${(2 + depth * 3).toFixed(1)}px)`;
+      const dot = ctx.createRadialGradient(x, y, 0, x, y, r * 3);
+      const warm = rand(s + 0.9);
+      const cr = Math.round(255 * bright * (0.85 + warm * 0.15));
+      const cg = Math.round(255 * bright * (0.88 + warm * 0.08));
+      const cb = Math.round(255 * bright * (0.95 - warm * 0.05));
+      dot.addColorStop(0, `rgba(${cr},${cg},${cb},${0.75 * bright})`);
+      dot.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+      ctx.fillStyle = dot;
       ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(W, y);
-      ctx.stroke();
+      ctx.arc(x, y, r * 3, 0, Math.PI * 2);
+      ctx.fill();
     }
+    ctx.filter = "none";
+  };
 
-    // Crowd speckle — much brighter, colour-varied
-    for (let i = 0; i < tier.density; i++) {
-      const s = i + ti * 20000;
-      const x = rand(s) * W;
-      const yFrac = rand(s + 0.37);
-      const y = yTop + yFrac * (yBot - yTop);
+  drawStandWedge("left");
+  drawStandWedge("right");
 
-      // Stronger centre falloff (floodlights hit the middle hardest)
-      const centreFall = 1 - Math.abs(x / W - 0.5) * 0.9;
-      const lum = tier.bright * Math.max(centreFall, 0.25) * (0.55 + rand(s + 0.71) * 0.45);
+  // Faint horizontal row-glow bands across the stands (suggests tiered seating)
+  ctx.filter = "blur(6px)";
+  for (let row = 0; row < 10; row++) {
+    const y = H * (0.32 + row * 0.032);
+    ctx.strokeStyle = `rgba(255,250,235,${0.05 + rand(row) * 0.05})`;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(W, y);
+    ctx.stroke();
+  }
+  ctx.filter = "none";
 
-      // Mix of white shirts, coloured shirts, and skin tones
-      const hue = rand(s + 0.53);
-      let r: number, g: number, b: number;
-      if (hue < 0.55) {
-        // White / light shirts (majority)
-        r = Math.round(255 * lum * (0.92 + hue * 0.08));
-        g = Math.round(255 * lum * (0.90 + hue * 0.06));
-        b = Math.round(255 * lum * (0.94 + hue * 0.04));
-      } else if (hue < 0.72) {
-        // Team red
-        r = Math.round(255 * lum * 1.0);
-        g = Math.round(255 * lum * 0.28);
-        b = Math.round(255 * lum * 0.22);
-      } else if (hue < 0.86) {
-        // Team blue
-        r = Math.round(255 * lum * 0.22);
-        g = Math.round(255 * lum * 0.46);
-        b = Math.round(255 * lum * 1.0);
-      } else {
-        // Yellow / gold scarf
-        r = Math.round(255 * lum * 1.0);
-        g = Math.round(255 * lum * 0.80);
-        b = Math.round(255 * lum * 0.10);
-      }
-
-      ctx.fillStyle = `rgb(${Math.min(r,255)},${Math.min(g,255)},${Math.min(b,255)})`;
-      ctx.fillRect(x, y, tier.size, tier.size * 0.7);
-    }
-
-    // Light scattering from floodlights — warm glow over crowd
-    const glow = ctx.createLinearGradient(W * 0.1, yTop, W * 0.9, yTop);
-    glow.addColorStop(0,   "rgba(255,240,180,0.0)");
-    glow.addColorStop(0.2, "rgba(255,240,180,0.06)");
-    glow.addColorStop(0.5, "rgba(255,244,196,0.12)");
-    glow.addColorStop(0.8, "rgba(255,240,180,0.06)");
-    glow.addColorStop(1,   "rgba(255,240,180,0.0)");
-    ctx.fillStyle = glow;
-    ctx.fillRect(0, yTop, W, yBot - yTop);
-  });
-
-  // Concrete divider strip between tiers
-  ctx.fillStyle = "#080e18";
-  ctx.fillRect(0, H * 0.455, W, H * 0.026);
-
-  // Pitch-side advertising hoardings — lit warm strip
-  const adGrad = ctx.createLinearGradient(0, H * 0.74, 0, H * 0.78);
-  adGrad.addColorStop(0, "#221a08");
-  adGrad.addColorStop(0.5, "#2e2208");
-  adGrad.addColorStop(1, "#181206");
-  ctx.fillStyle = adGrad;
-  ctx.fillRect(0, H * 0.74, W, H * 0.04);
-
-  // Floodlight banks — bright and unmistakable
-  const banks = [
-    { x: 0.10, y: 0.09, scale: 1.1 },
-    { x: 0.28, y: 0.065, scale: 0.95 },
-    { x: 0.50, y: 0.050, scale: 1.0 },
-    { x: 0.72, y: 0.065, scale: 0.95 },
-    { x: 0.90, y: 0.09, scale: 1.1 },
+  // ---- Dramatic vertical light beams falling from above ----
+  const beams = [
+    { x: 0.40, w: 46, bright: 0.30 },
+    { x: 0.50, w: 60, bright: 0.42 },
+    { x: 0.60, w: 46, bright: 0.30 },
   ];
-
-  banks.forEach((bank) => {
-    const bx = W * bank.x;
-    const by = H * bank.y;
-    const s = bank.scale;
-
-    // Large atmospheric halo — very visible
-    const outerHalo = ctx.createRadialGradient(bx, by, 0, bx, by, 380 * s);
-    outerHalo.addColorStop(0,   "rgba(255,248,200,0.55)");
-    outerHalo.addColorStop(0.15,"rgba(255,244,180,0.28)");
-    outerHalo.addColorStop(0.40,"rgba(255,240,160,0.10)");
-    outerHalo.addColorStop(0.70,"rgba(255,238,150,0.03)");
-    outerHalo.addColorStop(1,   "rgba(255,235,140,0)");
-    ctx.fillStyle = outerHalo;
+  ctx.filter = "blur(10px)";
+  beams.forEach((beam) => {
+    const bx = W * beam.x;
+    const grad = ctx.createLinearGradient(bx, 0, bx, H * 0.82);
+    grad.addColorStop(0, `rgba(255,252,240,${beam.bright})`);
+    grad.addColorStop(0.35, `rgba(255,250,230,${beam.bright * 0.35})`);
+    grad.addColorStop(0.7, "rgba(255,248,220,0.05)");
+    grad.addColorStop(1, "rgba(255,248,220,0)");
+    ctx.fillStyle = grad;
     ctx.beginPath();
-    ctx.arc(bx, by, 380 * s, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Individual lamp grid
-    for (let row = 0; row < 3; row++) {
-      for (let col = 0; col < 7; col++) {
-        const lx = bx + (col - 3) * 16 * s;
-        const ly = by + (row - 1) * 14 * s;
-
-        // Per-lamp glow
-        const lamp = ctx.createRadialGradient(lx, ly, 0, lx, ly, 18 * s);
-        lamp.addColorStop(0,    "rgba(255,254,240,1.0)");
-        lamp.addColorStop(0.25, "rgba(255,250,210,0.70)");
-        lamp.addColorStop(0.60, "rgba(255,245,190,0.25)");
-        lamp.addColorStop(1,    "rgba(255,240,170,0)");
-        ctx.fillStyle = lamp;
-        ctx.beginPath();
-        ctx.arc(lx, ly, 18 * s, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Bright lamp centre dot
-        ctx.fillStyle = "rgba(255,255,255,1.0)";
-        ctx.beginPath();
-        ctx.arc(lx, ly, 3.2 * s, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    // Wide light shaft toward pitch
-    const shaft = ctx.createLinearGradient(bx, by, bx, H * 0.80);
-    shaft.addColorStop(0,   "rgba(255,248,200,0.22)");
-    shaft.addColorStop(0.3, "rgba(255,246,190,0.09)");
-    shaft.addColorStop(0.7, "rgba(255,244,180,0.03)");
-    shaft.addColorStop(1,   "rgba(255,244,180,0)");
-    ctx.fillStyle = shaft;
-    ctx.beginPath();
-    ctx.moveTo(bx - 55 * s, by);
-    ctx.lineTo(bx + 55 * s, by);
-    ctx.lineTo(bx + 220 * s, H * 0.80);
-    ctx.lineTo(bx - 220 * s, H * 0.80);
+    ctx.moveTo(bx - beam.w * 0.25, 0);
+    ctx.lineTo(bx + beam.w * 0.25, 0);
+    ctx.lineTo(bx + beam.w, H * 0.82);
+    ctx.lineTo(bx - beam.w, H * 0.82);
     ctx.closePath();
     ctx.fill();
   });
+  ctx.filter = "none";
 
-  // Camera flashes — more, brighter
-  for (let i = 0; i < 180; i++) {
+  // Small bright source flares at the top of each beam
+  beams.forEach((beam) => {
+    const bx = W * beam.x;
+    const flare = ctx.createRadialGradient(bx, H * 0.02, 0, bx, H * 0.02, 90);
+    flare.addColorStop(0, "rgba(255,255,255,0.9)");
+    flare.addColorStop(0.3, "rgba(255,250,230,0.4)");
+    flare.addColorStop(1, "rgba(255,250,230,0)");
+    ctx.fillStyle = flare;
+    ctx.beginPath();
+    ctx.arc(bx, H * 0.02, 90, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // ---- Camera-flash sparkles scattered through the stands ----
+  for (let i = 0; i < 70; i++) {
     const x = rand(i + 5000) * W;
-    const y = H * (0.19 + rand(i + 5500) * 0.52);
-    const r = 2.0 + rand(i + 6000) * 3.5;
-    const flash = ctx.createRadialGradient(x, y, 0, x, y, r * 5);
-    flash.addColorStop(0,   "rgba(255,255,255,0.95)");
-    flash.addColorStop(0.2, "rgba(220,235,255,0.45)");
-    flash.addColorStop(0.6, "rgba(200,220,255,0.12)");
-    flash.addColorStop(1,   "rgba(200,220,255,0)");
+    const y = H * (0.28 + rand(i + 5500) * 0.42);
+    const distFromCentre = Math.abs(x / W - 0.5);
+    if (distFromCentre < 0.12) continue; // keep the ball's backdrop clean
+    const r = 1.4 + rand(i + 6000) * 2.0;
+    const flash = ctx.createRadialGradient(x, y, 0, x, y, r * 4);
+    flash.addColorStop(0, "rgba(255,255,255,0.85)");
+    flash.addColorStop(0.35, "rgba(230,240,255,0.25)");
+    flash.addColorStop(1, "rgba(230,240,255,0)");
     ctx.fillStyle = flash;
     ctx.beginPath();
-    ctx.arc(x, y, r * 5, 0, Math.PI * 2);
+    ctx.arc(x, y, r * 4, 0, Math.PI * 2);
     ctx.fill();
   }
 
-  // Ground haze — fades into the pitch below
-  const haze = ctx.createLinearGradient(0, H * 0.76, 0, H);
-  haze.addColorStop(0,    "rgba(5,8,14,0)");
-  haze.addColorStop(0.35, "rgba(5,8,14,0.70)");
-  haze.addColorStop(1,    "rgba(4,6,10,1)");
-  ctx.fillStyle = haze;
-  ctx.fillRect(0, H * 0.76, W, H * 0.24);
+  // ---- Green pitch strip at the very bottom ----
+  const pitchTop = H * 0.80;
+  const pitch = ctx.createLinearGradient(0, pitchTop, 0, H);
+  pitch.addColorStop(0, "rgba(6,10,8,0)");
+  pitch.addColorStop(0.25, "rgba(10,28,16,0.85)");
+  pitch.addColorStop(0.6, "rgba(12,34,18,0.95)");
+  pitch.addColorStop(1, "rgba(8,22,13,1)");
+  ctx.fillStyle = pitch;
+  ctx.fillRect(0, pitchTop, W, H - pitchTop);
 
-  // Edge vignette for curved-bowl feel
+  // Mown-grass stripes on the pitch strip
+  const stripeCount = 14;
+  for (let i = 0; i < stripeCount; i++) {
+    const x0 = (W / stripeCount) * i;
+    const x1 = (W / stripeCount) * (i + 1);
+    ctx.fillStyle = i % 2 === 0 ? "rgba(255,255,255,0.025)" : "rgba(0,0,0,0.04)";
+    ctx.beginPath();
+    ctx.moveTo(x0, H);
+    ctx.lineTo(x1, H);
+    ctx.lineTo(W * 0.5 + (x1 - W * 0.5) * 0.15, pitchTop);
+    ctx.lineTo(W * 0.5 + (x0 - W * 0.5) * 0.15, pitchTop);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  // Halfway line arc suggestion
+  ctx.strokeStyle = "rgba(255,255,255,0.18)";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(W * 0.5 - 70, pitchTop + 6);
+  ctx.lineTo(W * 0.5 + 70, pitchTop + 6);
+  ctx.stroke();
+
+  // Vignette — keep the centre clean and dark at the very top for the ball to pop
+  const topFade = ctx.createLinearGradient(0, 0, 0, H * 0.18);
+  topFade.addColorStop(0, "rgba(0,0,0,1)");
+  topFade.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = topFade;
+  ctx.fillRect(0, 0, W, H * 0.18);
+
   const edges = ctx.createLinearGradient(0, 0, W, 0);
-  edges.addColorStop(0,    "rgba(2,3,6,0.90)");
-  edges.addColorStop(0.14, "rgba(2,3,6,0.30)");
-  edges.addColorStop(0.5,  "rgba(2,3,6,0)");
-  edges.addColorStop(0.86, "rgba(2,3,6,0.30)");
-  edges.addColorStop(1,    "rgba(2,3,6,0.90)");
+  edges.addColorStop(0, "rgba(0,0,0,0.75)");
+  edges.addColorStop(0.16, "rgba(0,0,0,0.15)");
+  edges.addColorStop(0.5, "rgba(0,0,0,0)");
+  edges.addColorStop(0.84, "rgba(0,0,0,0.15)");
+  edges.addColorStop(1, "rgba(0,0,0,0.75)");
   ctx.fillStyle = edges;
   ctx.fillRect(0, 0, W, H);
 
@@ -248,13 +200,14 @@ export default function StadiumBackdrop() {
   if (!texture) return null;
 
   return (
-    <mesh position={[0, 7, -22]}>
-      <planeGeometry args={[80, 40]} />
+    <mesh position={[0, 6, -18]}>
+      <planeGeometry args={[70, 34]} />
       <meshBasicMaterial
         map={texture}
         toneMapped={false}
         fog={false}
         depthWrite={false}
+        transparent
       />
     </mesh>
   );
