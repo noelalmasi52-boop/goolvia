@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import * as THREE from "three";
 
 const W = 2048;
@@ -200,9 +200,15 @@ function createStadiumTexture(): THREE.CanvasTexture {
 }
 
 export default function StadiumBackdrop() {
-  const texture = useMemo(() => createStadiumTexture(), []);
+  const [texture, setTexture] = useState<THREE.CanvasTexture | null>(null);
 
-  useEffect(() => () => texture.dispose(), [texture]);
+  useEffect(() => {
+    const tex = createStadiumTexture();
+    setTexture(tex);
+    return () => tex.dispose();
+  }, []);
+
+  if (!texture) return null;
 
   return (
     <mesh position={[0, 8.5, -26]}>
