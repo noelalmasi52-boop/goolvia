@@ -1,3 +1,5 @@
+"use client";
+
 import SubPageNav from "@/components/layout/SubPageNav";
 
 const VALUES = [
