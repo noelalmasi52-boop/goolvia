@@ -35,6 +35,7 @@ export default function HeroScene({ scrollProgress }: HeroSceneProps) {
         height: "100vh",
         zIndex: 0,
         background: "#050608",
+        pointerEvents: "none",
       }}
     >
       <Suspense fallback={null}>
