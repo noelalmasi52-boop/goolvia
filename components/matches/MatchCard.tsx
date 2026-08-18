@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { Match } from "./MatchesSection";
-import { buildKiwiUrl, buildTicketUrl } from "./MatchesSection";
+import type { Match } from "./data";
+import { buildKiwiUrl, buildTicketUrl } from "./data";
 
 function Stars({ n }: { n: number }) {
   return (

@@ -1,9 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 
-const NAV_LINKS = ["Zážitky", "Destinácie", "O nás", "Kontakt"];
+const NAV_LINKS = [
+  { label: "Zážitky",    href: "/#zapasy" },
+  { label: "Destinácie", href: "/destinacie" },
+  { label: "O nás",      href: "/o-nas" },
+  { label: "Kontakt",    href: "/kontakt" },
+];
 
 export default function HeroUI() {
   const wrapperRef    = useRef<HTMLDivElement>(null);
@@ -95,10 +101,10 @@ export default function HeroUI() {
         </div>
 
         <div ref={navRef} style={{ display: isMobile ? "none" : "flex", alignItems: "center", gap: "2.4rem" }}>
-          {NAV_LINKS.map((link, i) => (
-            <a
-              key={link}
-              href="#"
+          {NAV_LINKS.map(({ label, href }, i) => (
+            <Link
+              key={label}
+              href={href}
               style={{
                 fontFamily: "var(--font-antonio)",
                 fontSize: "0.7rem",
@@ -117,8 +123,8 @@ export default function HeroUI() {
                 if (i !== 0) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.45)";
               }}
             >
-              {link}
-            </a>
+              {label}
+            </Link>
           ))}
         </div>
 
