@@ -171,7 +171,7 @@ export default function HeroUI() {
         justifyContent: "flex-end",
         padding: isMobile ? "0 1.2rem 1.8rem" : "0 3rem 2.8rem",
       }}>
-        <div style={{ overflow: "hidden" }}>
+        <div style={{ overflow: "hidden", paddingTop: "0.22em", marginTop: "-0.22em" }}>
           <h1
             ref={headlineRef}
             style={{
@@ -201,7 +201,7 @@ export default function HeroUI() {
             marginBottom: "2.2rem",
           }}
         >
-          Futbalové zápasy, atmosféra a spomienky, ktoré ostanú s tebou navždy.
+          Nájdeme najlacnejšie lety, hotely a vstupenky na futbalové zápasy v Európe na jednom mieste.
         </p>
 
         <div ref={ctaRef} style={{ pointerEvents: "auto", marginBottom: "2.8rem" }}>

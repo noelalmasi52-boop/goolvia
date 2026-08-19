@@ -212,6 +212,18 @@ function createBallMaps(): BallMaps {
         }
       }
 
+      // Grass-contact stain — the underside (local -Y, which stays pointing
+      // down regardless of the idle spin since that's the rotation axis)
+      // picks up a mossy smudge, breaking the "brand new stock photo" look.
+      const stain = Math.max(0, -ny - 0.55) / 0.45;
+      if (stain > 0) {
+        const s = stain * stain * 0.6 * (0.7 + peb * 0.3);
+        r = r * (1 - s) + 26 * s;
+        g = g * (1 - s) + 46 * s;
+        b = b * (1 - s) + 16 * s;
+        rough += stain * 55;
+      }
+
       // Panel grooves: along the star contour, and where two white panels meet
       const toContour = Math.abs(ang - edge);
       let groove = 0;
@@ -301,12 +313,18 @@ function createBallMaps(): BallMaps {
   return { colorMap, roughnessMap, normalMap };
 }
 
+// How far the resting ball sinks below the nominal contact height, so its
+// lower slice reads as embedded in turf rather than balanced on a floor.
+const SINK_DEPTH = 0.1;
+const SINK_DURATION = 0.7;
+
 export default function FootballBall({ scrollProgress }: { scrollProgress: number }) {
   const rbRef = useRef<RapierRigidBody>(null);
   const meshRef = useRef<THREE.Mesh>(null);
   const matRef = useRef<THREE.MeshPhysicalMaterial>(null);
   const [bodyType, setBodyType] = useState<"dynamic" | "kinematicPosition">("dynamic");
   const settled = useRef(false);
+  const settleElapsed = useRef(0);
   const segments = typeof window !== "undefined" && window.innerWidth <= 768 ? 80 : 160;
 
   const { colorMap, roughnessMap, normalMap } = useMemo(() => createBallMaps(), []);
@@ -330,7 +348,11 @@ export default function FootballBall({ scrollProgress }: { scrollProgress: numbe
   useFrame((_, delta) => {
     if (!rbRef.current) return;
     if (settled.current && bodyType === "kinematicPosition") {
-      rbRef.current.setNextKinematicTranslation({ x: 0, y: BALL_RADIUS, z: 0 });
+      settleElapsed.current += delta;
+      const t = Math.min(settleElapsed.current / SINK_DURATION, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const y = BALL_RADIUS - SINK_DEPTH * eased;
+      rbRef.current.setNextKinematicTranslation({ x: 0, y, z: 0 });
       if (meshRef.current) {
         meshRef.current.rotation.y += delta * 0.14;
         meshRef.current.rotation.x = Math.sin(Date.now() * 0.0003) * 0.04;
@@ -359,10 +381,10 @@ export default function FootballBall({ scrollProgress }: { scrollProgress: numbe
           normalScale={[0.32, 0.32]}
           roughness={1.0}
           metalness={0.0}
-          clearcoat={0.45}
-          clearcoatRoughness={0.22}
-          reflectivity={0.35}
-          envMapIntensity={0.8}
+          clearcoat={0.28}
+          clearcoatRoughness={0.32}
+          reflectivity={0.2}
+          envMapIntensity={0.55}
         />
       </mesh>
     </RigidBody>
