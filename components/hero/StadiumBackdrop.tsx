@@ -23,15 +23,13 @@ const DIST = 60;
 
 // Multiplied over the photo. Lower = darker. The source is already a dark
 // night shot, so this only needs a gentle pull-down to sit with the design.
-const DIM = "#a4aeba";
+const DIM = "#c8d0d8";
 
 // Extra size beyond the frustum, so panning never exposes an edge.
 const COVER_MARGIN = 1.12;
 
-// Vertical pan in world units. Negative moves the plane down, which brings
-// higher parts of the photo to screen centre — putting the ball against the
-// crowd and floodlights rather than the pitch.
-const PAN_Y = -4;
+// Positive moves the plane up, showing lower parts of the photo (pitch/grass).
+const PAN_Y = 6;
 
 export default function StadiumBackdrop() {
   const groupRef = useRef<THREE.Group>(null);
