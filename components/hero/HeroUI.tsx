@@ -39,7 +39,6 @@ export default function HeroUI() {
     gsap.set(headlineRef.current, { y: 60, skewY: 2 });
     gsap.set(subtextRef.current,  { y: 24 });
     gsap.set(ctaRef.current,      { y: 16 });
-    gsap.set(ratingRef.current,   { y: 16 });
     gsap.set(lineRef.current,     { scaleY: 0, transformOrigin: "top center" });
 
     const tl = gsap.timeline({ delay: 3.6 });
