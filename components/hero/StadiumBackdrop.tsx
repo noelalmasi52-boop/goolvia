@@ -7,29 +7,27 @@ import * as THREE from "three";
 /**
  * Full-screen photographic stadium backdrop.
  *
- * Photo: public/stadium.jpg — night match at Roazhon Park.
- * Source: Unsplash (Unsplash License: free for commercial use, no attribution
- * required). Swap the file to change the backdrop; no code changes needed.
+ * Photo: public/stadium.png — pitch-level night stadium shot.
+ * Swap the file to change the backdrop; no code changes needed.
  *
  * The plane is parented to the camera and scaled to the frustum every frame,
  * so it always covers the whole viewport — at any aspect ratio, and through
  * the camera's intro move and scroll zoom.
  */
-const PHOTO_URL = "/stadium.jpg";
+const PHOTO_URL = "/stadium.png";
 
 // Distance in front of the camera. Far enough that everything in the scene
 // (ball, ground) renders in front of it.
 const DIST = 60;
 
-// Multiplied over the photo. Lower = darker. The source is already a dark
-// night shot, so this only needs a gentle pull-down to sit with the design.
-const DIM = "#c8d0d8";
+// Multiplied over the photo. White = shown as-is (photo is already well exposed).
+const DIM = "#ffffff";
 
 // Extra size beyond the frustum, so panning never exposes an edge.
 const COVER_MARGIN = 1.12;
 
-// Positive moves the plane up, showing lower parts of the photo (pitch/grass).
-const PAN_Y = 6;
+// No vertical pan — the photo is already framed pitch-level.
+const PAN_Y = 0;
 
 export default function StadiumBackdrop() {
   const groupRef = useRef<THREE.Group>(null);
