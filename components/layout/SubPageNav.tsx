@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import MobileNavMenu from "./MobileNavMenu";
 
 const LINKS = [
   { label: "Zážitky", href: "/#zapasy" },
@@ -32,15 +33,18 @@ export default function SubPageNav() {
       borderBottom: "1px solid rgba(255,255,255,0.05)",
       backdropFilter: "blur(12px)",
     }}>
-      <Link href="/" style={{ textDecoration: "none" }}>
-        <span style={{
-          fontFamily: "var(--font-antonio)", fontSize: "1.05rem",
-          fontWeight: 700, letterSpacing: "0.45em",
-          color: "var(--goolvia-gold)", textTransform: "uppercase",
-        }}>
-          GOOLVIA
-        </span>
-      </Link>
+      <div style={{ display: "flex", alignItems: "center", gap: "0.9rem" }}>
+        {isMobile && <MobileNavMenu links={LINKS} activeHref={pathname} />}
+        <Link href="/" style={{ textDecoration: "none" }}>
+          <span style={{
+            fontFamily: "var(--font-antonio)", fontSize: "1.05rem",
+            fontWeight: 700, letterSpacing: "0.45em",
+            color: "var(--goolvia-gold)", textTransform: "uppercase",
+          }}>
+            GOOLVIA
+          </span>
+        </Link>
+      </div>
 
       {!isMobile && (
         <div style={{ display: "flex", alignItems: "center", gap: "2.4rem" }}>
@@ -64,10 +68,12 @@ export default function SubPageNav() {
       )}
 
       <Link href="/#zapasy" style={{
-        fontFamily: "var(--font-antonio)", fontSize: "0.65rem",
-        letterSpacing: "0.18em", textTransform: "uppercase",
+        fontFamily: "var(--font-antonio)", fontSize: isMobile ? "0.58rem" : "0.65rem",
+        letterSpacing: isMobile ? "0.1em" : "0.18em", textTransform: "uppercase",
         textDecoration: "none", color: "var(--goolvia-gold)",
-        border: "1px solid var(--goolvia-gold)", padding: "0.5rem 1.1rem",
+        border: "1px solid var(--goolvia-gold)",
+        padding: isMobile ? "0.45rem 0.8rem" : "0.5rem 1.1rem",
+        whiteSpace: "nowrap",
         transition: "background 0.2s, color 0.2s",
       }}
         onMouseEnter={(e) => {
@@ -81,7 +87,7 @@ export default function SubPageNav() {
           el.style.color = "var(--goolvia-gold)";
         }}
       >
-        Zážitky zo zápasov
+        {isMobile ? "Zápasy" : "Zážitky zo zápasov"}
       </Link>
     </nav>
   );

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
+import MobileNavMenu from "@/components/layout/MobileNavMenu";
 
 const NAV_LINKS = [
   { label: "Zážitky",    href: "/#zapasy" },
@@ -84,7 +85,8 @@ export default function HeroUI() {
         pointerEvents: "auto",
         borderBottom: "1px solid rgba(255,255,255,0.05)",
       }}>
-        <div ref={logoRef}>
+        <div ref={logoRef} style={{ display: "flex", alignItems: "center", gap: "0.9rem" }}>
+          {isMobile && <MobileNavMenu links={NAV_LINKS} activeHref="/" />}
           <span style={{
             fontFamily: "var(--font-antonio)",
             fontSize: "1.05rem",
@@ -134,13 +136,14 @@ export default function HeroUI() {
             }}
             style={{
               fontFamily: "var(--font-antonio)",
-              fontSize: "0.65rem",
-              letterSpacing: "0.18em",
+              fontSize: isMobile ? "0.58rem" : "0.65rem",
+              letterSpacing: isMobile ? "0.1em" : "0.18em",
               textTransform: "uppercase",
               textDecoration: "none",
               color: "var(--goolvia-gold)",
               border: "1px solid var(--goolvia-gold)",
-              padding: "0.55rem 1.2rem",
+              padding: isMobile ? "0.5rem 0.85rem" : "0.55rem 1.2rem",
+              whiteSpace: "nowrap",
               transition: "background 0.2s, color 0.2s",
             }}
             onMouseEnter={(e) => {
@@ -154,7 +157,7 @@ export default function HeroUI() {
               el.style.color = "var(--goolvia-gold)";
             }}
           >
-            Zážitky zo zápasov
+            {isMobile ? "Zápasy" : "Zážitky zo zápasov"}
           </a>
         </div>
       </nav>
