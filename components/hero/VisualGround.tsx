@@ -1,7 +1,6 @@
 "use client";
 
-import { useMemo, useEffect, useState } from "react";
-import { MeshReflectorMaterial } from "@react-three/drei";
+import { useMemo, useEffect } from "react";
 import * as THREE from "three";
 
 const SIZE = 48;
@@ -39,30 +38,13 @@ export default function VisualGround() {
   const fadeMap = useMemo(() => createFadeMap(), []);
   useEffect(() => () => fadeMap.dispose(), [fadeMap]);
 
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px)");
-    setIsMobile(mq.matches);
-    const fn = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", fn);
-    return () => mq.removeEventListener("change", fn);
-  }, []);
-
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
       <planeGeometry args={[SIZE, SIZE]} />
-      <MeshReflectorMaterial
-        blur={isMobile ? [256, 64] : [512, 128]}
-        resolution={isMobile ? 512 : 1024}
-        mixBlur={0.6}
-        mixStrength={12}
-        roughness={0.95}
-        depthScale={0.8}
-        minDepthThreshold={0.3}
-        maxDepthThreshold={1.4}
-        color="#1a4a0c"
+      <meshStandardMaterial
+        color="#2d6e1a"
+        roughness={0.98}
         metalness={0.0}
-        mirror={0}
         transparent
         alphaMap={fadeMap}
       />
