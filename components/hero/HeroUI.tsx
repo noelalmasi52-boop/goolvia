@@ -185,8 +185,8 @@ export default function HeroUI() {
               marginBottom: "1.6rem",
             }}
           >
-            <span style={{ color: "var(--goolvia-white)" }}>Zaži To</span><br />
-            <span style={{ color: "var(--goolvia-gold)" }}>Naživo</span>
+            <span style={{ color: "var(--goolvia-white)" }}>ZAŽI TO</span><br />
+            <span style={{ color: "var(--goolvia-gold)" }}>NAŽIVO</span>
           </h1>
         </div>
 
