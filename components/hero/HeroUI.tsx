@@ -18,7 +18,6 @@ export default function HeroUI() {
   const headlineRef   = useRef<HTMLHeadingElement>(null);
   const subtextRef    = useRef<HTMLParagraphElement>(null);
   const ctaRef        = useRef<HTMLDivElement>(null);
-  const ratingRef     = useRef<HTMLDivElement>(null);
   const scrollHintRef = useRef<HTMLDivElement>(null);
   const lineRef       = useRef<HTMLDivElement>(null);
 
@@ -34,7 +33,7 @@ export default function HeroUI() {
   useEffect(() => {
     gsap.set(
       [logoRef.current, navRef.current, headlineRef.current,
-       subtextRef.current, ctaRef.current, ratingRef.current, scrollHintRef.current],
+       subtextRef.current, ctaRef.current, scrollHintRef.current],
       { autoAlpha: 0 }
     );
     gsap.set(headlineRef.current, { y: 60, skewY: 2 });
@@ -50,7 +49,6 @@ export default function HeroUI() {
       .to(headlineRef.current,  { autoAlpha: 1, y: 0, skewY: 0, duration: 1.1, ease: "power4.out" }, "-=0.2")
       .to(subtextRef.current,   { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.5")
       .to(ctaRef.current,       { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.4")
-      .to(ratingRef.current,    { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.3")
       .to(lineRef.current,      { scaleY: 1, duration: 0.8, ease: "power2.inOut" }, "-=0.6")
       .to(scrollHintRef.current,{ autoAlpha: 1, duration: 0.5, ease: "power2.out" }, "-=0.4");
 
@@ -254,33 +252,6 @@ export default function HeroUI() {
           </a>
         </div>
 
-        {/* Rating */}
-        <div ref={ratingRef} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <div style={{ display: "flex" }}>
-            {["#c8543a", "#4a7cc8", "#5aaa5a", "#c8a040"].map((bg, i) => (
-              <div key={i} style={{
-                width: "30px", height: "30px",
-                borderRadius: "50%",
-                background: bg,
-                border: "2px solid #050608",
-                marginLeft: i > 0 ? "-8px" : "0",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: "10px", color: "#fff", fontWeight: 700,
-              }}>
-                {["J", "M", "T", "A"][i]}
-              </div>
-            ))}
-          </div>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span style={{ fontFamily: "var(--font-antonio)", fontSize: "1rem", color: "#fff", fontWeight: 700 }}>4.9</span>
-              <span style={{ color: "var(--goolvia-gold)", fontSize: "0.7rem", letterSpacing: "2px" }}>★★★★★</span>
-            </div>
-            <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.62rem", color: "rgba(255,255,255,0.38)", marginTop: "1px" }}>
-              Na základe 1 200+ hodnotení
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* SCROLL HINT */}

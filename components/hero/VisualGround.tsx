@@ -54,14 +54,14 @@ export default function VisualGround() {
       <MeshReflectorMaterial
         blur={isMobile ? [256, 64] : [512, 128]}
         resolution={isMobile ? 512 : 1024}
-        mixBlur={1.0}
-        mixStrength={60}
-        roughness={0.9}
-        depthScale={1.2}
+        mixBlur={0.6}
+        mixStrength={12}
+        roughness={0.95}
+        depthScale={0.8}
         minDepthThreshold={0.3}
         maxDepthThreshold={1.4}
-        color="#0a0d12"
-        metalness={0.2}
+        color="#1a4a0c"
+        metalness={0.0}
         mirror={0}
         transparent
         alphaMap={fadeMap}
