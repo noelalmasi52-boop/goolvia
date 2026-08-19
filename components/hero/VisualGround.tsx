@@ -15,7 +15,7 @@ function createFadeMap(): THREE.DataTexture {
       const dy = (y + 0.5) / MAP - 0.5;
       const d = Math.sqrt(dx * dx + dy * dy) * 2;
 
-      const t = Math.min(Math.max((d - 0.3) / 0.5, 0), 1);
+      const t = Math.min(Math.max((d - 0.55) / 0.42, 0), 1);
       const a = 1 - t * t * (3 - 2 * t);
 
       const v = Math.round(255 * a);
