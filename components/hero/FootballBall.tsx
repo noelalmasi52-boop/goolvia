@@ -301,19 +301,12 @@ function createBallMaps(): BallMaps {
   return { colorMap, roughnessMap, normalMap };
 }
 
-export default function FootballBall({
-  scrollProgress,
-  onImpact,
-}: {
-  scrollProgress: number;
-  onImpact?: (x: number, z: number) => void;
-}) {
+export default function FootballBall({ scrollProgress }: { scrollProgress: number }) {
   const rbRef = useRef<RapierRigidBody>(null);
   const meshRef = useRef<THREE.Mesh>(null);
   const matRef = useRef<THREE.MeshPhysicalMaterial>(null);
   const [bodyType, setBodyType] = useState<"dynamic" | "kinematicPosition">("dynamic");
   const settled = useRef(false);
-  const lastImpact = useRef(0);
   const segments = typeof window !== "undefined" && window.innerWidth <= 768 ? 80 : 160;
 
   const { colorMap, roughnessMap, normalMap } = useMemo(() => createBallMaps(), []);
@@ -355,16 +348,6 @@ export default function FootballBall({
       linearDamping={0.18}
       angularDamping={0.45}
       colliders="ball"
-      onCollisionEnter={() => {
-        if (!onImpact || !rbRef.current) return;
-        const now = performance.now();
-        if (now - lastImpact.current < 120) return; // debounce chatter within one bounce
-        const v = rbRef.current.linvel();
-        if (Math.abs(v.y) < 1.2) return; // skip tiny settling bounces
-        lastImpact.current = now;
-        const t = rbRef.current.translation();
-        onImpact(t.x, t.z);
-      }}
     >
       <mesh ref={meshRef} castShadow receiveShadow>
         <sphereGeometry args={[BALL_RADIUS, segments, segments]} />

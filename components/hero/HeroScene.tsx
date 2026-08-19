@@ -3,22 +3,19 @@
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import { Environment, Lightformer } from "@react-three/drei";
-import { Suspense, useRef } from "react";
+import { Suspense } from "react";
 import FootballBall from "./FootballBall";
 import PhysicsGround from "./PhysicsGround";
 import VisualGround from "./VisualGround";
 import StadiumBackdrop from "./StadiumBackdrop";
 import SceneLighting from "./SceneLighting";
 import SceneCamera from "./SceneCamera";
-import GrassBurst, { GrassBurstHandle } from "./GrassBurst";
 
 interface HeroSceneProps {
   scrollProgress: number;
 }
 
 export default function HeroScene({ scrollProgress }: HeroSceneProps) {
-  const grassBurstRef = useRef<GrassBurstHandle>(null);
-
   return (
     <Canvas
       shadows
@@ -59,12 +56,8 @@ export default function HeroScene({ scrollProgress }: HeroSceneProps) {
         <SceneLighting />
         <StadiumBackdrop />
         <VisualGround />
-        <GrassBurst ref={grassBurstRef} />
         <Physics gravity={[0, -14, 0]}>
-          <FootballBall
-            scrollProgress={scrollProgress}
-            onImpact={(x, z) => grassBurstRef.current?.burst(x, z)}
-          />
+          <FootballBall scrollProgress={scrollProgress} />
           <PhysicsGround />
         </Physics>
         <SceneCamera scrollProgress={scrollProgress} />
