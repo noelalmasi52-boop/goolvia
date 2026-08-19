@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 type NavLink = { label: string; href: string };
 
@@ -13,6 +14,9 @@ export default function MobileNavMenu({
   activeHref?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   return (
     <>
@@ -39,12 +43,12 @@ export default function MobileNavMenu({
         <span style={{ display: "block", width: "22px", height: "2px", background: "var(--goolvia-gold)" }} />
       </button>
 
-      {open && (
+      {mounted && open && createPortal(
         <div
           style={{
             position: "fixed",
             inset: 0,
-            zIndex: 9999,
+            zIndex: 99999,
             background: "#080b12",
             display: "flex",
             flexDirection: "column",
@@ -99,7 +103,8 @@ export default function MobileNavMenu({
               );
             })}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

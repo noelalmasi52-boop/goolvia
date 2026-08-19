@@ -356,13 +356,13 @@ export default function FootballBall({ scrollProgress }: { scrollProgress: numbe
           map={colorMap}
           roughnessMap={roughnessMap}
           normalMap={normalMap}
-          normalScale={[0.55, 0.55]}
+          normalScale={[0.32, 0.32]}
           roughness={1.0}
           metalness={0.0}
-          clearcoat={0.6}
-          clearcoatRoughness={0.14}
-          reflectivity={0.5}
-          envMapIntensity={1.2}
+          clearcoat={0.45}
+          clearcoatRoughness={0.22}
+          reflectivity={0.35}
+          envMapIntensity={0.8}
         />
       </mesh>
     </RigidBody>

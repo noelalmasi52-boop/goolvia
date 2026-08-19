@@ -1,11 +1,20 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 
 export default function SceneLighting() {
   const keyRef  = useRef<THREE.SpotLight>(null);
   const fill1Ref = useRef<THREE.SpotLight>(null);
+
+  // The grass-bounce fill only makes sense once the ball is resting on the
+  // turf. While it's still falling/bouncing it passes through the light's
+  // radius, throwing a distracting yellow-green flash across it.
+  const [ballSettled, setBallSettled] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setBallSettled(true), 4300);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     [keyRef, fill1Ref].forEach((r) => {
@@ -70,14 +79,18 @@ export default function SceneLighting() {
       />
 
       {/* Grass bounce — dim green fill low to the ground so the ball's
-          underside reads as sitting in turf, not floating over it. */}
-      <pointLight
-        position={[0, 0.35, 0.5]}
-        intensity={4}
-        color="#4a8a2a"
-        distance={2.4}
-        decay={2}
-      />
+          underside reads as sitting in turf, not floating over it.
+          Only enabled once the ball has settled, so it never flashes
+          across it during the fall/bounce. */}
+      {ballSettled && (
+        <pointLight
+          position={[0, 0.3, 0.4]}
+          intensity={1.6}
+          color="#3a6b1e"
+          distance={1.4}
+          decay={2}
+        />
+      )}
     </>
   );
 }
