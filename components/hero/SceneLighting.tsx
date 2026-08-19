@@ -68,6 +68,16 @@ export default function SceneLighting() {
         distance={9}
         decay={2}
       />
+
+      {/* Grass bounce — dim green fill low to the ground so the ball's
+          underside reads as sitting in turf, not floating over it. */}
+      <pointLight
+        position={[0, 0.35, 0.5]}
+        intensity={4}
+        color="#4a8a2a"
+        distance={2.4}
+        decay={2}
+      />
     </>
   );
 }
