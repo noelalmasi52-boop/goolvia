@@ -94,23 +94,45 @@ export default function MatchCard({ match }: { match: Match }) {
         </div>
 
         {/* Teams with badges */}
-        <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "18px" }}>
-          <Badge src={match.homeBadge} abbr={match.homeAbbr} color={match.homeCl} />
-          <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.05rem", fontWeight: 700, color: "#eef0f6", textTransform: "uppercase", lineHeight: 1.2 }}>
+        <div style={{
+          display: "grid", gridTemplateColumns: "1fr auto 1fr",
+          alignItems: "start", gap: "8px", marginBottom: "18px",
+        }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+            <Badge src={match.homeBadge} abbr={match.homeAbbr} color={match.homeCl} />
+            <div style={{
+              fontFamily: "var(--font-antonio)", fontSize: "0.8rem", fontWeight: 700,
+              color: "#eef0f6", textTransform: "uppercase", textAlign: "center", lineHeight: 1.2,
+            }}>
               {match.home}
             </div>
-            <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.55rem", color: "#2e4060", letterSpacing: "0.18em", margin: "4px 0" }}>VS</div>
-            <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.05rem", fontWeight: 700, color: "#eef0f6", textTransform: "uppercase", lineHeight: 1.2 }}>
+          </div>
+
+          <div style={{
+            fontFamily: "var(--font-antonio)", fontSize: "0.6rem", color: "#3a4a62",
+            letterSpacing: "0.1em", alignSelf: "center", padding: "0 2px",
+          }}>
+            VS
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+            <Badge src={match.awayBadge} abbr={match.awayAbbr} color={match.awayCl} />
+            <div style={{
+              fontFamily: "var(--font-antonio)", fontSize: "0.8rem", fontWeight: 700,
+              color: "#eef0f6", textTransform: "uppercase", textAlign: "center", lineHeight: 1.2,
+            }}>
               {match.away}
             </div>
           </div>
-          <Badge src={match.awayBadge} abbr={match.awayAbbr} color={match.awayCl} />
         </div>
 
         {/* Venue */}
-        <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#4a6080", marginBottom: "20px" }}>
-          {match.stadium} · {match.city}
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "center", gap: "6px",
+          fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#4a6080", marginBottom: "20px",
+        }}>
+          <span>🏟️</span>
+          <span>{match.stadium} · {match.city}</span>
         </div>
 
         {/* Price row */}
