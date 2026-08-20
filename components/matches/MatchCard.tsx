@@ -59,7 +59,10 @@ export default function MatchCard({ match }: { match: Match }) {
       <div
         onClick={() => { setOpen(true); setTab("hotel"); }}
         style={{
-          background: "#131d2e", border: "1px solid #243452", borderRadius: "12px",
+          backgroundImage: "linear-gradient(rgba(9,13,20,0.90), rgba(9,13,20,0.95)), url(/stadium.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center 30%",
+          border: "1px solid #243452", borderRadius: "12px",
           padding: "24px", cursor: "pointer",
           transition: "border-color 0.2s, transform 0.2s, box-shadow 0.2s",
           position: "relative", overflow: "hidden",
