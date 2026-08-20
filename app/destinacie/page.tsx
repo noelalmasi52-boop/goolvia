@@ -13,6 +13,7 @@ type Club = {
   league: string;
   color: string;
   slug: string;
+  crestUrl?: string;
 };
 
 const CLUBS: Club[] = [
@@ -30,7 +31,8 @@ const CLUBS: Club[] = [
   { id: 108, name: "Inter Milan",   abbr: "INT", league: "Serie A",        color: "#0068A8", slug: "INTER" },
   { id: 98,  name: "AC Milan",      abbr: "MIL", league: "Serie A",        color: "#FB090B", slug: "AC MILAN" },
   { id: 109, name: "Juventus",      abbr: "JUV", league: "Serie A",        color: "#ffffff", slug: "JUVENTUS" },
-  { id: 113, name: "Napoli",        abbr: "NAP", league: "Serie A",        color: "#12A0D7", slug: "NAPOLI" },
+  { id: 113, name: "Napoli",        abbr: "NAP", league: "Serie A",        color: "#12A0D7", slug: "NAPOLI",
+    crestUrl: "https://upload.wikimedia.org/wikipedia/commons/b/ba/SSC_Napoli.svg" },
   { id: 529, name: "PSG",           abbr: "PSG", league: "Ligue 1",        color: "#003D7C", slug: "PSG" },
 ];
 
@@ -49,7 +51,7 @@ function ClubCrest({ club, size = 56 }: { club: Club; size?: number }) {
     }}>
       {!err ? (
         <img
-          src={`https://crests.football-data.org/${club.id}.svg`}
+          src={club.crestUrl ?? `https://crests.football-data.org/${club.id}.svg`}
           alt={club.name}
           width={size} height={size}
           style={{ objectFit: "contain", display: "block" }}
@@ -167,7 +169,7 @@ export default function DestinacieePage() {
                   opacity: hasMatches ? 0.7 : 0.3,
                 }} />
 
-                <ClubCrest club={club} size={isMobile ? 48 : 60} />
+                <ClubCrest club={club} size={isMobile ? 64 : 84} />
 
                 <div>
                   <div style={{
@@ -210,7 +212,7 @@ export default function DestinacieePage() {
               display: "flex", alignItems: "center", gap: "16px",
               marginBottom: "32px",
             }}>
-              <ClubCrest club={selected} size={40} />
+              <ClubCrest club={selected} size={56} />
               <div>
                 <p style={{
                   fontFamily: "var(--font-antonio)", fontSize: "0.6rem",

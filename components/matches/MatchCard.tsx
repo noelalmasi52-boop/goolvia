@@ -12,11 +12,12 @@ function Stars({ n }: { n: number }) {
   );
 }
 
-function Badge({ src, abbr, color }: { src: string; abbr: string; color: string }) {
+function Badge({ src, abbr, color, size = 44 }: { src: string; abbr: string; color: string; size?: number }) {
   const [err, setErr] = useState(false);
+  const imgSize = Math.round(size * 0.64);
   return (
     <div style={{
-      width: "44px", height: "44px", borderRadius: "50%",
+      width: size, height: size, borderRadius: "50%",
       background: color + "18", border: `1.5px solid ${color}44`,
       display: "flex", alignItems: "center", justifyContent: "center",
       flexShrink: 0, overflow: "hidden",
@@ -24,12 +25,12 @@ function Badge({ src, abbr, color }: { src: string; abbr: string; color: string 
       {!err ? (
         <img
           src={src} alt={abbr}
-          width={28} height={28}
+          width={imgSize} height={imgSize}
           style={{ objectFit: "contain", display: "block" }}
           onError={() => setErr(true)}
         />
       ) : (
-        <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.55rem", fontWeight: 700, color }}>
+        <span style={{ fontFamily: "var(--font-antonio)", fontSize: size * 0.24 + "px", fontWeight: 700, color }}>
           {abbr}
         </span>
       )}
@@ -102,7 +103,7 @@ export default function MatchCard({ match }: { match: Match }) {
           alignItems: "start", gap: "8px", marginBottom: "18px",
         }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
-            <Badge src={match.homeBadge} abbr={match.homeAbbr} color={match.homeCl} />
+            <Badge src={match.homeBadge} abbr={match.homeAbbr} color={match.homeCl} size={64} />
             <div style={{
               fontFamily: "var(--font-antonio)", fontSize: "0.8rem", fontWeight: 700,
               color: "#eef0f6", textTransform: "uppercase", textAlign: "center", lineHeight: 1.2,
@@ -119,7 +120,7 @@ export default function MatchCard({ match }: { match: Match }) {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
-            <Badge src={match.awayBadge} abbr={match.awayAbbr} color={match.awayCl} />
+            <Badge src={match.awayBadge} abbr={match.awayAbbr} color={match.awayCl} size={64} />
             <div style={{
               fontFamily: "var(--font-antonio)", fontSize: "0.8rem", fontWeight: 700,
               color: "#eef0f6", textTransform: "uppercase", textAlign: "center", lineHeight: 1.2,
