@@ -92,6 +92,7 @@ const GROOVE_W = 0.016;
 const SEAM_W = 0.020;
 
 const TEX = 1024;
+const TEX_MOBILE = 512;
 
 type BallMaps = {
   colorMap: THREE.CanvasTexture;
@@ -99,8 +100,8 @@ type BallMaps = {
   normalMap: THREE.CanvasTexture;
 };
 
-function createBallMaps(): BallMaps {
-  const size = TEX;
+function createBallMaps(texSize: number): BallMaps {
+  const size = texSize;
   const starFrames = buildFrames(ICO, ICO);
   const markFrames = buildFrames(DODE, ICO);
 
@@ -325,9 +326,13 @@ export default function FootballBall({ scrollProgress }: { scrollProgress: numbe
   const [bodyType, setBodyType] = useState<"dynamic" | "kinematicPosition">("dynamic");
   const settled = useRef(false);
   const settleElapsed = useRef(0);
-  const segments = typeof window !== "undefined" && window.innerWidth <= 768 ? 80 : 160;
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+  const segments = isMobile ? 56 : 160;
 
-  const { colorMap, roughnessMap, normalMap } = useMemo(() => createBallMaps(), []);
+  const { colorMap, roughnessMap, normalMap } = useMemo(
+    () => createBallMaps(isMobile ? TEX_MOBILE : TEX),
+    [isMobile]
+  );
 
   useEffect(() => {
     return () => {
@@ -381,10 +386,10 @@ export default function FootballBall({ scrollProgress }: { scrollProgress: numbe
           normalScale={[0.32, 0.32]}
           roughness={1.0}
           metalness={0.0}
-          clearcoat={0.28}
+          clearcoat={isMobile ? 0 : 0.28}
           clearcoatRoughness={0.32}
-          reflectivity={0.2}
-          envMapIntensity={0.55}
+          reflectivity={isMobile ? 0.12 : 0.2}
+          envMapIntensity={isMobile ? 0.4 : 0.55}
         />
       </mesh>
     </RigidBody>

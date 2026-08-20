@@ -17,9 +17,11 @@ export default function SceneLighting() {
   }, []);
 
   useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+    const mapSize = isMobile ? 1024 : 2048;
     [keyRef, fill1Ref].forEach((r) => {
       if (!r.current) return;
-      r.current.shadow.mapSize.set(2048, 2048);
+      r.current.shadow.mapSize.set(mapSize, mapSize);
       r.current.shadow.camera.near = 0.5;
       r.current.shadow.camera.far  = 40;
       r.current.shadow.bias = -0.0008;
