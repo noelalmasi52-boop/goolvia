@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import MobileNavMenu from "./MobileNavMenu";
 
 const LINKS = [
-  { label: "Zážitky", href: "/#zapasy" },
-  { label: "Destinácie", href: "/destinacie" },
   { label: "O nás", href: "/o-nas" },
+  { label: "Ponuky", href: "/#zapasy" },
+  { label: "Ako to funguje", href: "/#ako-to-funguje" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
@@ -68,11 +68,11 @@ export default function SubPageNav() {
       )}
 
       <Link href="/#zapasy" style={{
-        fontFamily: "var(--font-antonio)", fontSize: isMobile ? "0.58rem" : "0.65rem",
-        letterSpacing: isMobile ? "0.1em" : "0.18em", textTransform: "uppercase",
+        fontFamily: "var(--font-antonio)", fontSize: isMobile ? "0.6rem" : "0.68rem",
+        letterSpacing: "0.18em", textTransform: "uppercase",
         textDecoration: "none", color: "var(--goolvia-gold)",
         border: "1px solid var(--goolvia-gold)",
-        padding: isMobile ? "0.45rem 0.8rem" : "0.5rem 1.1rem",
+        padding: isMobile ? "0.5rem 1rem" : "0.6rem 1.4rem",
         whiteSpace: "nowrap",
         transition: "background 0.2s, color 0.2s",
       }}
@@ -87,7 +87,7 @@ export default function SubPageNav() {
           el.style.color = "var(--goolvia-gold)";
         }}
       >
-        {isMobile ? "Zápasy" : "Zážitky zo zápasov"}
+        Zápasy
       </Link>
     </nav>
   );

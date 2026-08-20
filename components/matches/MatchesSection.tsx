@@ -107,7 +107,7 @@ export default function MatchesSection() {
       </div>
 
       {/* Premium service section */}
-      <div style={{ marginTop: isMobile ? "60px" : "120px", borderTop: "1px solid #243452", background: "#0e1828" }}>
+      <div id="ako-to-funguje" style={{ marginTop: isMobile ? "60px" : "120px", borderTop: "1px solid #243452", background: "#0e1828" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px" : "100px 40px" }}>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? "40px" : "80px", alignItems: "start" }}>
             <div>

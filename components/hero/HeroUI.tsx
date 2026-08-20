@@ -6,21 +6,26 @@ import { gsap } from "gsap";
 import MobileNavMenu from "@/components/layout/MobileNavMenu";
 
 const NAV_LINKS = [
-  { label: "Zážitky",    href: "/#zapasy" },
-  { label: "Destinácie", href: "/destinacie" },
-  { label: "O nás",      href: "/o-nas" },
-  { label: "Kontakt",    href: "/kontakt" },
+  { label: "O nás",           href: "/o-nas" },
+  { label: "Ponuky",          href: "/#zapasy" },
+  { label: "Ako to funguje",  href: "/#ako-to-funguje" },
+  { label: "Kontakt",         href: "/kontakt" },
 ];
 
+function scrollToId(id: string) {
+  return (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+}
+
 export default function HeroUI() {
-  const wrapperRef    = useRef<HTMLDivElement>(null);
-  const logoRef       = useRef<HTMLDivElement>(null);
-  const navRef        = useRef<HTMLDivElement>(null);
-  const headlineRef   = useRef<HTMLHeadingElement>(null);
-  const subtextRef    = useRef<HTMLParagraphElement>(null);
-  const ctaRef        = useRef<HTMLDivElement>(null);
-  const scrollHintRef = useRef<HTMLDivElement>(null);
-  const lineRef       = useRef<HTMLDivElement>(null);
+  const logoRef     = useRef<HTMLDivElement>(null);
+  const navRef      = useRef<HTMLDivElement>(null);
+  const tagRef      = useRef<HTMLParagraphElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const subtextRef  = useRef<HTMLParagraphElement>(null);
+  const ctaRef      = useRef<HTMLDivElement>(null);
 
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -33,46 +38,47 @@ export default function HeroUI() {
 
   useEffect(() => {
     gsap.set(
-      [logoRef.current, navRef.current, headlineRef.current,
-       subtextRef.current, ctaRef.current, scrollHintRef.current],
+      [logoRef.current, navRef.current, tagRef.current, headlineRef.current, subtextRef.current, ctaRef.current],
       { autoAlpha: 0 }
     );
-    gsap.set(headlineRef.current, { y: 60, skewY: 2 });
-    gsap.set(subtextRef.current,  { y: 24 });
+    gsap.set(headlineRef.current, { y: 40 });
+    gsap.set(subtextRef.current,  { y: 20 });
     gsap.set(ctaRef.current,      { y: 16 });
-    gsap.set(lineRef.current,     { scaleY: 0, transformOrigin: "top center" });
 
-    const tl = gsap.timeline({ delay: 3.6 });
+    const tl = gsap.timeline({ delay: 0.25 });
     tl
-      .to(logoRef.current,      { autoAlpha: 1, duration: 0.6, ease: "power2.out" })
-      .to(navRef.current,       { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, "-=0.4")
-      .to(headlineRef.current,  { autoAlpha: 1, y: 0, skewY: 0, duration: 1.1, ease: "power4.out" }, "-=0.2")
-      .to(subtextRef.current,   { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.5")
-      .to(ctaRef.current,       { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.4")
-      .to(lineRef.current,      { scaleY: 1, duration: 0.8, ease: "power2.inOut" }, "-=0.6")
-      .to(scrollHintRef.current,{ autoAlpha: 1, duration: 0.5, ease: "power2.out" }, "-=0.4");
+      .to(logoRef.current,     { autoAlpha: 1, duration: 0.6, ease: "power2.out" })
+      .to(navRef.current,      { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, "-=0.4")
+      .to(tagRef.current,      { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, "-=0.2")
+      .to(headlineRef.current, { autoAlpha: 1, y: 0, duration: 0.9, ease: "power3.out" }, "-=0.25")
+      .to(subtextRef.current,  { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.5")
+      .to(ctaRef.current,      { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.35");
 
     return () => { tl.kill(); };
   }, []);
 
   return (
     <div
-      ref={wrapperRef}
       style={{
-        position: "sticky",
-        top: 0,
+        position: "relative",
         height: "100vh",
+        minHeight: "560px",
         display: "flex",
         flexDirection: "column",
-        pointerEvents: "none",
-        userSelect: "none",
+        backgroundImage: "url(/stadium.png)",
+        backgroundSize: "cover",
+        backgroundPosition: "center 32%",
         overflow: "hidden",
       }}
     >
-      {/* Readability scrim behind the text column only — never over the ball */}
+      {/* Readability scrim — strongest over the left text column, fading right */}
       <div style={{
-        position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
-        background: "linear-gradient(to right, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.30) 26%, transparent 48%)",
+        position: "absolute", inset: 0, zIndex: 0,
+        background: "linear-gradient(to right, rgba(4,5,8,0.92) 0%, rgba(4,5,8,0.7) 30%, rgba(4,5,8,0.32) 56%, rgba(4,5,8,0.08) 78%)",
+      }} />
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 0,
+        background: "linear-gradient(to top, rgba(4,5,8,0.6) 0%, transparent 26%)",
       }} />
 
       {/* NAV */}
@@ -82,8 +88,6 @@ export default function HeroUI() {
         alignItems: "center",
         justifyContent: "space-between",
         padding: isMobile ? "1rem 1.2rem" : "2rem 3rem",
-        pointerEvents: "auto",
-        borderBottom: "1px solid rgba(255,255,255,0.05)",
       }}>
         <div ref={logoRef} style={{ display: "flex", alignItems: "center", gap: "0.9rem" }}>
           {isMobile && <MobileNavMenu links={NAV_LINKS} activeHref="/" />}
@@ -100,7 +104,7 @@ export default function HeroUI() {
         </div>
 
         <div ref={navRef} style={{ display: isMobile ? "none" : "flex", alignItems: "center", gap: "2.4rem" }}>
-          {NAV_LINKS.map(({ label, href }, i) => (
+          {NAV_LINKS.map(({ label, href }) => (
             <Link
               key={label}
               href={href}
@@ -110,40 +114,116 @@ export default function HeroUI() {
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 textDecoration: "none",
-                color: i === 0 ? "var(--goolvia-gold)" : "rgba(255,255,255,0.45)",
-                borderBottom: i === 0 ? "1px solid var(--goolvia-gold)" : "1px solid transparent",
-                paddingBottom: "3px",
+                color: "rgba(255,255,255,0.78)",
                 transition: "color 0.2s",
               }}
-              onMouseEnter={(e) => {
-                if (i !== 0) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.85)";
-              }}
-              onMouseLeave={(e) => {
-                if (i !== 0) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.45)";
-              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#ffffff"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.78)"; }}
             >
               {label}
             </Link>
           ))}
         </div>
 
-        <div>
+        <a
+          href="#zapasy"
+          onClick={scrollToId("zapasy")}
+          style={{
+            fontFamily: "var(--font-antonio)",
+            fontSize: "0.68rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            textDecoration: "none",
+            color: "var(--goolvia-gold)",
+            border: "1px solid var(--goolvia-gold)",
+            padding: "0.6rem 1.4rem",
+            whiteSpace: "nowrap",
+            transition: "background 0.2s, color 0.2s",
+          }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLElement;
+            el.style.background = "var(--goolvia-gold)";
+            el.style.color = "#050608";
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLElement;
+            el.style.background = "transparent";
+            el.style.color = "var(--goolvia-gold)";
+          }}
+        >
+          Zápasy
+        </a>
+      </nav>
+
+      {/* HERO BODY */}
+      <div style={{
+        position: "relative", zIndex: 1,
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: isMobile ? "0 1.2rem" : "0 3rem",
+        maxWidth: "640px",
+      }}>
+        <p ref={tagRef} style={{
+          fontFamily: "var(--font-antonio)",
+          fontSize: "0.72rem",
+          letterSpacing: "0.32em",
+          color: "rgba(255,255,255,0.72)",
+          textTransform: "uppercase",
+          marginBottom: "1.1rem",
+        }}>
+          Futbal. Cestovanie. Zážitky.
+        </p>
+
+        <h1
+          ref={headlineRef}
+          style={{
+            fontFamily: "var(--font-antonio)",
+            fontWeight: 700,
+            fontSize: "clamp(2.8rem, 7.5vw, 5.6rem)",
+            lineHeight: 0.94,
+            letterSpacing: "-0.02em",
+            textTransform: "uppercase",
+            marginBottom: "1.5rem",
+          }}
+        >
+          <span style={{ color: "var(--goolvia-white)" }}>ZAŽI TO</span><br />
+          <span style={{ color: "var(--goolvia-gold)" }}>NAŽIVO</span>
+        </h1>
+
+        <p
+          ref={subtextRef}
+          style={{
+            fontFamily: "var(--font-geist)",
+            fontSize: isMobile ? "0.92rem" : "1.02rem",
+            lineHeight: 1.6,
+            color: "rgba(255,255,255,0.82)",
+            maxWidth: "440px",
+            marginBottom: "2.2rem",
+          }}
+        >
+          Nájdeme najlacnejšie lety, hotely a vstupenky na futbalové zápasy v Európe{" "}
+          <span style={{ color: "var(--goolvia-gold)", fontWeight: 600 }}>na jednom mieste</span>.
+        </p>
+
+        <div ref={ctaRef}>
           <a
             href="#zapasy"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("zapasy")?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={scrollToId("zapasy")}
             style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.8rem",
+              padding: "0.95rem 2.2rem",
+              border: "1px solid var(--goolvia-gold)",
+              color: "var(--goolvia-gold)",
               fontFamily: "var(--font-antonio)",
-              fontSize: isMobile ? "0.58rem" : "0.65rem",
-              letterSpacing: isMobile ? "0.1em" : "0.18em",
+              fontSize: "0.75rem",
+              fontWeight: 700,
+              letterSpacing: "0.25em",
               textTransform: "uppercase",
               textDecoration: "none",
-              color: "var(--goolvia-gold)",
-              border: "1px solid var(--goolvia-gold)",
-              padding: isMobile ? "0.5rem 0.85rem" : "0.55rem 1.2rem",
-              whiteSpace: "nowrap",
               transition: "background 0.2s, color 0.2s",
             }}
             onMouseEnter={(e) => {
@@ -157,127 +237,8 @@ export default function HeroUI() {
               el.style.color = "var(--goolvia-gold)";
             }}
           >
-            {isMobile ? "Zápasy" : "Zážitky zo zápasov"}
+            Pozrieť ponuky <span style={{ fontSize: "0.65rem", opacity: 0.8 }}>→</span>
           </a>
-        </div>
-      </nav>
-
-      {/* HERO BODY */}
-      <div style={{
-        position: "relative", zIndex: 1,
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-end",
-        padding: isMobile ? "0 1.2rem 1.8rem" : "0 3rem 2.8rem",
-      }}>
-        <div style={{ overflow: "hidden", paddingTop: "0.22em", marginTop: "-0.22em" }}>
-          <h1
-            ref={headlineRef}
-            style={{
-              fontFamily: "var(--font-antonio)",
-              fontWeight: 700,
-              fontSize: "clamp(3rem, 13vw, 11.5rem)",
-              lineHeight: 0.88,
-              letterSpacing: "-0.02em",
-              textTransform: "uppercase",
-              display: "block",
-              marginBottom: "1.6rem",
-            }}
-          >
-            <span style={{ color: "var(--goolvia-white)" }}>ZAŽI TO</span><br />
-            <span style={{ color: "var(--goolvia-gold)" }}>NAŽIVO</span>
-          </h1>
-        </div>
-
-        <p
-          ref={subtextRef}
-          style={{
-            fontFamily: "var(--font-geist)",
-            fontSize: "0.9rem",
-            lineHeight: 1.65,
-            color: "rgba(255,255,255,0.55)",
-            maxWidth: "400px",
-            marginBottom: "2.2rem",
-          }}
-        >
-          Nájdeme najlacnejšie lety, hotely a vstupenky na futbalové zápasy v Európe na jednom mieste.
-        </p>
-
-        <div ref={ctaRef} style={{ pointerEvents: "auto", marginBottom: "2.8rem" }}>
-          <a
-            href="#zapasy"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("zapasy")?.scrollIntoView({ behavior: "smooth" });
-            }}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "1rem",
-              padding: "0.9rem 2.4rem",
-              border: "1px solid var(--goolvia-gold)",
-              color: "var(--goolvia-gold)",
-              fontFamily: "var(--font-antonio)",
-              fontSize: "0.78rem",
-              fontWeight: 700,
-              letterSpacing: "0.35em",
-              textTransform: "uppercase",
-              textDecoration: "none",
-              position: "relative",
-              transition: "color 0.3s",
-              overflow: "hidden",
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget;
-              el.style.color = "#050608";
-              const fill = el.querySelector(".cta-fill") as HTMLElement;
-              if (fill) fill.style.transform = "scaleX(1)";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget;
-              el.style.color = "var(--goolvia-gold)";
-              const fill = el.querySelector(".cta-fill") as HTMLElement;
-              if (fill) fill.style.transform = "scaleX(0)";
-            }}
-          >
-            <span className="cta-fill" style={{
-              position: "absolute", inset: 0,
-              background: "var(--goolvia-gold)",
-              transform: "scaleX(0)",
-              transformOrigin: "left center",
-              transition: "transform 0.35s cubic-bezier(0.76, 0, 0.24, 1)",
-              zIndex: 0,
-            }} />
-            <span style={{ position: "relative", zIndex: 1 }}>Pozrieť zápasy</span>
-            <span style={{ position: "relative", zIndex: 1, fontSize: "0.65rem", opacity: 0.7 }}>→</span>
-          </a>
-        </div>
-
-      </div>
-
-      {/* SCROLL HINT */}
-      <div style={{
-        position: "absolute", right: "2.8rem", bottom: "3rem",
-        display: isMobile ? "none" : "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem",
-        zIndex: 1,
-      }}>
-        <div ref={scrollHintRef} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem" }}>
-          <span style={{
-            fontFamily: "var(--font-geist)",
-            fontSize: "0.55rem",
-            letterSpacing: "0.28em",
-            color: "rgba(255,255,255,0.28)",
-            textTransform: "uppercase",
-            writingMode: "vertical-lr",
-            transform: "rotate(180deg)",
-          }}>
-            Rolovať nadol
-          </span>
-          <div ref={lineRef} style={{
-            width: "1px", height: "52px",
-            background: "linear-gradient(to bottom, var(--goolvia-gold), transparent)",
-          }} />
         </div>
       </div>
     </div>
