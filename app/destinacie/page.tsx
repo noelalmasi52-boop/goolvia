@@ -51,7 +51,7 @@ function ClubCrest({ club, size = 56 }: { club: Club; size?: number }) {
     }}>
       {!err ? (
         <img
-          src={club.crestUrl ?? `https://crests.football-data.org/${club.id}.svg`}
+          src={club.crestUrl ?? `/crests/${club.id}.svg`}
           alt={club.name}
           width={size} height={size}
           style={{ objectFit: "contain", display: "block" }}

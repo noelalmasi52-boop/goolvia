@@ -52,7 +52,7 @@ function hotelUrl(hotelName: string, city: string, checkIn: string, nights = 2) 
   return `https://www.booking.com/searchresults.html?ss=${q}&checkin=${checkIn}&checkout=${checkOut}`;
 }
 
-const B = (id: number) => `https://crests.football-data.org/${id}.svg`;
+const B = (id: number) => `/crests/${id}.svg`;
 
 export const MATCHES: Match[] = [
   // ─── LA LIGA ───
