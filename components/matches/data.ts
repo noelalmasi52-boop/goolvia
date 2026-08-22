@@ -33,10 +33,14 @@ export const KIWI_AID = "YOUR_KIWI_AID";
 export const VIAGOGO_AID = "YOUR_VIAGOGO_AID";
 
 export function buildKiwiUrl(toCity: string, dateISO: string) {
-  const d = new Date(dateISO);
-  d.setDate(d.getDate() - 1);
-  const depDate = d.toISOString().split("T")[0];
-  return `https://www.kiwi.com/en/search/results/bratislava-slovakia/${encodeURIComponent(toCity)}/${depDate}/${dateISO}?affilid=${KIWI_AID}`;
+  const match = new Date(dateISO);
+  const dep = new Date(match);
+  dep.setDate(dep.getDate() - 1);
+  const ret = new Date(match);
+  ret.setDate(ret.getDate() + 1);
+  const depDate = dep.toISOString().split("T")[0];
+  const retDate = ret.toISOString().split("T")[0];
+  return `https://www.kiwi.com/en/search/results/bratislava-slovakia/${encodeURIComponent(toCity)}/${depDate}/${retDate}?affilid=${KIWI_AID}`;
 }
 
 export function buildTicketUrl(home: string, away: string) {
@@ -44,12 +48,16 @@ export function buildTicketUrl(home: string, away: string) {
   return `https://www.viagogo.com/ww/Sports/Football/Matches?aid=${VIAGOGO_AID}&q=${query}`;
 }
 
-function hotelUrl(hotelName: string, city: string, checkIn: string, nights = 2) {
-  const d = new Date(checkIn);
-  d.setDate(d.getDate() + nights);
-  const checkOut = d.toISOString().split("T")[0];
+function hotelUrl(hotelName: string, city: string, matchDateISO: string) {
+  const match = new Date(matchDateISO);
+  const checkIn = new Date(match);
+  checkIn.setDate(checkIn.getDate() - 1);
+  const checkOut = new Date(match);
+  checkOut.setDate(checkOut.getDate() + 1);
+  const checkInStr = checkIn.toISOString().split("T")[0];
+  const checkOutStr = checkOut.toISOString().split("T")[0];
   const q = encodeURIComponent(`${hotelName} ${city}`);
-  return `https://www.booking.com/searchresults.html?ss=${q}&checkin=${checkIn}&checkout=${checkOut}`;
+  return `https://www.booking.com/searchresults.html?ss=${q}&checkin=${checkInStr}&checkout=${checkOutStr}`;
 }
 
 const B = (id: number) => `/crests/${id}.svg`;
