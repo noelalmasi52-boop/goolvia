@@ -52,7 +52,7 @@ export default function MatchCard({ match }: { match: Match }) {
   const flightUrl = buildKiwiUrl(match.kiwiCity, match.dateISO);
   const ticketUrl = buildTicketUrl(match.home, match.away);
   const cheapestHotel = match.hotels[0].pricePerNight;
-  const total = match.ticketFrom + cheapestHotel + match.flightFrom;
+  const total = match.ticketFrom + (cheapestHotel * 2) + match.flightFrom;
 
   return (
     <>
