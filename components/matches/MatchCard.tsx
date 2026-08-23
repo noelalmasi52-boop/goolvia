@@ -142,9 +142,12 @@ export default function MatchCard({ match }: { match: Match }) {
         {/* Price row */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "16px", borderTop: "1px solid #1c2c40" }}>
           <div>
-            <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.6rem", color: "#4a6080", marginBottom: "3px" }}>celkovo od</div>
+            <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.6rem", color: "#4a6080", marginBottom: "3px" }}>celkovo od / na osobu</div>
             <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.5rem", fontWeight: 700, color: "#e8b84b", lineHeight: 1 }}>
               €{total}
+            </div>
+            <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.5rem", color: "#3a5070", marginTop: "4px" }}>
+              let + 2 noci + vstupenka
             </div>
           </div>
           <div style={{
@@ -404,8 +407,9 @@ export default function MatchCard({ match }: { match: Match }) {
               display: "flex", alignItems: "center", justifyContent: "space-between",
             }}>
               <div>
-                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.58rem", color: "#4a6080", marginBottom: "2px" }}>Celkovo od</div>
+                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.58rem", color: "#4a6080", marginBottom: "2px" }}>Celkovo od / na osobu</div>
                 <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.5rem", fontWeight: 700, color: "#e8b84b" }}>€{total}</div>
+                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.48rem", color: "#3a5070", marginTop: "2px" }}>let + 2 noci + vstupenka</div>
               </div>
               <button
                 onClick={() => setOpen(false)}
