@@ -6,7 +6,7 @@ import { MATCHES } from "./data";
 export type { Hotel, Match } from "./data";
 export { buildKiwiUrl, buildTicketUrl } from "./data";
 
-const LEAGUES = ["ALL", "PREMIER LEAGUE", "LA LIGA", "SERIE A", "BUNDESLIGA"];
+const LEAGUES = ["ALL", "PREMIER LEAGUE", "LA LIGA", "SERIE A", "BUNDESLIGA", "LIGUE 1"];
 
 const PREMIUM_FEATURES = [
   { icon: "🗺️", title: "Kompletný itinerár", desc: "Minutu po minúte plán celého výletu — od odchodu z domu až po návrat." },
