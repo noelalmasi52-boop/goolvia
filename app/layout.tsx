@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Antonio } from "next/font/google";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const antonio = Antonio({
   variable: "--font-antonio",
@@ -34,7 +35,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sk" className={`${antonio.variable} ${geist.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <WhatsAppButton />
+      </body>
     </html>
   );
 }
