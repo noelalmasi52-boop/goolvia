@@ -29,7 +29,7 @@ export type Match = {
   featured?: boolean;
 };
 
-export const KIWI_AID = "YOUR_KIWI_AID";
+export const CJ_CLICK_URL = "https://www.dpbolvw.net/click-101856071-12624156";
 export const VIAGOGO_AID = "YOUR_VIAGOGO_AID";
 
 export function buildKiwiUrl(toCity: string, dateISO: string) {
@@ -40,7 +40,8 @@ export function buildKiwiUrl(toCity: string, dateISO: string) {
   ret.setDate(ret.getDate() + 1);
   const depDate = dep.toISOString().split("T")[0];
   const retDate = ret.toISOString().split("T")[0];
-  return `https://www.kiwi.com/en/search/results/bratislava-slovakia/${encodeURIComponent(toCity)}/${depDate}/${retDate}?affilid=${KIWI_AID}`;
+  const kiwiUrl = `https://www.kiwi.com/en/search/results/bratislava-slovakia/${encodeURIComponent(toCity)}/${depDate}/${retDate}`;
+  return `${CJ_CLICK_URL}?url=${encodeURIComponent(kiwiUrl)}`;
 }
 
 export function buildTicketUrl(home: string, away: string) {
