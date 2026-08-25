@@ -220,8 +220,8 @@ export default function MatchCard({ match }: { match: Match }) {
                   { key: "hotel", label: `🏨 Ubytovanie` },
                   { key: "let", label: `✈️ Let` },
                   { key: "listok", label: `🎟️ Vstupenka` },
-                  { key: "poistenie", label: `🛡️ Poistenie` },
-                ] as { key: Tab; label: string }[]).map(({ key, label }) => (
+                  { key: "poistenie", label: `🛡️ Poistenie`, badge: "-50%" },
+                ] as { key: Tab; label: string; badge?: string }[]).map(({ key, label, badge }) => (
                   <button
                     key={key}
                     onClick={() => setTab(key)}
@@ -231,10 +231,19 @@ export default function MatchCard({ match }: { match: Match }) {
                       border: tab === key ? "1px solid #e8b84b66" : "1px solid #243452",
                       background: tab === key ? "#e8b84b14" : "transparent",
                       color: tab === key ? "#e8b84b" : "#3a4a62",
-                      transition: "all 0.15s",
+                      transition: "all 0.15s", position: "relative",
                     }}
                   >
                     {label}
+                    {badge && (
+                      <span style={{
+                        position: "absolute", top: "-7px", right: "-6px",
+                        background: "#16a34a", color: "#fff",
+                        fontFamily: "var(--font-antonio)", fontSize: "0.45rem",
+                        letterSpacing: "0.05em", padding: "1px 4px", borderRadius: "4px",
+                        lineHeight: 1.5,
+                      }}>{badge}</span>
+                    )}
                   </button>
                 ))}
               </div>

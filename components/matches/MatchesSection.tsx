@@ -15,6 +15,7 @@ const FEATURES = [
   { color: "#2563EB", icon: "📞", title: "Podpora 24/7", desc: "Počas celého výletu sme k dispozícii — stačí zavolať a postaráme sa o zvyšok." },
   { color: "#D97706", icon: "🏨", title: "Výber hotela", desc: "Vyberieme ti najlepší hotel pri štadióne v danej cenovej kategórii a zarezervujeme." },
   { color: "#7C3AED", icon: "🎟️", title: "Vstupenky", desc: "Pomôžeme nájsť a zaobstarať vstupenky — v tribúne, na sektore, kde chceš sedieť." },
+  { color: "#059669", icon: "🛡️", title: "Poistenie", desc: "Vybavíme aj cestovné poistenie so 50% zľavou — krytie úrazu, storna aj batožiny počas celého výletu." },
 ];
 
 const MATCH_OPTIONS = MATCHES.map((m) => `${m.home} vs ${m.away} – ${m.date}`);
@@ -280,7 +281,7 @@ export default function MatchesSection() {
 
                 {/* What's included */}
                 <div style={{ background: "#080b12", border: "1px solid #1a2840", borderRadius: "10px", padding: "14px 18px", display: "flex", flexWrap: "wrap", gap: "10px 20px" }}>
-                  {["✈️ Letenky", "🏨 Hotel", "🎟️ Vstupenky", "🚗 Transfer", "📋 Itinerár", "📞 Podpora 24/7"].map((item) => (
+                  {["✈️ Letenky", "🏨 Hotel", "🎟️ Vstupenky", "🛡️ Poistenie", "🚗 Transfer", "📋 Itinerár", "📞 Podpora 24/7"].map((item) => (
                     <span key={item} style={{ fontFamily: "var(--font-geist)", fontSize: "0.75rem", color: "#4a6080" }}>{item}</span>
                   ))}
                 </div>
