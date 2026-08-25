@@ -38,7 +38,8 @@ function Badge({ src, abbr, color, size = 44 }: { src: string; abbr: string; col
   );
 }
 
-const AXA_URL = "https://www.tkqlhce.com/click-101856071-15837945";
+const AXA_URL = "https://www.tkqlhce.com/click-101856071-15851439";
+const AXA_PIXEL = "https://www.ftjcfx.com/image-101856071-15851439";
 
 type Tab = "hotel" | "let" | "listok" | "poistenie";
 
@@ -444,6 +445,7 @@ export default function MatchCard({ match }: { match: Match }) {
                       </div>
                     </div>
                   </a>
+                  <img src={AXA_PIXEL} width="1" height="1" style={{ border: 0, display: "block" }} alt="" />
                 </div>
               )}
             </div>
