@@ -38,7 +38,9 @@ function Badge({ src, abbr, color, size = 44 }: { src: string; abbr: string; col
   );
 }
 
-type Tab = "hotel" | "let" | "listok";
+const AXA_URL = "https://www.tkqlhce.com/click-101856071-15837945";
+
+type Tab = "hotel" | "let" | "listok" | "poistenie";
 
 export default function MatchCard({ match }: { match: Match }) {
   const [open, setOpen] = useState(false);
@@ -217,6 +219,7 @@ export default function MatchCard({ match }: { match: Match }) {
                   { key: "hotel", label: `🏨 Ubytovanie` },
                   { key: "let", label: `✈️ Let` },
                   { key: "listok", label: `🎟️ Vstupenka` },
+                  { key: "poistenie", label: `🛡️ Poistenie` },
                 ] as { key: Tab; label: string }[]).map(({ key, label }) => (
                   <button
                     key={key}
@@ -393,6 +396,50 @@ export default function MatchCard({ match }: { match: Match }) {
                         </div>
                         <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
                           Kúpiť →
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              )}
+
+              {/* POISTENIE TAB */}
+              {tab === "poistenie" && (
+                <div style={{ padding: "14px 18px" }}>
+                  <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#4a6080", marginBottom: "12px", paddingLeft: "4px" }}>
+                    Cestovné poistenie na výlet · AXA Assistance
+                  </div>
+                  <a href={AXA_URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                    <div
+                      style={{
+                        display: "flex", alignItems: "center", justifyContent: "space-between",
+                        padding: "20px 18px", background: "#121c2e",
+                        border: "1px solid #243452", borderRadius: "10px",
+                        transition: "border-color 0.15s, background 0.15s", cursor: "pointer",
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.borderColor = "#e8b84b60";
+                        (e.currentTarget as HTMLElement).style.background = "#1a2a42";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.borderColor = "#243452";
+                        (e.currentTarget as HTMLElement).style.background = "#121c2e";
+                      }}
+                    >
+                      <div>
+                        <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#16a34a22", border: "1px solid #16a34a44", borderRadius: "4px", padding: "2px 8px", marginBottom: "8px" }}>
+                          <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.5rem", letterSpacing: "0.15em", color: "#16a34a" }}>50% ZĽAVA</span>
+                        </div>
+                        <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", fontWeight: 700, color: "#eef0f6", marginBottom: "6px" }}>
+                          AXA Assistance — Cestovné poistenie SK
+                        </div>
+                        <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.62rem", color: "#4a6080" }}>
+                          Krytie počas celého výletu · úraz, storno, batožina
+                        </div>
+                      </div>
+                      <div style={{ textAlign: "right", flexShrink: 0 }}>
+                        <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", letterSpacing: "0.1em" }}>
+                          Zistiť cenu →
                         </div>
                       </div>
                     </div>
