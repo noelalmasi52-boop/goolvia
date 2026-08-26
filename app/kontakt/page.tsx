@@ -11,6 +11,20 @@ const CONTACTS = [
     note: "Odpovieme do 24 hodín",
   },
   {
+    icon: "📸",
+    title: "Instagram",
+    value: "@goolviaztn",
+    href: "https://www.instagram.com/goolviaztn/",
+    note: "Sleduj nás a píš nám v DM",
+  },
+  {
+    icon: "💬",
+    title: "WhatsApp",
+    value: "+421 903 118 569",
+    href: "https://wa.me/421903118569?text=Ahoj%2C+m%C3%A1m+z%C3%A1ujem+o+futbalov%C3%BD+v%C3%BDlet+cez+Goolvia.",
+    note: "Rýchla odpoveď, nonstop",
+  },
+  {
     icon: "🤝",
     title: "Spolupráca & partneri",
     value: "goolviaztn@gmail.com",

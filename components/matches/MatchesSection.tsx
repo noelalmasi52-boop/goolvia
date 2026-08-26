@@ -21,9 +21,10 @@ const FEATURES = [
 const MATCH_OPTIONS = MATCHES.map((m) => `${m.home} vs ${m.away} – ${m.date}`);
 
 export default function MatchesSection() {
-  const [active, setActive] = useState("ALL");
+  const [selectedLeagues, setSelectedLeagues] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<"date" | "price">("date");
   const [isMobile, setIsMobile] = useState(false);
-  const [form, setForm] = useState({ meno: "", email: "", telefon: "", zapas: "" });
+  const [form, setForm] = useState({ meno: "", email: "", telefon: "", zapas: "", osoby: "1" });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
 
@@ -35,7 +36,23 @@ export default function MatchesSection() {
     return () => mq.removeEventListener("change", fn);
   }, []);
 
-  const filtered = active === "ALL" ? MATCHES : MATCHES.filter((m) => m.league === active);
+  function toggleLeague(league: string) {
+    setSelectedLeagues(prev =>
+      prev.includes(league) ? prev.filter(l => l !== league) : [...prev, league]
+    );
+  }
+
+  const filtered = MATCHES
+    .filter(m => selectedLeagues.length === 0 || selectedLeagues.includes(m.league))
+    .slice()
+    .sort((a, b) => {
+      if (sortBy === "price") {
+        const cheapA = Math.min(...a.hotels.map(h => h.pricePerNight));
+        const cheapB = Math.min(...b.hotels.map(h => h.pricePerNight));
+        return (a.ticketFrom + cheapA * 2 + a.flightFrom) - (b.ticketFrom + cheapB * 2 + b.flightFrom);
+      }
+      return new Date(a.dateISO).getTime() - new Date(b.dateISO).getTime();
+    });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -50,6 +67,7 @@ export default function MatchesSection() {
           Email: form.email,
           Telefón: form.telefon,
           Zápas: form.zapas,
+          "Počet osôb": form.osoby,
         }),
       });
       setSent(true);
@@ -89,22 +107,60 @@ export default function MatchesSection() {
           </p>
         </div>
 
-        {/* League filters */}
-        <div style={{ display: "flex", gap: "6px", marginBottom: "40px", flexWrap: "wrap" }}>
-          {LEAGUES.map((league) => (
-            <button key={league} onClick={() => setActive(league)} style={{
-              fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.18em", padding: "8px 16px",
-              background: active === league ? "#e8b84b" : "transparent",
-              color: active === league ? "#0c1220" : "#4a6080",
-              border: `1px solid ${active === league ? "#e8b84b" : "#243452"}`,
-              borderRadius: "6px", cursor: "pointer", transition: "all 0.18s ease", textTransform: "uppercase",
-            }}
-              onMouseEnter={(e) => { if (active !== league) { (e.currentTarget as HTMLElement).style.borderColor = "#e8b84b55"; (e.currentTarget as HTMLElement).style.color = "#eef0f6"; } }}
-              onMouseLeave={(e) => { if (active !== league) { (e.currentTarget as HTMLElement).style.borderColor = "#243452"; (e.currentTarget as HTMLElement).style.color = "#4a6080"; } }}
-            >
-              {league === "ALL" ? "Všetky" : league}
-            </button>
-          ))}
+        {/* Filters */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", marginBottom: "40px" }}>
+          {/* League checkboxes */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", flex: 1 }}>
+            {LEAGUES.filter(l => l !== "ALL").map((league) => {
+              const on = selectedLeagues.includes(league);
+              return (
+                <button key={league} onClick={() => toggleLeague(league)} style={{
+                  fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.18em",
+                  padding: "8px 16px", display: "flex", alignItems: "center", gap: "7px",
+                  background: on ? "#e8b84b14" : "transparent",
+                  color: on ? "#e8b84b" : "#4a6080",
+                  border: `1px solid ${on ? "#e8b84b66" : "#243452"}`,
+                  borderRadius: "6px", cursor: "pointer", transition: "all 0.15s ease", textTransform: "uppercase",
+                }}>
+                  <span style={{
+                    width: "13px", height: "13px", borderRadius: "3px", flexShrink: 0,
+                    border: `1.5px solid ${on ? "#e8b84b" : "#3a4a62"}`,
+                    background: on ? "#e8b84b" : "transparent",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    {on && <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3l2 2 4-4" stroke="#0c1220" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                  </span>
+                  {league}
+                </button>
+              );
+            })}
+            {selectedLeagues.length > 0 && (
+              <button onClick={() => setSelectedLeagues([])} style={{
+                fontFamily: "var(--font-antonio)", fontSize: "0.65rem", letterSpacing: "0.12em",
+                padding: "8px 14px", background: "transparent", color: "#4a6080",
+                border: "1px solid #1a2840", borderRadius: "6px", cursor: "pointer",
+              }}>
+                Zrušiť filter ×
+              </button>
+            )}
+          </div>
+
+          {/* Sort */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+            <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.18em", color: "#3a4a62", textTransform: "uppercase" }}>Zoradiť:</span>
+            {(["date", "price"] as const).map((opt) => (
+              <button key={opt} onClick={() => setSortBy(opt)} style={{
+                fontFamily: "var(--font-antonio)", fontSize: "0.65rem", letterSpacing: "0.12em",
+                padding: "8px 14px", borderRadius: "6px", cursor: "pointer", textTransform: "uppercase",
+                background: sortBy === opt ? "#e8b84b14" : "transparent",
+                color: sortBy === opt ? "#e8b84b" : "#4a6080",
+                border: `1px solid ${sortBy === opt ? "#e8b84b66" : "#243452"}`,
+                transition: "all 0.15s",
+              }}>
+                {opt === "date" ? "📅 Dátum" : "💰 Cena"}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(340px, 1fr))", gap: "12px" }}>
@@ -249,6 +305,20 @@ export default function MatchesSection() {
                   </select>
                 </div>
 
+                {/* Počet osôb */}
+                <div>
+                  <label style={labelStyle}>Počet osôb *</label>
+                  <select required value={form.osoby} onChange={(e) => setForm(p => ({ ...p, osoby: e.target.value }))}
+                    style={{ ...inputStyle, cursor: "pointer" }}
+                    onFocus={(e) => { e.target.style.borderColor = "#e8b84b88"; }}
+                    onBlur={(e) => { e.target.style.borderColor = "#243452"; }}
+                  >
+                    {[1,2,3,4,5,6,7,8,9,10].map(n => (
+                      <option key={n} value={String(n)} style={{ background: "#0f1828" }}>{n} {n === 1 ? "osoba" : n < 5 ? "osoby" : "osôb"}</option>
+                    ))}
+                  </select>
+                </div>
+
                 {/* Meno + Telefon */}
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "16px" }}>
                   <div>
@@ -295,7 +365,10 @@ export default function MatchesSection() {
                 </button>
 
                 <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#2e4060", lineHeight: 1.6, marginTop: "-8px" }}>
-                  Odpovieme do 24 hodín. Bez záväzkov.
+                  Odpovieme do 24 hodín. Bez záväzkov. Alebo nás kontaktuj priamo na{" "}
+                  <a href="https://www.instagram.com/goolviaztn/" target="_blank" rel="noopener noreferrer" style={{ color: "#e8b84b", textDecoration: "none" }}>Instagrame</a>
+                  {" "}alebo cez{" "}
+                  <a href="https://wa.me/421903118569" target="_blank" rel="noopener noreferrer" style={{ color: "#e8b84b", textDecoration: "none" }}>WhatsApp</a>.
                 </p>
               </div>
             </form>

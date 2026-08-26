@@ -8,7 +8,7 @@ import MobileNavMenu from "@/components/layout/MobileNavMenu";
 const NAV_LINKS = [
   { label: "O nás",           href: "/o-nas" },
   { label: "Ponuky",          href: "/#zapasy" },
-  { label: "Ako to funguje",  href: "/#ako-to-funguje" },
+  { label: "Prémiová služba", href: "/#ako-to-funguje" },
   { label: "Kontakt",         href: "/kontakt" },
 ];
 
