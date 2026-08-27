@@ -170,6 +170,38 @@ export default function MatchesSection() {
         </div>
       </div>
 
+      {/* ── Testimonials ── */}
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px 0" : "100px 40px 0" }}>
+        <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.3em", color: "#e8b84b", textTransform: "uppercase", marginBottom: "14px", textAlign: "center" }}>
+          Čo hovoria cestujúci
+        </p>
+        <h2 style={{ fontFamily: "var(--font-antonio)", fontWeight: 700, fontSize: "clamp(2rem, 4vw, 3rem)", textTransform: "uppercase", color: "#eef0f6", textAlign: "center", lineHeight: 1, marginBottom: "48px" }}>
+          Skutočné skúsenosti
+        </h2>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "12px" }}>
+          {[
+            { name: "Martin K.", city: "Bratislava", match: "Bayern vs Stuttgart", text: "Celý výlet do Mníchova som mal vybavený za hodinu. Let, hotel pri štadióne aj vstupenku. Do 120 € celkovo — sám by som to nikdy nedal.", stars: 5 },
+            { name: "Lucia T.", city: "Košice", match: "Barcelona vs Athletic", text: "Konečne som bola na Camp Nou. Goolvia mi zistila najlacnejší let a hotel hneď vedľa štadióna. Nič som nemusela riešiť sama.", stars: 5 },
+            { name: "Tomáš M.", city: "Žilina", match: "Dortmund vs Hamburg", text: "Išli sme dvaja na Signal Iduna Park. Ušetrili sme asi 80 € oproti tomu, čo sme našli sami. A poistenie bolo v pohode — 50% zľava.", stars: 5 },
+          ].map(({ name, city, match, text, stars }) => (
+            <div key={name} style={{ background: "#0f1828", border: "1px solid #1a2840", borderRadius: "14px", padding: "28px 24px" }}>
+              <div style={{ display: "flex", gap: "2px", marginBottom: "16px" }}>
+                {Array.from({ length: stars }).map((_, i) => (
+                  <span key={i} style={{ color: "#e8b84b", fontSize: "0.85rem" }}>★</span>
+                ))}
+              </div>
+              <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.82rem", color: "#7090b8", lineHeight: 1.75, marginBottom: "20px" }}>
+                &ldquo;{text}&rdquo;
+              </p>
+              <div style={{ borderTop: "1px solid #1a2840", paddingTop: "16px" }}>
+                <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.75rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em" }}>{name}</div>
+                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.65rem", color: "#3a4a62", marginTop: "3px" }}>{city} · {match}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* ── Premium section ── */}
       <div id="ako-to-funguje" style={{ marginTop: isMobile ? "60px" : "120px", borderTop: "1px solid #1a2840", background: "#080b12" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px" : "100px 40px" }}>
