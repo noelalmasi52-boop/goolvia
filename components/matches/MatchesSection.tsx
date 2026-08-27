@@ -24,6 +24,7 @@ export default function MatchesSection() {
   const [selectedLeagues, setSelectedLeagues] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<"date" | "price">("date");
   const [isMobile, setIsMobile] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const [form, setForm] = useState({ meno: "", email: "", telefon: "", zapas: "", osoby: "1" });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -170,38 +171,6 @@ export default function MatchesSection() {
         </div>
       </div>
 
-      {/* ── Testimonials ── */}
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px 0" : "100px 40px 0" }}>
-        <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.3em", color: "#e8b84b", textTransform: "uppercase", marginBottom: "14px", textAlign: "center" }}>
-          Čo hovoria cestujúci
-        </p>
-        <h2 style={{ fontFamily: "var(--font-antonio)", fontWeight: 700, fontSize: "clamp(2rem, 4vw, 3rem)", textTransform: "uppercase", color: "#eef0f6", textAlign: "center", lineHeight: 1, marginBottom: "48px" }}>
-          Skutočné skúsenosti
-        </h2>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "12px" }}>
-          {[
-            { name: "Martin K.", city: "Bratislava", match: "Bayern vs Stuttgart", text: "Celý výlet do Mníchova som mal vybavený za hodinu. Let, hotel pri štadióne aj vstupenku. Do 120 € celkovo — sám by som to nikdy nedal.", stars: 5 },
-            { name: "Lucia T.", city: "Košice", match: "Barcelona vs Athletic", text: "Konečne som bola na Camp Nou. Goolvia mi zistila najlacnejší let a hotel hneď vedľa štadióna. Nič som nemusela riešiť sama.", stars: 5 },
-            { name: "Tomáš M.", city: "Žilina", match: "Dortmund vs Hamburg", text: "Išli sme dvaja na Signal Iduna Park. Ušetrili sme asi 80 € oproti tomu, čo sme našli sami. A poistenie bolo v pohode — 50% zľava.", stars: 5 },
-          ].map(({ name, city, match, text, stars }) => (
-            <div key={name} style={{ background: "#0f1828", border: "1px solid #1a2840", borderRadius: "14px", padding: "28px 24px" }}>
-              <div style={{ display: "flex", gap: "2px", marginBottom: "16px" }}>
-                {Array.from({ length: stars }).map((_, i) => (
-                  <span key={i} style={{ color: "#e8b84b", fontSize: "0.85rem" }}>★</span>
-                ))}
-              </div>
-              <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.82rem", color: "#7090b8", lineHeight: 1.75, marginBottom: "20px" }}>
-                &ldquo;{text}&rdquo;
-              </p>
-              <div style={{ borderTop: "1px solid #1a2840", paddingTop: "16px" }}>
-                <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.75rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em" }}>{name}</div>
-                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.65rem", color: "#3a4a62", marginTop: "3px" }}>{city} · {match}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* ── Premium section ── */}
       <div id="ako-to-funguje" style={{ marginTop: isMobile ? "60px" : "120px", borderTop: "1px solid #1a2840", background: "#080b12" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px" : "100px 40px" }}>
@@ -211,10 +180,74 @@ export default function MatchesSection() {
 
             {/* LEFT */}
             <div>
-              {/* Badge */}
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid #e8b84b55", borderRadius: "6px", padding: "6px 14px", marginBottom: "28px" }}>
-                <span style={{ fontSize: "0.75rem" }}>👑</span>
-                <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.22em", color: "#e8b84b", textTransform: "uppercase" }}>Prémiová služba</span>
+              {/* Badge + info button */}
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid #e8b84b55", borderRadius: "6px", padding: "6px 14px" }}>
+                  <span style={{ fontSize: "0.75rem" }}>👑</span>
+                  <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.22em", color: "#e8b84b", textTransform: "uppercase" }}>Prémiová služba</span>
+                </div>
+
+                {/* ⓘ button */}
+                <div style={{ position: "relative" }}>
+                  <button
+                    onClick={() => setShowInfo(v => !v)}
+                    aria-label="Ako to funguje"
+                    style={{
+                      width: "26px", height: "26px", borderRadius: "50%",
+                      border: "1.5px solid #e8b84b55", background: "transparent",
+                      color: "#e8b84b", fontFamily: "var(--font-geist)", fontSize: "0.75rem",
+                      fontWeight: 700, cursor: "pointer", display: "flex",
+                      alignItems: "center", justifyContent: "center",
+                      transition: "background 0.15s, border-color 0.15s",
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#e8b84b18"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+                  >i</button>
+
+                  {/* Bubble */}
+                  {showInfo && (
+                    <>
+                      {/* overlay to close on outside click */}
+                      <div onClick={() => setShowInfo(false)} style={{ position: "fixed", inset: 0, zIndex: 199 }} />
+                      <div style={{
+                        position: "absolute", top: "calc(100% + 12px)", left: 0,
+                        zIndex: 200, width: "300px",
+                        background: "#0f1828", border: "1px solid #243452",
+                        borderRadius: "14px", padding: "22px 20px",
+                        boxShadow: "0 12px 48px rgba(0,0,0,0.6)",
+                      }}>
+                        {/* arrow */}
+                        <div style={{
+                          position: "absolute", top: "-7px", left: "10px",
+                          width: "12px", height: "12px", background: "#0f1828",
+                          border: "1px solid #243452", borderRight: "none", borderBottom: "none",
+                          transform: "rotate(45deg)",
+                        }} />
+                        <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.2em", color: "#e8b84b", textTransform: "uppercase", marginBottom: "14px" }}>
+                          Ako to funguje?
+                        </p>
+                        {[
+                          { n: "01", title: "Vyber zápas", desc: "Prehliadaj zápasy, filtruj podľa ligy alebo ceny." },
+                          { n: "02", title: "Pošli dopyt", desc: "Vyplň formulár — do 24h ti pošleme ponuku na mieru." },
+                          { n: "03", title: "Doraz na štadión", desc: "My vybavíme let, hotel, vstupenky aj transfer." },
+                        ].map(({ n, title, desc }) => (
+                          <div key={n} style={{ display: "flex", gap: "12px", marginBottom: "14px" }}>
+                            <div style={{
+                              width: "22px", height: "22px", borderRadius: "50%", flexShrink: 0,
+                              background: "#e8b84b18", border: "1px solid #e8b84b44",
+                              display: "flex", alignItems: "center", justifyContent: "center",
+                              fontFamily: "var(--font-antonio)", fontSize: "0.5rem", color: "#e8b84b",
+                            }}>{n}</div>
+                            <div>
+                              <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "3px" }}>{title}</div>
+                              <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.65rem", color: "#4a6080", lineHeight: 1.55 }}>{desc}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
 
               <h2 style={{ fontFamily: "var(--font-antonio)", fontSize: isMobile ? "clamp(2.4rem,12vw,3.8rem)" : "clamp(2.8rem,4vw,4.2rem)", fontWeight: 700, color: "#eef0f6", lineHeight: 0.95, textTransform: "uppercase", marginBottom: "24px" }}>
