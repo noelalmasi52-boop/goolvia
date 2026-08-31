@@ -25,6 +25,7 @@ export type Match = {
   isCL?: boolean;
   ticketFrom: number;
   flightFrom: number;
+  returnDaysAfter?: number;
   hotels: Hotel[];
   kiwiCity: string;
   dateISO: string;
@@ -34,12 +35,12 @@ export type Match = {
 export const CJ_CLICK_URL = "https://www.dpbolvw.net/click-101856071-12624156";
 export const VIAGOGO_AID = "YOUR_VIAGOGO_AID";
 
-export function buildKiwiUrl(toCity: string, dateISO: string) {
+export function buildKiwiUrl(toCity: string, dateISO: string, returnDaysAfter = 2) {
   const match = new Date(dateISO);
   const dep = new Date(match);
   dep.setDate(dep.getDate() - 1);
   const ret = new Date(match);
-  ret.setDate(ret.getDate() + 2);
+  ret.setDate(ret.getDate() + returnDaysAfter);
   const depDate = dep.toISOString().split("T")[0];
   const retDate = ret.toISOString().split("T")[0];
   const kiwiUrl = `https://www.kiwi.com/en/search/results/bratislava-slovakia/${encodeURIComponent(toCity)}/${depDate}/${retDate}`;
@@ -51,73 +52,65 @@ export function buildTicketUrl(home: string, away: string) {
   return `https://www.viagogo.com/ww/Sports/Football/Matches?aid=${VIAGOGO_AID}&q=${query}`;
 }
 
-function hotelUrl(hotelName: string, city: string, matchDateISO: string) {
-  const match = new Date(matchDateISO);
-  const checkIn = new Date(match);
-  checkIn.setDate(checkIn.getDate() - 1);
-  const checkOut = new Date(match);
-  checkOut.setDate(checkOut.getDate() + 2);
-  const checkInStr = checkIn.toISOString().split("T")[0];
-  const checkOutStr = checkOut.toISOString().split("T")[0];
-  const q = encodeURIComponent(`${hotelName} ${city}`);
-  return `https://www.booking.com/searchresults.html?ss=${q}&checkin=${checkInStr}&checkout=${checkOutStr}`;
-}
-
 const B = (id: number) => `/crests/${id}.svg`;
+const W = (url: string) => url;
 
 export const MATCHES: Match[] = [
 
   // ─── SERIE A ───
   {
-    home: "NAPOLI", away: "INTER",
-    homeAbbr: "NAP", awayAbbr: "INT",
-    homeCl: "#12A0D7", awayCl: "#0068A8",
-    homeBadge: "https://upload.wikimedia.org/wikipedia/commons/b/ba/SSC_Napoli.svg", awayBadge: B(108),
+    home: "AS ROMA", away: "ATALANTA",
+    homeAbbr: "ROM", awayAbbr: "ATA",
+    homeCl: "#CC0000", awayCl: "#1C5EA6",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/f/f7/AS_Roma_logo_%282017%29.svg"),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/f/f2/Atalanta_BC_new_logo.svg"),
+    stadium: "Stadio Olimpico", city: "Rome", country: "ITA",
+    date: "05 SEP", time: "20:45", league: "SERIE A",
+    ticketFrom: 55, flightFrom: 110,
+    kiwiCity: "rome-italy", dateISO: "2026-09-05",
+    featured: true,
+    hotels: [
+      { name: "Hotel Center 3", stars: 3, distanceKm: 7.0, pricePerNight: 72, url: "https://www.booking.com/hotel/it/vicious.sk.html?checkin=2026-09-04&checkout=2026-09-07&group_adults=2" },
+      { name: "LunaBlù", stars: 3, distanceKm: 6.0, pricePerNight: 82, url: "https://www.booking.com/hotel/it/lunablu.sk.html?checkin=2026-09-04&checkout=2026-09-07&group_adults=2" },
+      { name: "Palace Rome", stars: 0, distanceKm: 11.0, pricePerNight: 59, isHostel: true, url: "https://www.booking.com/hotel/it/hostel-prima-base.sk.html?checkin=2026-09-04&checkout=2026-09-07&group_adults=2" },
+    ],
+  },
+
+  {
+    home: "NAPOLI", away: "BOLOGNA",
+    homeAbbr: "NAP", awayAbbr: "BOL",
+    homeCl: "#12A0D7", awayCl: "#BD2424",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/commons/b/ba/SSC_Napoli.svg"),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/5/5b/Bologna_F.C._1909_logo.svg"),
     stadium: "Stadio Diego Armando Maradona", city: "Naples", country: "ITA",
     date: "13 SEP", time: "18:00", league: "SERIE A",
-    ticketFrom: 55, flightFrom: 116,
+    ticketFrom: 45, flightFrom: 113,
     kiwiCity: "naples-italy", dateISO: "2026-09-13",
     featured: true,
     hotels: [
-      { name: "CX Naples Centrale", stars: 3, distanceKm: 4.2, pricePerNight: 43, url: hotelUrl("CX Naples Centrale", "Naples", "2026-09-13") },
-      { name: "Albergo Oasi", stars: 3, distanceKm: 3.5, pricePerNight: 85, url: hotelUrl("Albergo Oasi", "Naples", "2026-09-13") },
-      { name: "La Controra Hostel Naples", stars: 0, distanceKm: 3.0, pricePerNight: 37, isHostel: true, url: hotelUrl("La Controra Hostel Naples", "Naples", "2026-09-13") },
+      { name: "Hotel Ginevra", stars: 3, distanceKm: 4.5, pricePerNight: 65, url: "https://www.booking.com/hotel/it/hotelginevranapoli.sk.html?checkin=2026-09-12&checkout=2026-09-15&group_adults=2" },
+      { name: "Sweet Dreams Napoli", stars: 3, distanceKm: 5.5, pricePerNight: 70, url: "https://www.booking.com/hotel/it/sweet-dreams-napoli12.sk.html?checkin=2026-09-12&checkout=2026-09-15&group_adults=2" },
+      { name: "Hostel B&B ALMA", stars: 0, distanceKm: 4.5, pricePerNight: 38, isHostel: true, url: "https://www.booking.com/hotel/it/hostel-b-amp-b-alma.sk.html?checkin=2026-09-12&checkout=2026-09-15&group_adults=2" },
     ],
   },
 
-  // ─── PREMIER LEAGUE ───
   {
-    home: "ARSENAL", away: "CHELSEA",
-    homeAbbr: "ARS", awayAbbr: "CHE",
-    homeCl: "#EF0107", awayCl: "#034694",
-    homeBadge: B(57), awayBadge: B(61),
-    stadium: "Emirates Stadium", city: "London", country: "ENG",
-    date: "27 SEP", time: "16:00", league: "PREMIER LEAGUE",
-    ticketFrom: 75, flightFrom: 116,
-    kiwiCity: "london-united-kingdom", dateISO: "2026-09-27",
+    home: "INTER", away: "UDINESE",
+    homeAbbr: "INT", awayAbbr: "UDI",
+    homeCl: "#0068A8", awayCl: "#2B2B2B",
+    homeBadge: B(108),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/c/ce/Udinese_Calcio_logo.svg"),
+    stadium: "Stadio Giuseppe Meazza", city: "Milan", country: "ITA",
+    date: "14 SEP", time: "20:45", league: "SERIE A",
+    ticketFrom: 50, flightFrom: 61,
+    returnDaysAfter: 1,
+    kiwiCity: "milan-italy", dateISO: "2026-09-14",
     featured: true,
     hotels: [
-      { name: "Westbury Hotel", stars: 4, distanceKm: 8.0, pricePerNight: 102, url: hotelUrl("Westbury Hotel London", "London", "2026-09-27") },
-      { name: "St Athans Hotel", stars: 3, distanceKm: 6.5, pricePerNight: 116, url: hotelUrl("St Athans Hotel London", "London", "2026-09-27") },
-      { name: "Smart Hyde Park Inn", stars: 0, distanceKm: 8.5, pricePerNight: 22, isHostel: true, url: hotelUrl("Smart Hyde Park Inn London", "London", "2026-09-27") },
+      { name: "Hotel Alessander", stars: 3, distanceKm: 5.5, pricePerNight: 94, url: "https://www.booking.com/hotel/it/alessander.sk.html?checkin=2026-09-13&checkout=2026-09-15&group_adults=2" },
+      { name: "Hotel RossoVino Milano", stars: 3, distanceKm: 5.0, pricePerNight: 98, url: "https://www.booking.com/hotel/it/rossovino.sk.html?checkin=2026-09-13&checkout=2026-09-15&group_adults=2" },
+      { name: "Babila Hostel & Bistrot", stars: 0, distanceKm: 5.5, pricePerNight: 68, isHostel: true, url: "https://www.booking.com/hotel/it/babila-hostel.sk.html?checkin=2026-09-13&checkout=2026-09-15&group_adults=2" },
     ],
   },
 
-  // ─── LA LIGA ───
-  {
-    home: "BARCELONA", away: "ATLETICO",
-    homeAbbr: "FCB", awayAbbr: "ATM",
-    homeCl: "#A50044", awayCl: "#CE3524",
-    homeBadge: B(81), awayBadge: B(78),
-    stadium: "Spotify Camp Nou", city: "Barcelona", country: "ESP",
-    date: "04 OCT", time: "16:15", league: "LA LIGA",
-    ticketFrom: 65, flightFrom: 61,
-    kiwiCity: "barcelona-spain", dateISO: "2026-10-04",
-    featured: true,
-    hotels: [
-      { name: "Hotel Alguer Camp Nou", stars: 4, distanceKm: 0.4, pricePerNight: 143, url: hotelUrl("Hotel Alguer Camp Nou", "Barcelona", "2026-10-04") },
-      { name: "Ikonik Anglí Hotel", stars: 4, distanceKm: 2.5, pricePerNight: 163, url: hotelUrl("Ikonik Anglí Barcelona", "Barcelona", "2026-10-04") },
-      { name: "Hola Hostal Eixample", stars: 0, distanceKm: 3.5, pricePerNight: 33, isHostel: true, url: hotelUrl("Hola Hostal Eixample Barcelona", "Barcelona", "2026-10-04") },
-    ],
-  },
 ];

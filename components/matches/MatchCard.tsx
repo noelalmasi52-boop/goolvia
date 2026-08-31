@@ -52,7 +52,7 @@ export default function MatchCard({ match }: { match: Match }) {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  const flightUrl = buildKiwiUrl(match.kiwiCity, match.dateISO);
+  const flightUrl = buildKiwiUrl(match.kiwiCity, match.dateISO, match.returnDaysAfter);
   const ticketUrl = buildTicketUrl(match.home, match.away);
   const cheapestHotel = match.hotels[0].pricePerNight;
   const total = match.ticketFrom + (cheapestHotel * 3) + match.flightFrom;
