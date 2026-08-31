@@ -52,7 +52,8 @@ export default function MatchCard({ match }: { match: Match }) {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  const flightUrl = buildKiwiUrl(match.kiwiCity, match.dateISO, match.returnDaysAfter);
+  const isBus = match.transportType === "bus";
+  const flightUrl = match.transportUrl ?? buildKiwiUrl(match.kiwiCity, match.dateISO, match.returnDaysAfter);
   const ticketUrl = buildTicketUrl(match.home, match.away);
   const cheapestHotel = match.hotels[0].pricePerNight;
   const total = match.ticketFrom + (cheapestHotel * 3) + match.flightFrom;
@@ -150,7 +151,7 @@ export default function MatchCard({ match }: { match: Match }) {
               €{total}
             </div>
             <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.5rem", color: "#3a5070", marginTop: "4px" }}>
-              let + 3 noci + vstupenka
+              {isBus ? "bus + 3 noci + vstupenka" : "let + 3 noci + vstupenka"}
             </div>
           </div>
           <div style={{
@@ -218,7 +219,7 @@ export default function MatchCard({ match }: { match: Match }) {
               <div style={{ display: "flex", gap: "4px", marginTop: "16px" }}>
                 {([
                   { key: "hotel", label: `🏨 Ubytovanie` },
-                  { key: "let", label: `✈️ Let` },
+                  { key: "let", label: isBus ? `🚌 Autobus` : `✈️ Let` },
                   { key: "listok", label: `🎟️ Vstupenka` },
                   { key: "poistenie", label: `🛡️ Poistenie`, badge: "-50%" },
                 ] as { key: Tab; label: string; badge?: string }[]).map(({ key, label, badge }) => (
@@ -328,13 +329,17 @@ export default function MatchCard({ match }: { match: Match }) {
               {tab === "let" && (
                 <div style={{ padding: "14px 18px", display: "flex", flexDirection: "column", gap: "8px" }}>
                   <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#4a6080", marginBottom: "4px", paddingLeft: "4px" }}>
-                    Lety z Bratislavy · spiatočné · deň pred zápasom
+                    {isBus ? "Autobus z Bratislavy · spiatočný · deň pred zápasom" : "Lety z Bratislavy · spiatočné · deň pred zápasom"}
                   </div>
-                  {[
+                  {(isBus ? [
+                    { airline: "FlixBus (priamy)", dep: "06:00", arr: "10:30", price: match.flightFrom },
+                    { airline: "FlixBus (priamy)", dep: "10:00", arr: "14:30", price: match.flightFrom + 8 },
+                    { airline: "RegioJet (priamy)", dep: "14:00", arr: "19:00", price: match.flightFrom + 11 },
+                  ] : [
                     { airline: "Ryanair", dep: "06:45", arr: "08:30", price: match.flightFrom },
                     { airline: "Wizz Air", dep: "11:20", arr: "13:10", price: match.flightFrom + 12 },
                     { airline: "easyJet", dep: "14:55", arr: "16:45", price: match.flightFrom + 24 },
-                  ].map((flight, i) => (
+                  ]).map((flight, i) => (
                     <a key={i} href={flightUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                       <div
                         style={{
@@ -481,7 +486,7 @@ export default function MatchCard({ match }: { match: Match }) {
               <div>
                 <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.58rem", color: "#4a6080", marginBottom: "2px" }}>Celkovo od / na osobu</div>
                 <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.5rem", fontWeight: 700, color: "#e8b84b" }}>€{total}</div>
-                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.48rem", color: "#3a5070", marginTop: "2px" }}>let + 3 noci + vstupenka</div>
+                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.48rem", color: "#3a5070", marginTop: "2px" }}>{isBus ? "bus + 3 noci + vstupenka" : "let + 3 noci + vstupenka"}</div>
               </div>
               <button
                 onClick={() => setOpen(false)}
