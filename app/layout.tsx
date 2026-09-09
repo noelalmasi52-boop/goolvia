@@ -41,6 +41,9 @@ export const metadata: Metadata = {
     description: "Futbalové výlety do Európy za najlepšiu cenu.",
     images: ["/stadium.png"],
   },
+  other: {
+    "impact-site-verification": "180e4075-3a5c-4974-a052-4681a1a8167b",
+  },
 };
 
 export default function RootLayout({
