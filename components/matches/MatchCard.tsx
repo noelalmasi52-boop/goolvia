@@ -68,7 +68,7 @@ export default function MatchCard({ match }: { match: Match }) {
     fetch(`/api/tickets?home=${encodeURIComponent(match.home)}&away=${encodeURIComponent(match.away)}&date=${match.dateISO}`)
       .then((r) => r.json())
       .then((data) => {
-        const events: FtnEvent[] = Array.isArray(data) ? data : [];
+        const events: FtnEvent[] = Array.isArray(data?.events) ? data.events : (Array.isArray(data) ? data : []);
         setFtnEvents(events);
       })
       .catch(() => setFtnEvents([]))
