@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
   url.searchParams.set("out", "json");
 
   try {
-    const res = await fetch(url.toString(), { next: { revalidate: 3600 } });
+    const res = await fetch(url.toString());
     const json = await res.json();
     const events = json?.data?.data ?? json?.data ?? [];
     return NextResponse.json(events);

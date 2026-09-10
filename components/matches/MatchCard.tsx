@@ -47,8 +47,7 @@ type FtnEvent = {
   id: number;
   name: string;
   date: string;
-  min_price: number;
-  min_price_eur: number;
+  min_price: { price: number; currency_code: string } | number;
   link: string;
 };
 
@@ -460,7 +459,7 @@ export default function MatchCard({ match }: { match: Match }) {
                         </div>
                         <div style={{ textAlign: "right", flexShrink: 0 }}>
                           <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: i === 0 ? "#e8b84b" : "#eef0f6" }}>
-                            od €{ev.min_price_eur ?? ev.min_price}
+                            od €{typeof ev.min_price === "object" ? ev.min_price.price : ev.min_price}
                           </div>
                           <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
                             Kúpiť →
