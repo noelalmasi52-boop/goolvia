@@ -1,0 +1,15 @@
+import type { MetadataRoute } from "next";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const base = "https://www.goolvia.com";
+  const now = new Date();
+
+  return [
+    { url: base, lastModified: now, changeFrequency: "daily", priority: 1 },
+    { url: `${base}/vstupenky`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
+    { url: `${base}/ponuka`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${base}/o-nas`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/kontakt`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/privacy`, lastModified: now, changeFrequency: "monthly", priority: 0.3 },
+  ];
+}
