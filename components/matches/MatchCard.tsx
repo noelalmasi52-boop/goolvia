@@ -43,14 +43,38 @@ const AXA_PIXEL = "https://www.ftjcfx.com/image-101856071-15851439";
 
 type Tab = "hotel" | "let" | "listok" | "poistenie";
 
+type FtnEvent = {
+  id: number;
+  name: string;
+  date: string;
+  min_price: number;
+  min_price_eur: number;
+  link: string;
+};
+
 export default function MatchCard({ match }: { match: Match }) {
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState<Tab>("hotel");
+  const [ftnEvents, setFtnEvents] = useState<FtnEvent[] | null>(null);
+  const [ftnLoading, setFtnLoading] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
+
+  useEffect(() => {
+    if (tab !== "listok" || ftnEvents !== null) return;
+    setFtnLoading(true);
+    fetch(`/api/tickets?home=${encodeURIComponent(match.home)}&away=${encodeURIComponent(match.away)}&date=${match.dateISO}`)
+      .then((r) => r.json())
+      .then((data) => {
+        const events: FtnEvent[] = Array.isArray(data) ? data : (data.events ?? data.data ?? []);
+        setFtnEvents(events);
+      })
+      .catch(() => setFtnEvents([]))
+      .finally(() => setFtnLoading(false));
+  }, [tab, ftnEvents, match.home, match.away, match.dateISO]);
 
   const isBus = match.transportType === "bus";
   const flightUrl = match.transportUrl ?? buildKiwiUrl(match.kiwiCity, match.dateISO, match.returnDaysAfter);
@@ -390,45 +414,98 @@ export default function MatchCard({ match }: { match: Match }) {
 
               {/* LISTOK TAB */}
               {tab === "listok" && (
-                <div style={{ padding: "14px 18px" }}>
-                  <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#4a6080", marginBottom: "12px", paddingLeft: "4px" }}>
-                    Vstupenky na zápas
+                <div style={{ padding: "14px 18px", display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#4a6080", marginBottom: "4px", paddingLeft: "4px" }}>
+                    Vstupenky — Football Ticket Net · {match.date}
                   </div>
-                  <a href={ticketUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
-                    <div
-                      style={{
-                        display: "flex", alignItems: "center", justifyContent: "space-between",
-                        padding: "20px 18px", background: "#121c2e",
-                        border: "1px solid #243452", borderRadius: "10px",
-                        transition: "border-color 0.15s, background 0.15s", cursor: "pointer",
-                      }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.borderColor = "#e8b84b60";
-                        (e.currentTarget as HTMLElement).style.background = "#1a2a42";
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.borderColor = "#243452";
-                        (e.currentTarget as HTMLElement).style.background = "#121c2e";
-                      }}
-                    >
-                      <div>
-                        <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", fontWeight: 700, color: "#eef0f6", marginBottom: "6px" }}>
-                          Viagogo — {match.home} vs {match.away}
-                        </div>
-                        <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.62rem", color: "#4a6080" }}>
-                          {match.stadium} · {match.date} · {match.time}
-                        </div>
-                      </div>
-                      <div style={{ textAlign: "right", flexShrink: 0 }}>
-                        <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: "#e8b84b" }}>
-                          od €{match.ticketFrom}
-                        </div>
-                        <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
-                          Kúpiť →
-                        </div>
-                      </div>
+
+                  {ftnLoading && (
+                    <div style={{ textAlign: "center", padding: "30px", fontFamily: "var(--font-antonio)", fontSize: "0.7rem", color: "#4a6080", letterSpacing: "0.1em" }}>
+                      Hľadám vstupenky...
                     </div>
-                  </a>
+                  )}
+
+                  {!ftnLoading && ftnEvents && ftnEvents.length > 0 && ftnEvents.slice(0, 4).map((ev, i) => (
+                    <a key={ev.id} href={ev.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                      <div
+                        style={{
+                          display: "flex", alignItems: "center", justifyContent: "space-between",
+                          padding: "14px 16px", background: "#121c2e",
+                          border: "1px solid #243452", borderRadius: "10px",
+                          transition: "border-color 0.15s, background 0.15s", cursor: "pointer", gap: "12px",
+                        }}
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLElement).style.borderColor = "#e8b84b60";
+                          (e.currentTarget as HTMLElement).style.background = "#1a2a42";
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.borderColor = "#243452";
+                          (e.currentTarget as HTMLElement).style.background = "#121c2e";
+                        }}
+                      >
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          {i === 0 && (
+                            <span style={{
+                              fontFamily: "var(--font-antonio)", fontSize: "0.5rem", letterSpacing: "0.15em",
+                              color: "#0a0c12", background: "#e8b84b", padding: "2px 6px", borderRadius: "3px",
+                              display: "inline-block", marginBottom: "6px",
+                            }}>NAJLACNEJŠÍ</span>
+                          )}
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", fontWeight: 700, color: "#eef0f6", lineHeight: 1.2 }}>
+                            Football Ticket Net
+                          </div>
+                          <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.62rem", color: "#4a6080", marginTop: "4px" }}>
+                            {ev.name} · {ev.date}
+                          </div>
+                        </div>
+                        <div style={{ textAlign: "right", flexShrink: 0 }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: i === 0 ? "#e8b84b" : "#eef0f6" }}>
+                            od €{ev.min_price_eur ?? ev.min_price}
+                          </div>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
+                            Kúpiť →
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+
+                  {!ftnLoading && ftnEvents && ftnEvents.length === 0 && (
+                    <a href={ticketUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                      <div
+                        style={{
+                          display: "flex", alignItems: "center", justifyContent: "space-between",
+                          padding: "20px 18px", background: "#121c2e",
+                          border: "1px solid #243452", borderRadius: "10px", cursor: "pointer",
+                        }}
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLElement).style.borderColor = "#e8b84b60";
+                          (e.currentTarget as HTMLElement).style.background = "#1a2a42";
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.borderColor = "#243452";
+                          (e.currentTarget as HTMLElement).style.background = "#121c2e";
+                        }}
+                      >
+                        <div>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", fontWeight: 700, color: "#eef0f6", marginBottom: "6px" }}>
+                            Viagogo — {match.home} vs {match.away}
+                          </div>
+                          <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.62rem", color: "#4a6080" }}>
+                            {match.stadium} · {match.date} · {match.time}
+                          </div>
+                        </div>
+                        <div style={{ textAlign: "right", flexShrink: 0 }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: "#e8b84b" }}>
+                            od €{match.ticketFrom}
+                          </div>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
+                            Kúpiť →
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  )}
                 </div>
               )}
 
