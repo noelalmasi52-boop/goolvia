@@ -78,8 +78,12 @@ export default function MatchCard({ match }: { match: Match }) {
   const isBus = match.transportType === "bus";
   const flightUrl = match.transportUrl ?? buildKiwiUrl(match.kiwiCity, match.dateISO, match.returnDaysAfter);
   const ticketUrl = buildTicketUrl(match.home, match.away);
-  const cheapestHotel = match.hotels[0].pricePerNight;
-  const total = match.ticketFrom + (cheapestHotel * 3) + match.flightFrom;
+  const cheapestHotel = Math.min(...match.hotels.filter((h) => !h.isHostel).map((h) => h.pricePerNight));
+  const ftnMinPrice = ftnEvents && ftnEvents.length > 0
+    ? Math.min(...ftnEvents.slice(0, 4).map((ev) => typeof ev.min_price === "object" ? ev.min_price.price : ev.min_price))
+    : null;
+  const ticketPrice = ftnMinPrice ?? match.ticketFrom;
+  const total = ticketPrice + (cheapestHotel * 3) + match.flightFrom;
 
   return (
     <>
@@ -174,7 +178,7 @@ export default function MatchCard({ match }: { match: Match }) {
               €{total}
             </div>
             <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.5rem", color: "#3a5070", marginTop: "4px" }}>
-              {isBus ? "bus + 3 noci + vstupenka" : "let + 3 noci + vstupenka"}
+              {isBus ? "bus" : "let"} €{match.flightFrom} + 3 noci €{cheapestHotel * 3} + vstupenka €{ticketPrice}
             </div>
           </div>
           <div style={{
@@ -304,7 +308,7 @@ export default function MatchCard({ match }: { match: Match }) {
                       >
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
-                            {i === 0 && !hotel.isHostel && (
+                            {!hotel.isHostel && hotel.pricePerNight === cheapestHotel && (
                               <span style={{
                                 fontFamily: "var(--font-antonio)", fontSize: "0.5rem", letterSpacing: "0.15em",
                                 color: "#0a0c12", background: "#e8b84b", padding: "2px 6px", borderRadius: "3px",
@@ -334,10 +338,10 @@ export default function MatchCard({ match }: { match: Match }) {
                           )}
                         </div>
                         <div style={{ textAlign: "right", flexShrink: 0 }}>
-                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: hotel.isHostel ? "#fb923c" : (i === 0 ? "#e8b84b" : "#eef0f6") }}>
-                            €{hotel.pricePerNight}
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: hotel.isHostel ? "#fb923c" : (!hotel.isHostel && hotel.pricePerNight === cheapestHotel ? "#e8b84b" : "#eef0f6") }}>
+                            €{hotel.pricePerNight * 3}
                           </div>
-                          <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.58rem", color: "#4a6080" }}>/ noc</div>
+                          <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.58rem", color: "#4a6080" }}>3 noci (€{hotel.pricePerNight}/noc)</div>
                           <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: hotel.isHostel ? "#fb923c" : "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
                             Rezervovať →
                           </div>
@@ -562,7 +566,9 @@ export default function MatchCard({ match }: { match: Match }) {
               <div>
                 <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.58rem", color: "#4a6080", marginBottom: "2px" }}>Celkovo od / na osobu</div>
                 <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.5rem", fontWeight: 700, color: "#e8b84b" }}>€{total}</div>
-                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.48rem", color: "#3a5070", marginTop: "2px" }}>{isBus ? "bus + 3 noci + vstupenka" : "let + 3 noci + vstupenka"}</div>
+                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.48rem", color: "#3a5070", marginTop: "2px" }}>
+                  {isBus ? "bus" : "let"} €{match.flightFrom} + 3 noci €{cheapestHotel * 3} + vstupenka €{ticketPrice}
+                </div>
               </div>
               <button
                 onClick={() => setOpen(false)}
