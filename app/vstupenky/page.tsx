@@ -209,8 +209,9 @@ export default function VstupenkyPage() {
                     </div>
                     <div style={{ textAlign: "right", flexShrink: 0 }}>
                       <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.2rem", fontWeight: 700, color: "#e8b84b" }}>
-                        od {getCurrency(ev.min_price) === "GBP" ? "£" : "€"}{getPrice(ev.min_price)}
+                        od {getCurrency(ev.min_price) === "GBP" ? "£" : "€"}{Math.round(getPrice(ev.min_price) * 1.37)}
                       </div>
+                      <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.55rem", color: "#4a6080", marginTop: 2 }}>vrátane poplatkov</div>
                       <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", marginTop: 4, letterSpacing: "0.1em" }}>
                         Kúpiť →
                       </div>

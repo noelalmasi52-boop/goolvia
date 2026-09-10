@@ -80,7 +80,7 @@ export default function MatchCard({ match }: { match: Match }) {
   const ticketUrl = buildTicketUrl(match.home, match.away);
   const cheapestHotel = Math.min(...match.hotels.filter((h) => !h.isHostel).map((h) => h.pricePerNight));
   const ftnMinPrice = ftnEvents && ftnEvents.length > 0
-    ? Math.min(...ftnEvents.slice(0, 4).map((ev) => typeof ev.min_price === "object" ? ev.min_price.price : ev.min_price))
+    ? Math.round(Math.min(...ftnEvents.slice(0, 4).map((ev) => typeof ev.min_price === "object" ? ev.min_price.price : ev.min_price)) * 1.37)
     : null;
   const ticketPrice = ftnMinPrice ?? match.ticketFrom;
   const total = ticketPrice + (cheapestHotel * 3) + match.flightFrom;
@@ -463,7 +463,7 @@ export default function MatchCard({ match }: { match: Match }) {
                         </div>
                         <div style={{ textAlign: "right", flexShrink: 0 }}>
                           <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: i === 0 ? "#e8b84b" : "#eef0f6" }}>
-                            od €{typeof ev.min_price === "object" ? ev.min_price.price : ev.min_price}
+                            od €{Math.round((typeof ev.min_price === "object" ? ev.min_price.price : ev.min_price) * 1.37)}
                           </div>
                           <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
                             Kúpiť →
