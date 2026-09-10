@@ -51,8 +51,9 @@ export async function GET(req: NextRequest) {
 
   try {
     const res = await fetch(url.toString(), { next: { revalidate: 3600 } });
-    const data = await res.json();
-    return NextResponse.json(data);
+    const json = await res.json();
+    const events = json?.data?.data ?? json?.data ?? [];
+    return NextResponse.json(events);
   } catch {
     return NextResponse.json({ error: "FTN fetch failed" }, { status: 500 });
   }
