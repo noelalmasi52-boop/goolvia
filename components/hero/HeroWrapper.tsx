@@ -1,13 +1,18 @@
 "use client";
 
-import HeroUI from "./HeroUI";
+import { useState } from "react";
+import HeroUI, { SearchFilter } from "./HeroUI";
+import TopTrips from "@/components/sections/TopTrips";
 import MatchesSection from "@/components/matches/MatchesSection";
 
 export default function HeroWrapper() {
+  const [heroFilter, setHeroFilter] = useState<SearchFilter | null>(null);
+
   return (
     <>
-      <HeroUI />
-      <MatchesSection />
+      <HeroUI onSearch={setHeroFilter} />
+      <TopTrips />
+      <MatchesSection heroFilter={heroFilter} />
     </>
   );
 }

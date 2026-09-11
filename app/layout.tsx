@@ -32,14 +32,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "GOOLVIA — Zaži To Naživo",
     description: "Futbalové výlety do Európy za najlepšiu cenu.",
-    images: [{ url: "/stadium.png", width: 1200, height: 630, alt: "Goolvia — futbalové výlety" }],
+    images: [{ url: "/stadium.avif", width: 1200, height: 630, alt: "Goolvia — futbalové výlety" }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "GOOLVIA — Zaži To Naživo",
     description: "Futbalové výlety do Európy za najlepšiu cenu.",
-    images: ["/stadium.png"],
+    images: ["/stadium.avif"],
   },
   other: {
     "impact-site-verification": "180e4075-3a5c-4974-a052-4681a1a8167b",

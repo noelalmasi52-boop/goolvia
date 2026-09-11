@@ -20,7 +20,9 @@ const FEATURES = [
 
 const MATCH_OPTIONS = MATCHES.map((m) => `${m.home} vs ${m.away} – ${m.date}`);
 
-export default function MatchesSection() {
+type HeroFilter = { city: string; match: string; date: string } | null;
+
+export default function MatchesSection({ heroFilter = null }: { heroFilter?: HeroFilter }) {
   const [selectedLeagues, setSelectedLeagues] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<"date" | "price">("date");
   const [isMobile, setIsMobile] = useState(false);
@@ -43,8 +45,18 @@ export default function MatchesSection() {
     );
   }
 
+  const isHeroActive = heroFilter && (heroFilter.city || heroFilter.match || heroFilter.date);
+
   const filtered = MATCHES
-    .filter(m => selectedLeagues.length === 0 || selectedLeagues.includes(m.league))
+    .filter(m => {
+      if (isHeroActive) {
+        const cityOk  = !heroFilter!.city  || m.city === heroFilter!.city;
+        const matchOk = !heroFilter!.match || `${m.home} vs ${m.away}` === heroFilter!.match;
+        const dateOk  = !heroFilter!.date  || m.date === heroFilter!.date;
+        return cityOk && matchOk && dateOk;
+      }
+      return selectedLeagues.length === 0 || selectedLeagues.includes(m.league);
+    })
     .slice()
     .sort((a, b) => {
       if (sortBy === "price") {
@@ -107,6 +119,22 @@ export default function MatchesSection() {
             Vyber zápas — uvidíš konkrétne hotely, lety aj vstupenky s najlepšími cenami. Všetko na jednom mieste.
           </p>
         </div>
+
+        {/* Hero filter banner */}
+        {isHeroActive && (
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px",
+            background: "#e8b84b0f", border: "1px solid #e8b84b33", borderRadius: "8px",
+            padding: "10px 16px", marginBottom: "20px",
+          }}>
+            <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#D8B35A" }}>
+              Filter aktívny
+              {heroFilter?.city ? ` · ${heroFilter.city}` : ""}
+              {heroFilter?.match ? ` · ${heroFilter.match}` : ""}
+              {heroFilter?.date ? ` · ${heroFilter.date}` : ""}
+            </span>
+          </div>
+        )}
 
         {/* Filters */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", marginBottom: "40px" }}>
