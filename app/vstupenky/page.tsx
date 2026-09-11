@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
+import PonukaPopup from "@/components/ui/PonukaPopup";
 
 type FtnEvent = {
   id: number;
@@ -264,5 +265,6 @@ export default function VstupenkyPage() {
         )}
       </div>
     </div>
+    <PonukaPopup />
   );
 }
