@@ -58,6 +58,7 @@ export default function VstupenkyPage() {
   const totalPages = Math.ceil(total / 20);
 
   return (
+    <>
     <div style={{ minHeight: "100vh", background: "#090d14", color: "#eef0f6" }}>
 
       {/* Nav */}
@@ -266,5 +267,6 @@ export default function VstupenkyPage() {
       </div>
     </div>
     <PonukaPopup />
+    </>
   );
 }
