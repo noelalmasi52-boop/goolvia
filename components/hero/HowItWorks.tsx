@@ -2,19 +2,16 @@ export default function HowItWorks() {
   const steps = [
     {
       n: "01",
-      icon: "🔍",
       title: "Vyber zápas",
       desc: "Prehliadaj zápasy z európskych líg. Filtruj podľa ligy alebo zoradi podľa ceny — uvidíš let, hotel aj vstupenku naraz.",
     },
     {
       n: "02",
-      icon: "✉️",
       title: "Pošli dopyt",
       desc: "Vyplň jednoduchý formulár — zápas, počet osôb, kontakt. Do 24 hodín ti pošleme konkrétnu ponuku šitú na mieru.",
     },
     {
       n: "03",
-      icon: "✈️",
       title: "Doraz na štadión",
       desc: "Letíš, ubytovaný, poistený. My sme vybavili zvyšok — transfer, check-in, vstupenky. Ty len prídeš.",
     },
@@ -30,15 +27,14 @@ export default function HowItWorks() {
           Tri kroky k výletu
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "2px" }}>
-          {steps.map(({ n, icon, title, desc }) => (
+          {steps.map(({ n, title, desc }) => (
             <div key={n} style={{ background: "#0c1220", border: "1px solid #1a2840", padding: "36px 32px", position: "relative", overflow: "hidden" }}>
               <div style={{
                 position: "absolute", top: "16px", right: "20px",
                 fontFamily: "var(--font-antonio)", fontSize: "3.5rem", fontWeight: 700,
                 color: "#e8b84b08", lineHeight: 1, userSelect: "none",
               }}>{n}</div>
-              <div style={{ fontSize: "1.8rem", marginBottom: "20px" }}>{icon}</div>
-              <div style={{ width: "28px", height: "2px", background: "#e8b84b", marginBottom: "16px", borderRadius: "2px" }} />
+              <div style={{ width: "28px", height: "2px", background: "#e8b84b", marginBottom: "20px", borderRadius: "2px" }} />
               <h3 style={{ fontFamily: "var(--font-antonio)", fontSize: "1.05rem", fontWeight: 700, textTransform: "uppercase", color: "#eef0f6", letterSpacing: "0.04em", marginBottom: "12px" }}>
                 {title}
               </h3>

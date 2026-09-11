@@ -9,13 +9,13 @@ export { buildKiwiUrl, buildTicketUrl } from "./data";
 const LEAGUES = ["ALL", "PREMIER LEAGUE", "LA LIGA", "SERIE A", "BUNDESLIGA", "LIGUE 1"];
 
 const FEATURES = [
-  { color: "#7C3AED", icon: "🗺️", title: "Kompletný itinerár", desc: "Minútu po minúte plán celého výletu — od odchodu z domu až po návrat." },
-  { color: "#DC2626", icon: "🚗", title: "Transfer zabezpečený", desc: "Uber alebo taxi z letiska priamo k hotelu, aj späť. Žiadne čakanie, žiadny stres." },
-  { color: "#16A34A", icon: "✅", title: "Check-in a doklady", desc: "Online check-in na let, potvrdenia a všetky doklady prichystané vopred na telefón." },
-  { color: "#2563EB", icon: "📞", title: "Podpora 24/7", desc: "Počas celého výletu sme k dispozícii — stačí zavolať a postaráme sa o zvyšok." },
-  { color: "#D97706", icon: "🏨", title: "Výber hotela", desc: "Vyberieme ti najlepší hotel pri štadióne v danej cenovej kategórii a zarezervujeme." },
-  { color: "#7C3AED", icon: "🎟️", title: "Vstupenky", desc: "Pomôžeme nájsť a zaobstarať vstupenky — v tribúne, na sektore, kde chceš sedieť." },
-  { color: "#059669", icon: "🛡️", title: "Poistenie", desc: "Vybavíme aj cestovné poistenie so 50% zľavou — krytie úrazu, storna aj batožiny počas celého výletu." },
+  { title: "Kompletný itinerár", desc: "Minútu po minúte plán celého výletu — od odchodu z domu až po návrat." },
+  { title: "Transfer zabezpečený", desc: "Uber alebo taxi z letiska priamo k hotelu, aj späť. Žiadne čakanie, žiadny stres." },
+  { title: "Check-in a doklady", desc: "Online check-in na let, potvrdenia a všetky doklady prichystané vopred na telefón." },
+  { title: "Podpora 24/7", desc: "Počas celého výletu sme k dispozícii — stačí zavolať a postaráme sa o zvyšok." },
+  { title: "Výber hotela", desc: "Vyberieme ti najlepší hotel pri štadióne v danej cenovej kategórii a zarezervujeme." },
+  { title: "Vstupenky", desc: "Pomôžeme nájsť a zaobstarať vstupenky — v tribúne, na sektore, kde chceš sedieť." },
+  { title: "Poistenie –50%", desc: "Vybavíme aj cestovné poistenie so 50% zľavou — krytie úrazu, storna aj batožiny počas celého výletu." },
 ];
 
 const MATCH_OPTIONS = MATCHES.map((m) => `${m.home} vs ${m.away} – ${m.date}`);
@@ -158,7 +158,7 @@ export default function MatchesSection() {
                 border: `1px solid ${sortBy === opt ? "#e8b84b66" : "#243452"}`,
                 transition: "all 0.15s",
               }}>
-                {opt === "date" ? "📅 Dátum" : "💰 Cena"}
+                {opt === "date" ? "Dátum" : "Cena"}
               </button>
             ))}
           </div>
@@ -182,8 +182,7 @@ export default function MatchesSection() {
             <div>
               {/* Badge + info button */}
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px" }}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid #e8b84b55", borderRadius: "6px", padding: "6px 14px" }}>
-                  <span style={{ fontSize: "0.75rem" }}>👑</span>
+                <div style={{ display: "inline-flex", alignItems: "center", border: "1px solid #e8b84b55", borderRadius: "6px", padding: "6px 14px" }}>
                   <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.22em", color: "#e8b84b", textTransform: "uppercase" }}>Prémiová služba</span>
                 </div>
 
@@ -275,17 +274,14 @@ export default function MatchesSection() {
                 <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.22em", color: "#4a6080", textTransform: "uppercase", marginBottom: "20px" }}>Prečo s nami?</p>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px 24px" }}>
                   {[
-                    { icon: "🔒", title: "Bezpečne", desc: "Overení partneri a spoľahlivý servis" },
-                    { icon: "⚡", title: "Rýchlo", desc: "Vybavíme všetko za teba" },
-                    { icon: "📞", title: "Podpora 24/7", desc: "Sme tu pred, počas aj po výlete" },
-                    { icon: "✨", title: "Na mieru", desc: "Každý výlet prispôsobíme tebe" },
-                  ].map(({ icon, title, desc }) => (
-                    <div key={title} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
-                      <span style={{ fontSize: "1rem", marginTop: "1px", flexShrink: 0 }}>{icon}</span>
-                      <div>
-                        <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.75rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "2px" }}>{title}</div>
-                        <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#4a6080", lineHeight: 1.5 }}>{desc}</div>
-                      </div>
+                    { title: "Bezpečne", desc: "Overení partneri a spoľahlivý servis" },
+                    { title: "Rýchlo", desc: "Vybavíme všetko za teba" },
+                    { title: "Podpora 24/7", desc: "Sme tu pred, počas aj po výlete" },
+                    { title: "Na mieru", desc: "Každý výlet prispôsobíme tebe" },
+                  ].map(({ title, desc }) => (
+                    <div key={title}>
+                      <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.75rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "2px" }}>{title}</div>
+                      <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#4a6080", lineHeight: 1.5 }}>{desc}</div>
                     </div>
                   ))}
                 </div>
@@ -294,15 +290,12 @@ export default function MatchesSection() {
 
             {/* RIGHT — feature cards */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-              {FEATURES.map(({ color, icon, title, desc }) => (
+              {FEATURES.map(({ title, desc }) => (
                 <div key={title} style={{ background: "#0f1828", border: "1px solid #1a2840", borderRadius: "12px", padding: "22px 18px" }}>
-                  <div style={{ width: "44px", height: "44px", borderRadius: "50%", background: color + "22", border: `1.5px solid ${color}44`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem", marginBottom: "14px" }}>
-                    {icon}
-                  </div>
-                  <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.78rem", fontWeight: 700, color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "6px" }}>
+                  <div style={{ width: "24px", height: "2px", background: "#e8b84b", marginBottom: "14px", borderRadius: "2px" }} />
+                  <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.78rem", fontWeight: 700, color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "8px" }}>
                     {title}
                   </div>
-                  <div style={{ width: "24px", height: "2px", background: color, marginBottom: "10px", borderRadius: "2px" }} />
                   <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.7rem", color: "#4a6080", lineHeight: 1.65 }}>{desc}</p>
                 </div>
               ))}
@@ -312,18 +305,14 @@ export default function MatchesSection() {
           {/* Bottom stats */}
           <div style={{ marginTop: isMobile ? "48px" : "64px", borderTop: "1px solid #1a2840", paddingTop: isMobile ? "36px" : "48px", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "24px" }}>
             {[
-              { icon: "🛡️", title: "Bez starostí", desc: "Všetko vybavíme za teba" },
-              { icon: "🌍", title: "50+ Destinácií", desc: "Po celej Európe" },
-              { icon: "🤝", title: "Fair & Transparentne", desc: "Férové ceny, žiadne skryté poplatky" },
-            ].map(({ icon, title, desc }) => (
-              <div key={title} style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <div style={{ width: "48px", height: "48px", borderRadius: "10px", background: "#131d2e", border: "1px solid #1e3050", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", flexShrink: 0 }}>
-                  {icon}
-                </div>
-                <div>
-                  <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", color: "#e8b84b", textTransform: "uppercase", letterSpacing: "0.05em" }}>{title}</div>
-                  <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.72rem", color: "#4a6080" }}>{desc}</div>
-                </div>
+              { title: "Bez starostí", desc: "Všetko vybavíme za teba" },
+              { title: "50+ Destinácií", desc: "Po celej Európe" },
+              { title: "Fair & Transparentne", desc: "Férové ceny, žiadne skryté poplatky" },
+            ].map(({ title, desc }) => (
+              <div key={title}>
+                <div style={{ width: "20px", height: "2px", background: "#e8b84b", marginBottom: "10px", borderRadius: "2px" }} />
+                <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", color: "#e8b84b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "3px" }}>{title}</div>
+                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.72rem", color: "#4a6080" }}>{desc}</div>
               </div>
             ))}
           </div>
@@ -346,7 +335,7 @@ export default function MatchesSection() {
 
           {sent ? (
             <div style={{ background: "#0f1828", border: "1px solid #243452", borderRadius: "16px", padding: "48px 32px", textAlign: "center" }}>
-              <div style={{ fontSize: "2.5rem", marginBottom: "16px" }}>✅</div>
+              <div style={{ width: "32px", height: "2px", background: "#16a34a", marginBottom: "20px" }} />
               <h3 style={{ fontFamily: "var(--font-antonio)", fontSize: "1.6rem", fontWeight: 700, textTransform: "uppercase", color: "#eef0f6", marginBottom: "12px" }}>Odoslané!</h3>
               <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.88rem", color: "#6080a8", lineHeight: 1.7 }}>
                 Ďakujeme! Ozveme sa vám do 24 hodín s kompletnou ponukou.
@@ -416,8 +405,8 @@ export default function MatchesSection() {
 
                 {/* What's included */}
                 <div style={{ background: "#080b12", border: "1px solid #1a2840", borderRadius: "10px", padding: "14px 18px", display: "flex", flexWrap: "wrap", gap: "10px 20px" }}>
-                  {["✈️ Letenky", "🏨 Hotel", "🎟️ Vstupenky", "🛡️ Poistenie", "🚗 Transfer", "📋 Itinerár", "📞 Podpora 24/7"].map((item) => (
-                    <span key={item} style={{ fontFamily: "var(--font-geist)", fontSize: "0.75rem", color: "#4a6080" }}>{item}</span>
+                  {["Letenky", "Hotel", "Vstupenky", "Poistenie", "Transfer", "Itinerár", "Podpora 24/7"].map((item) => (
+                    <span key={item} style={{ fontFamily: "var(--font-antonio)", fontSize: "0.62rem", letterSpacing: "0.12em", color: "#4a6080", textTransform: "uppercase" }}>{item}</span>
                   ))}
                 </div>
 

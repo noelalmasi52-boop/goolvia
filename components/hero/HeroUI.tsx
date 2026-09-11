@@ -189,8 +189,8 @@ export default function HeroUI() {
             marginBottom: "1.5rem",
           }}
         >
-          <span style={{ color: "var(--goolvia-white)" }}>ZAŽI TO</span><br />
-          <span style={{ color: "var(--goolvia-gold)" }}>NAŽIVO</span>
+          <span style={{ color: "var(--goolvia-white)" }}>LET. HOTEL.</span><br />
+          <span style={{ color: "var(--goolvia-gold)" }}>VSTUPENKA.</span>
         </h1>
 
         <p
@@ -204,8 +204,8 @@ export default function HeroUI() {
             marginBottom: "2.2rem",
           }}
         >
-          Nájdeme najlacnejšie lety, hotely a vstupenky na futbalové zápasy v Európe{" "}
-          <span style={{ color: "var(--goolvia-gold)", fontWeight: 600 }}>na jednom mieste</span>.
+          Premier League, La Liga, Champions League — nájdeme ti letenku, hotel aj vstupenku{" "}
+          <span style={{ color: "var(--goolvia-gold)", fontWeight: 600 }}>za najlepšiu cenu</span>.
         </p>
 
         <div ref={ctaRef}>
