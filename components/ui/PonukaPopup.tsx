@@ -15,9 +15,9 @@ export default function PonukaPopup() {
       }
     } catch {}
 
-    const timer = setTimeout(() => setVisible(true), 10000);
+    const timer = setTimeout(() => setVisible(true), 5000);
     const onScroll = () => {
-      if (window.scrollY > 500) setVisible(true);
+      if (window.scrollY > 300) setVisible(true);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
