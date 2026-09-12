@@ -40,7 +40,7 @@ const FAQ = [
   },
   {
     q: "Platíte extra za rezerváciu?",
-    a: "Nie. Ceny, ktoré vidíš, sú priamo od partnerov — Kiwi.com, Booking.com a Viagogo. Goolvia ničo navyše neúčtuje.",
+    a: "Nie. Ceny, ktoré vidíš, sú priamo od partnerov — Kiwi.com, Booking.com a Football Ticket Net. Goolvia ničo navyše neúčtuje.",
   },
   {
     q: "Kde môžem nájsť viac zápasov?",
@@ -48,20 +48,20 @@ const FAQ = [
   },
   {
     q: "Chcem prémiový servis — čo mám urobiť?",
-    a: "Napíš nám na email. Postaráme sa o celý výlet — od vstupeniek po transfer na mieste.",
+    a: "Napíš nám na email alebo WhatsApp. Postaráme sa o celý výlet — od vstupeniek po transfer na mieste.",
   },
 ];
 
 export default function KontaktPage() {
   return (
-    <div style={{ minHeight: "100vh", background: "#080b12" }}>
+    <div style={{ minHeight: "100vh", background: "#F4F1EA", color: "#1A1208" }}>
       <SubPageNav />
 
       {/* Header */}
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "80px 40px 60px" }}>
         <p style={{
           fontFamily: "var(--font-antonio)", fontSize: "0.68rem",
-          letterSpacing: "0.3em", color: "#e8b84b",
+          letterSpacing: "0.32em", color: "#8C7A56",
           textTransform: "uppercase", marginBottom: "14px",
         }}>
           Kontakt
@@ -70,15 +70,15 @@ export default function KontaktPage() {
           fontFamily: "var(--font-antonio)", fontWeight: 700,
           fontSize: "clamp(3rem, 7vw, 6rem)",
           lineHeight: 0.92, letterSpacing: "-0.02em",
-          textTransform: "uppercase", color: "#eef0f6",
+          textTransform: "uppercase", color: "#1A1208",
           marginBottom: "20px",
         }}>
           Píš nám.<br />
-          <span style={{ color: "#e8b84b" }}>Odíšeme hneď.</span>
+          <span style={{ color: "#D8B35A" }}>Odíšeme hneď.</span>
         </h1>
         <p style={{
           fontFamily: "var(--font-geist)", fontSize: "0.95rem",
-          color: "#6080a8", lineHeight: 1.65, maxWidth: "480px",
+          color: "#8C7A56", lineHeight: 1.65, maxWidth: "480px",
         }}>
           Otázka, spolupráca alebo prémiový servis — sme tu pre teba.
         </p>
@@ -95,40 +95,42 @@ export default function KontaktPage() {
             <a key={title} href={href} style={{ textDecoration: "none" }}>
               <div
                 style={{
-                  background: "#0f1828", border: "1px solid #1a2740",
-                  borderRadius: "14px", padding: "32px 28px",
-                  transition: "border-color 0.2s, transform 0.18s",
-                  height: "100%",
+                  background: "#fff", border: "1px solid #EBE6DA",
+                  borderRadius: "16px", padding: "32px 28px",
+                  transition: "border-color 0.2s, transform 0.18s, box-shadow 0.18s",
+                  height: "100%", boxSizing: "border-box",
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "#e8b84b55";
-                  el.style.transform = "translateY(-2px)";
+                  el.style.borderColor = "#D8B35A88";
+                  el.style.transform = "translateY(-4px)";
+                  el.style.boxShadow = "0 12px 40px rgba(0,0,0,0.09)";
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "#1a2740";
+                  el.style.borderColor = "#EBE6DA";
                   el.style.transform = "translateY(0)";
+                  el.style.boxShadow = "none";
                 }}
               >
                 <div style={{ fontSize: "1.8rem", marginBottom: "16px" }}>{icon}</div>
                 <div style={{
-                  fontFamily: "var(--font-antonio)", fontSize: "0.65rem",
-                  letterSpacing: "0.25em", color: "#4a6080",
+                  fontFamily: "var(--font-antonio)", fontSize: "0.58rem",
+                  letterSpacing: "0.25em", color: "#8C7A56",
                   textTransform: "uppercase", marginBottom: "8px",
                 }}>
                   {title}
                 </div>
                 <div style={{
                   fontFamily: "var(--font-antonio)", fontWeight: 700,
-                  fontSize: "1.05rem", color: "#e8b84b",
+                  fontSize: "1.05rem", color: "#D8B35A",
                   marginBottom: "8px", wordBreak: "break-all",
                 }}>
                   {value}
                 </div>
                 <div style={{
                   fontFamily: "var(--font-geist)", fontSize: "0.72rem",
-                  color: "#2e4060",
+                  color: "#9E8B68",
                 }}>
                   {note}
                 </div>
@@ -138,13 +140,13 @@ export default function KontaktPage() {
         </div>
 
         {/* Divider */}
-        <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, #e8b84b22, transparent)", marginBottom: "80px" }} />
+        <div style={{ height: "1px", background: "#DDD7C8", marginBottom: "80px" }} />
 
         {/* FAQ */}
         <div style={{ maxWidth: "720px" }}>
           <p style={{
             fontFamily: "var(--font-antonio)", fontSize: "0.68rem",
-            letterSpacing: "0.3em", color: "#e8b84b",
+            letterSpacing: "0.32em", color: "#8C7A56",
             textTransform: "uppercase", marginBottom: "14px",
           }}>
             Časté otázky
@@ -152,21 +154,21 @@ export default function KontaktPage() {
           <h2 style={{
             fontFamily: "var(--font-antonio)", fontWeight: 700,
             fontSize: "clamp(2rem, 4vw, 3rem)",
-            textTransform: "uppercase", color: "#eef0f6",
+            textTransform: "uppercase", color: "#1A1208",
             lineHeight: 1, marginBottom: "40px",
           }}>
             Máš otázku?
           </h2>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             {FAQ.map(({ q, a }) => (
               <div key={q} style={{
-                background: "#0f1828", border: "1px solid #1a2740",
-                borderRadius: "10px", padding: "24px 28px",
+                background: "#fff", border: "1px solid #EBE6DA",
+                borderRadius: "12px", padding: "24px 28px",
               }}>
                 <div style={{
                   fontFamily: "var(--font-antonio)", fontWeight: 700,
-                  fontSize: "0.95rem", color: "#eef0f6",
+                  fontSize: "0.95rem", color: "#1A1208",
                   textTransform: "uppercase", letterSpacing: "0.03em",
                   marginBottom: "10px",
                 }}>
@@ -174,7 +176,7 @@ export default function KontaktPage() {
                 </div>
                 <p style={{
                   fontFamily: "var(--font-geist)", fontSize: "0.82rem",
-                  color: "#4a6080", lineHeight: 1.7,
+                  color: "#8C7A56", lineHeight: 1.7, margin: 0,
                 }}>
                   {a}
                 </p>

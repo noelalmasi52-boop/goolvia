@@ -8,13 +8,14 @@ import MobileNavMenu from "./MobileNavMenu";
 const LINKS = [
   { label: "O nás", href: "/o-nas" },
   { label: "Ponuky", href: "/#zapasy" },
-  { label: "Prémiová služba", href: "/#ako-to-funguje" },
+  { label: "Vstupenky", href: "/vstupenky" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
 export default function SubPageNav() {
   const pathname = usePathname();
   const [isMobile, setIsMobile] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
@@ -24,14 +25,20 @@ export default function SubPageNav() {
     return () => mq.removeEventListener("change", fn);
   }, []);
 
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
+
   return (
     <nav style={{
       position: "sticky", top: 0, zIndex: 100,
       display: "flex", alignItems: "center", justifyContent: "space-between",
-      padding: isMobile ? "1rem 1.2rem" : "1.4rem 3rem",
-      background: "#080b12",
-      borderBottom: "1px solid rgba(255,255,255,0.05)",
-      backdropFilter: "blur(12px)",
+      padding: isMobile ? "1rem 1.2rem" : "1.2rem 3rem",
+      background: "#F4F1EA",
+      borderBottom: scrolled ? "1px solid #DDD7C8" : "1px solid transparent",
+      transition: "border-color 0.2s",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.9rem" }}>
         {isMobile && <MobileNavMenu links={LINKS} activeHref={pathname} />}
@@ -39,7 +46,7 @@ export default function SubPageNav() {
           <span style={{
             fontFamily: "var(--font-antonio)", fontSize: "1.05rem",
             fontWeight: 700, letterSpacing: "0.45em",
-            color: "var(--goolvia-gold)", textTransform: "uppercase",
+            color: "#D8B35A", textTransform: "uppercase",
           }}>
             GOOLVIA
           </span>
@@ -55,11 +62,14 @@ export default function SubPageNav() {
                 fontFamily: "var(--font-antonio)", fontSize: "0.7rem",
                 letterSpacing: "0.2em", textTransform: "uppercase",
                 textDecoration: "none",
-                color: isActive ? "var(--goolvia-gold)" : "rgba(255,255,255,0.45)",
-                borderBottom: isActive ? "1px solid var(--goolvia-gold)" : "1px solid transparent",
+                color: isActive ? "#1A1208" : "#8C7A56",
+                borderBottom: isActive ? "1px solid #D8B35A" : "1px solid transparent",
                 paddingBottom: "3px",
                 transition: "color 0.2s",
-              }}>
+              }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#1A1208"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = isActive ? "#1A1208" : "#8C7A56"; }}
+              >
                 {label}
               </Link>
             );
@@ -70,21 +80,21 @@ export default function SubPageNav() {
       <Link href="/#zapasy" style={{
         fontFamily: "var(--font-antonio)", fontSize: isMobile ? "0.6rem" : "0.68rem",
         letterSpacing: "0.18em", textTransform: "uppercase",
-        textDecoration: "none", color: "var(--goolvia-gold)",
-        border: "1px solid var(--goolvia-gold)",
+        textDecoration: "none", color: "#D8B35A",
+        border: "1px solid #D8B35A",
         padding: isMobile ? "0.5rem 1rem" : "0.6rem 1.4rem",
         whiteSpace: "nowrap",
         transition: "background 0.2s, color 0.2s",
       }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLElement;
-          el.style.background = "var(--goolvia-gold)";
-          el.style.color = "#050608";
+          el.style.background = "#D8B35A";
+          el.style.color = "#1A1208";
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLElement;
           el.style.background = "transparent";
-          el.style.color = "var(--goolvia-gold)";
+          el.style.color = "#D8B35A";
         }}
       >
         Zápasy

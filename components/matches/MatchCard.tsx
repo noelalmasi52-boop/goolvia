@@ -115,15 +115,15 @@ export default function MatchCard({ match }: { match: Match }) {
           backgroundPosition: "center 40%",
           position: "relative",
         }}>
-          {/* Team color strip */}
+          {/* Team color overlay — makes each card visually distinct */}
           <div style={{
-            position: "absolute", top: 0, left: 0, right: 0, height: "3px",
-            background: `linear-gradient(90deg, ${match.homeCl}, ${match.awayCl})`,
+            position: "absolute", inset: 0,
+            background: `linear-gradient(135deg, ${match.homeCl}55 0%, transparent 55%, ${match.awayCl}33 100%)`,
           }} />
           {/* Bottom gradient */}
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)",
+            background: "linear-gradient(to top, rgba(0,0,0,0.60) 0%, transparent 55%)",
           }} />
           {/* League tag */}
           <div style={{

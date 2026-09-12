@@ -78,6 +78,10 @@ export default function TopTrips() {
                   }}>
                     <div style={{
                       position: "absolute", inset: 0,
+                      background: `linear-gradient(135deg, ${match.homeCl}55 0%, transparent 55%, ${match.awayCl}33 100%)`,
+                    }} />
+                    <div style={{
+                      position: "absolute", inset: 0,
                       background: "linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 55%)",
                     }} />
                     <div style={{

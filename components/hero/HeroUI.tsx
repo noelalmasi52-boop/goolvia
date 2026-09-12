@@ -140,8 +140,8 @@ export default function HeroUI({ onSearch }: Props) {
   return (
     <div style={{
       position: "relative",
-      height: "100vh",
-      minHeight: "600px",
+      height: "88vh",
+      minHeight: "560px",
       display: "flex",
       flexDirection: "column",
       backgroundImage: "url(/stadium.avif)",
