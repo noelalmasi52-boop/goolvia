@@ -103,19 +103,18 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
   };
 
   return (
-    <section id="zapasy" style={{ background: "#0c1220", position: "relative", zIndex: 4 }}>
-      <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, #e8b84b33, transparent)" }} />
+    <section id="zapasy" style={{ background: "#F4F1EA", position: "relative", zIndex: 4 }}>
 
       {/* ── Match grid ── */}
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px 0" : "100px 40px 0" }}>
-        <div style={{ marginBottom: "56px", maxWidth: "640px" }}>
-          <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.3em", color: "#e8b84b", textTransform: "uppercase", marginBottom: "16px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px 80px" : "100px 40px 80px" }}>
+        <div style={{ marginBottom: "52px", maxWidth: "640px" }}>
+          <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.32em", color: "#8C7A56", textTransform: "uppercase", marginBottom: "14px" }}>
             Najlepšie ponuky tejto sezóny
           </p>
-          <h2 style={{ fontFamily: "var(--font-antonio)", fontSize: "clamp(2.6rem, 6vw, 5rem)", fontWeight: 700, color: "#eef0f6", lineHeight: 0.94, letterSpacing: "-0.01em", textTransform: "uppercase", marginBottom: "20px" }}>
-            Najlacnejšie<br /><span style={{ color: "#e8b84b" }}>miesta</span> v Európe.
+          <h2 style={{ fontFamily: "var(--font-antonio)", fontWeight: 700, fontSize: "clamp(2.4rem, 5vw, 4rem)", textTransform: "uppercase", color: "#1A1208", lineHeight: 0.94, letterSpacing: "-0.01em", marginBottom: "20px" }}>
+            Najlacnejšie<br /><span style={{ color: "#D8B35A" }}>miesta</span> v Európe.
           </h2>
-          <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.95rem", color: "#6080a8", lineHeight: 1.7 }}>
+          <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.95rem", color: "#8C7A56", lineHeight: 1.7 }}>
             Vyber zápas — uvidíš konkrétne hotely, lety aj vstupenky s najlepšími cenami. Všetko na jednom mieste.
           </p>
         </div>
@@ -124,10 +123,10 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
         {isHeroActive && (
           <div style={{
             display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px",
-            background: "#e8b84b0f", border: "1px solid #e8b84b33", borderRadius: "8px",
+            background: "#D8B35A14", border: "1px solid #D8B35A44", borderRadius: "8px",
             padding: "10px 16px", marginBottom: "20px",
           }}>
-            <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#D8B35A" }}>
+            <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8C5E1A" }}>
               Filter aktívny
               {heroFilter?.city ? ` · ${heroFilter.city}` : ""}
               {heroFilter?.match ? ` · ${heroFilter.match}` : ""}
@@ -146,18 +145,18 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
                 <button key={league} onClick={() => toggleLeague(league)} style={{
                   fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.18em",
                   padding: "8px 16px", display: "flex", alignItems: "center", gap: "7px",
-                  background: on ? "#e8b84b14" : "transparent",
-                  color: on ? "#e8b84b" : "#4a6080",
-                  border: `1px solid ${on ? "#e8b84b66" : "#243452"}`,
+                  background: on ? "#D8B35A18" : "#fff",
+                  color: on ? "#8C5E1A" : "#8C7A56",
+                  border: `1px solid ${on ? "#D8B35A88" : "#DDD7C8"}`,
                   borderRadius: "6px", cursor: "pointer", transition: "all 0.15s ease", textTransform: "uppercase",
                 }}>
                   <span style={{
                     width: "13px", height: "13px", borderRadius: "3px", flexShrink: 0,
-                    border: `1.5px solid ${on ? "#e8b84b" : "#3a4a62"}`,
-                    background: on ? "#e8b84b" : "transparent",
+                    border: `1.5px solid ${on ? "#D8B35A" : "#C0B090"}`,
+                    background: on ? "#D8B35A" : "transparent",
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
-                    {on && <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3l2 2 4-4" stroke="#0c1220" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                    {on && <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                   </span>
                   {league}
                 </button>
@@ -166,8 +165,8 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
             {selectedLeagues.length > 0 && (
               <button onClick={() => setSelectedLeagues([])} style={{
                 fontFamily: "var(--font-antonio)", fontSize: "0.65rem", letterSpacing: "0.12em",
-                padding: "8px 14px", background: "transparent", color: "#4a6080",
-                border: "1px solid #1a2840", borderRadius: "6px", cursor: "pointer",
+                padding: "8px 14px", background: "#fff", color: "#9E8B68",
+                border: "1px solid #DDD7C8", borderRadius: "6px", cursor: "pointer",
               }}>
                 Zrušiť filter ×
               </button>
@@ -176,14 +175,14 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
 
           {/* Sort */}
           <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
-            <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.18em", color: "#3a4a62", textTransform: "uppercase" }}>Zoradiť:</span>
+            <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.18em", color: "#9E8B68", textTransform: "uppercase" }}>Zoradiť:</span>
             {(["date", "price"] as const).map((opt) => (
               <button key={opt} onClick={() => setSortBy(opt)} style={{
                 fontFamily: "var(--font-antonio)", fontSize: "0.65rem", letterSpacing: "0.12em",
                 padding: "8px 14px", borderRadius: "6px", cursor: "pointer", textTransform: "uppercase",
-                background: sortBy === opt ? "#e8b84b14" : "transparent",
-                color: sortBy === opt ? "#e8b84b" : "#4a6080",
-                border: `1px solid ${sortBy === opt ? "#e8b84b66" : "#243452"}`,
+                background: sortBy === opt ? "#D8B35A18" : "#fff",
+                color: sortBy === opt ? "#8C5E1A" : "#8C7A56",
+                border: `1px solid ${sortBy === opt ? "#D8B35A88" : "#DDD7C8"}`,
                 transition: "all 0.15s",
               }}>
                 {opt === "date" ? "Dátum" : "Cena"}
@@ -192,7 +191,7 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(340px, 1fr))", gap: "12px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(320px, 1fr))", gap: "16px" }}>
           {filtered.map((match, i) => (
             <MatchCard key={`${match.home}-${match.away}-${i}`} match={match} />
           ))}

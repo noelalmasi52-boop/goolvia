@@ -6,7 +6,7 @@ import { buildKiwiUrl, buildTicketUrl } from "./data";
 
 function Stars({ n }: { n: number }) {
   return (
-    <span style={{ color: "#e8b84b", fontSize: "0.6rem", letterSpacing: "1px" }}>
+    <span style={{ color: "#D8B35A", fontSize: "0.6rem", letterSpacing: "1px" }}>
       {"★".repeat(n)}{"☆".repeat(5 - n)}
     </span>
   );
@@ -23,9 +23,7 @@ function Badge({ src, abbr, color, size = 44 }: { src: string; abbr: string; col
       flexShrink: 0, overflow: "hidden",
     }}>
       {!err ? (
-        <img
-          src={src} alt={abbr}
-          width={imgSize} height={imgSize}
+        <img src={src} alt={abbr} width={imgSize} height={imgSize}
           style={{ objectFit: "contain", display: "block" }}
           onError={() => setErr(true)}
         />
@@ -87,110 +85,127 @@ export default function MatchCard({ match }: { match: Match }) {
 
   return (
     <>
-      {/* Card */}
+      {/* ── CARD (cream/white style) ── */}
       <div
         onClick={() => { setOpen(true); setTab("hotel"); }}
         style={{
-          backgroundImage: "linear-gradient(rgba(9,13,20,0.90), rgba(9,13,20,0.95)), url(/stadium.avif)",
-          backgroundSize: "cover",
-          backgroundPosition: "center 30%",
-          border: "1px solid #243452", borderRadius: "12px",
-          padding: "24px", cursor: "pointer",
-          transition: "border-color 0.2s, transform 0.2s, box-shadow 0.2s",
-          position: "relative", overflow: "hidden",
+          background: "#ffffff",
+          borderRadius: "16px",
+          overflow: "hidden",
+          boxShadow: "0 2px 16px rgba(0,0,0,0.06)",
+          cursor: "pointer",
+          transition: "transform 0.22s ease, box-shadow 0.22s ease",
         }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLElement;
-          el.style.borderColor = "#e8b84b55";
-          el.style.transform = "translateY(-2px)";
-          el.style.boxShadow = "0 8px 32px #00000060";
+          el.style.transform = "translateY(-4px)";
+          el.style.boxShadow = "0 12px 40px rgba(0,0,0,0.13)";
         }}
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLElement;
-          el.style.borderColor = "#243452";
           el.style.transform = "translateY(0)";
-          el.style.boxShadow = "none";
+          el.style.boxShadow = "0 2px 16px rgba(0,0,0,0.06)";
         }}
       >
+        {/* Stadium image */}
         <div style={{
-          position: "absolute", top: 0, left: 0, right: 0, height: "2px",
-          background: `linear-gradient(90deg, ${match.homeCl}99, ${match.awayCl}99)`,
-          borderRadius: "12px 12px 0 0",
-        }} />
-
-        {/* League + date */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-          <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", letterSpacing: "0.22em", color: "#4a6080", textTransform: "uppercase" }}>
-            {match.league}
-          </span>
-          <span style={{ fontFamily: "var(--font-geist)", fontSize: "0.66rem", color: "#4a6080" }}>
-            {match.date} · {match.time}
-          </span>
-        </div>
-
-        {/* Teams with badges */}
-        <div style={{
-          display: "grid", gridTemplateColumns: "1fr auto 1fr",
-          alignItems: "start", gap: "8px", marginBottom: "18px",
+          height: "160px",
+          backgroundImage: "url(/stadium.avif)",
+          backgroundSize: "cover",
+          backgroundPosition: "center 40%",
+          position: "relative",
         }}>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
-            <Badge src={match.homeBadge} abbr={match.homeAbbr} color={match.homeCl} size={64} />
-            <div style={{
-              fontFamily: "var(--font-antonio)", fontSize: "0.8rem", fontWeight: 700,
-              color: "#eef0f6", textTransform: "uppercase", textAlign: "center", lineHeight: 1.2,
-            }}>
-              {match.home}
-            </div>
-          </div>
-
+          {/* Team color strip */}
           <div style={{
-            fontFamily: "var(--font-antonio)", fontSize: "0.6rem", color: "#3a4a62",
-            letterSpacing: "0.1em", alignSelf: "center", padding: "0 2px",
-          }}>
-            VS
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
-            <Badge src={match.awayBadge} abbr={match.awayAbbr} color={match.awayCl} size={64} />
-            <div style={{
-              fontFamily: "var(--font-antonio)", fontSize: "0.8rem", fontWeight: 700,
-              color: "#eef0f6", textTransform: "uppercase", textAlign: "center", lineHeight: 1.2,
-            }}>
-              {match.away}
-            </div>
-          </div>
+            position: "absolute", top: 0, left: 0, right: 0, height: "3px",
+            background: `linear-gradient(90deg, ${match.homeCl}, ${match.awayCl})`,
+          }} />
+          {/* Bottom gradient */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)",
+          }} />
+          {/* League tag */}
+          <div style={{
+            position: "absolute", top: "12px", left: "14px",
+            fontFamily: "var(--font-antonio)", fontSize: "0.5rem", letterSpacing: "0.18em",
+            textTransform: "uppercase", color: "#D8B35A",
+            background: "rgba(8,11,13,0.72)", backdropFilter: "blur(4px)",
+            borderRadius: "5px", padding: "3px 9px",
+          }}>{match.league}</div>
+          {/* Date/time bottom */}
+          <div style={{
+            position: "absolute", bottom: "10px", right: "12px",
+            fontFamily: "var(--font-geist)", fontSize: "0.6rem",
+            color: "rgba(255,255,255,0.72)",
+          }}>{match.date} · {match.time}</div>
         </div>
 
-        {/* Venue */}
-        <div style={{
-          display: "flex", alignItems: "center", justifyContent: "center", gap: "6px",
-          fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#4a6080", marginBottom: "20px",
-        }}>
-          <span>🏟️</span>
-          <span>{match.stadium} · {match.city}</span>
-        </div>
+        {/* Content */}
+        <div style={{ padding: "18px 20px 20px" }}>
+          {/* Venue */}
+          <div style={{
+            fontFamily: "var(--font-geist)", fontSize: "0.64rem",
+            color: "#9E8B68", marginBottom: "14px",
+          }}>
+            {match.stadium} · {match.city}
+          </div>
 
-        {/* Price row */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "16px", borderTop: "1px solid #1c2c40" }}>
-          <div>
-            <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.6rem", color: "#4a6080", marginBottom: "3px" }}>celkovo od / na osobu</div>
-            <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.5rem", fontWeight: 700, color: "#e8b84b", lineHeight: 1 }}>
-              €{total}
+          {/* Teams */}
+          <div style={{
+            display: "grid", gridTemplateColumns: "1fr auto 1fr",
+            alignItems: "center", gap: "8px", marginBottom: "16px",
+          }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
+              <Badge src={match.homeBadge} abbr={match.homeAbbr} color={match.homeCl} size={48} />
+              <div style={{
+                fontFamily: "var(--font-antonio)", fontSize: "0.72rem", fontWeight: 700,
+                color: "#1A1208", textTransform: "uppercase", textAlign: "center", lineHeight: 1.15,
+              }}>{match.home}</div>
             </div>
-            <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.5rem", color: "#3a5070", marginTop: "4px" }}>
-              {isBus ? "bus" : "let"} €{match.flightFrom} + 3 noci €{cheapestHotel * 3} + vstupenka €{ticketPrice}
+            <div style={{
+              fontFamily: "var(--font-antonio)", fontSize: "0.55rem",
+              color: "#C0B090", letterSpacing: "0.1em",
+            }}>VS</div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
+              <Badge src={match.awayBadge} abbr={match.awayAbbr} color={match.awayCl} size={48} />
+              <div style={{
+                fontFamily: "var(--font-antonio)", fontSize: "0.72rem", fontWeight: 700,
+                color: "#1A1208", textTransform: "uppercase", textAlign: "center", lineHeight: 1.15,
+              }}>{match.away}</div>
             </div>
           </div>
+
+          {/* Price row */}
           <div style={{
-            fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.14em",
-            color: "#e8b84b", padding: "8px 14px", border: "1px solid #e8b84b44", borderRadius: "6px",
+            borderTop: "1px solid #EBE6DA", paddingTop: "14px",
+            display: "flex", alignItems: "flex-end", justifyContent: "space-between",
           }}>
-            Mám záujem →
+            <div>
+              <div style={{
+                fontFamily: "var(--font-antonio)", fontSize: "0.5rem", letterSpacing: "0.2em",
+                color: "#8C7A56", textTransform: "uppercase", marginBottom: "4px",
+              }}>od osoby</div>
+              <div style={{
+                fontFamily: "var(--font-antonio)", fontSize: "1.5rem",
+                fontWeight: 700, color: "#D8B35A", lineHeight: 1,
+              }}>€{total}</div>
+              <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.55rem", color: "#9E8B68", marginTop: "3px" }}>
+                {isBus ? "bus" : "let"} + 3 noci + vstupenka
+              </div>
+            </div>
+            <div style={{
+              fontFamily: "var(--font-antonio)", fontSize: "0.65rem", letterSpacing: "0.12em",
+              textTransform: "uppercase", color: "#D8B35A",
+              border: "1px solid #D8B35A", padding: "7px 14px", borderRadius: "7px",
+            }}>
+              Mám záujem →
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Modal */}
+      {/* ── MODAL (dark — unchanged) ── */}
       {open && (
         <div
           onClick={() => setOpen(false)}
@@ -245,10 +260,10 @@ export default function MatchCard({ match }: { match: Match }) {
               {/* Tabs */}
               <div style={{ display: "flex", gap: "4px", marginTop: "16px" }}>
                 {([
-                  { key: "hotel", label: `🏨 Ubytovanie` },
-                  { key: "let", label: isBus ? `🚌 Autobus` : `✈️ Let` },
-                  { key: "listok", label: `🎟️ Vstupenka` },
-                  { key: "poistenie", label: `🛡️ Poistenie`, badge: "-50%" },
+                  { key: "hotel", label: "Ubytovanie" },
+                  { key: "let", label: isBus ? "Autobus" : "Let" },
+                  { key: "listok", label: "Vstupenka" },
+                  { key: "poistenie", label: "Poistenie", badge: "-50%" },
                 ] as { key: Tab; label: string; badge?: string }[]).map(({ key, label, badge }) => (
                   <button
                     key={key}
@@ -256,9 +271,9 @@ export default function MatchCard({ match }: { match: Match }) {
                     style={{
                       fontFamily: "var(--font-antonio)", fontSize: "0.64rem", letterSpacing: "0.1em",
                       padding: "7px 14px", borderRadius: "6px", cursor: "pointer",
-                      border: tab === key ? "1px solid #e8b84b66" : "1px solid #243452",
-                      background: tab === key ? "#e8b84b14" : "transparent",
-                      color: tab === key ? "#e8b84b" : "#3a4a62",
+                      border: tab === key ? "1px solid #D8B35A66" : "1px solid #243452",
+                      background: tab === key ? "#D8B35A14" : "transparent",
+                      color: tab === key ? "#D8B35A" : "#3a4a62",
                       transition: "all 0.15s", position: "relative",
                     }}
                   >
@@ -268,8 +283,7 @@ export default function MatchCard({ match }: { match: Match }) {
                         position: "absolute", top: "-7px", right: "-6px",
                         background: "#16a34a", color: "#fff",
                         fontFamily: "var(--font-antonio)", fontSize: "0.45rem",
-                        letterSpacing: "0.05em", padding: "1px 4px", borderRadius: "4px",
-                        lineHeight: 1.5,
+                        letterSpacing: "0.05em", padding: "1px 4px", borderRadius: "4px", lineHeight: 1.5,
                       }}>{badge}</span>
                     )}
                   </button>
@@ -294,11 +308,10 @@ export default function MatchCard({ match }: { match: Match }) {
                           padding: "14px 16px",
                           background: hotel.isHostel ? "#1a1000" : "#121c2e",
                           border: hotel.isHostel ? "1px solid #92400e55" : "1px solid #243452",
-                          borderRadius: "10px",
-                          transition: "border-color 0.15s, background 0.15s", cursor: "pointer", gap: "12px",
+                          borderRadius: "10px", transition: "border-color 0.15s, background 0.15s", cursor: "pointer", gap: "12px",
                         }}
                         onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = hotel.isHostel ? "#f97316aa" : "#e8b84b60";
+                          (e.currentTarget as HTMLElement).style.borderColor = hotel.isHostel ? "#f97316aa" : "#D8B35A60";
                           (e.currentTarget as HTMLElement).style.background = hotel.isHostel ? "#2a1800" : "#1a2a42";
                         }}
                         onMouseLeave={(e) => {
@@ -311,10 +324,8 @@ export default function MatchCard({ match }: { match: Match }) {
                             {!hotel.isHostel && hotel.pricePerNight === cheapestHotel && (
                               <span style={{
                                 fontFamily: "var(--font-antonio)", fontSize: "0.5rem", letterSpacing: "0.15em",
-                                color: "#0a0c12", background: "#e8b84b", padding: "2px 6px", borderRadius: "3px",
-                              }}>
-                                NAJLACNEJŠÍ
-                              </span>
+                                color: "#0a0c12", background: "#D8B35A", padding: "2px 6px", borderRadius: "3px",
+                              }}>NAJLACNEJŠÍ</span>
                             )}
                             {!hotel.isHostel && <Stars n={hotel.stars} />}
                           </div>
@@ -326,23 +337,21 @@ export default function MatchCard({ match }: { match: Match }) {
                           </div>
                           {hotel.isHostel && (
                             <div style={{
-                              marginTop: "8px",
-                              background: "#431407", border: "1px solid #92400e",
+                              marginTop: "8px", background: "#431407", border: "1px solid #92400e",
                               borderRadius: "5px", padding: "5px 10px",
                               fontFamily: "var(--font-antonio)", fontSize: "0.58rem",
-                              letterSpacing: "0.06em", color: "#fb923c",
-                              textTransform: "uppercase", lineHeight: 1.4,
+                              letterSpacing: "0.06em", color: "#fb923c", textTransform: "uppercase", lineHeight: 1.4,
                             }}>
                               ⚠️ ZDIEĽANÉ IZBY S CUDZÍMI ĽUĎMI — preto je cena taká nízka
                             </div>
                           )}
                         </div>
                         <div style={{ textAlign: "right", flexShrink: 0 }}>
-                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: hotel.isHostel ? "#fb923c" : (!hotel.isHostel && hotel.pricePerNight === cheapestHotel ? "#e8b84b" : "#eef0f6") }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: hotel.isHostel ? "#fb923c" : (!hotel.isHostel && hotel.pricePerNight === cheapestHotel ? "#D8B35A" : "#eef0f6") }}>
                             €{hotel.pricePerNight * 3}
                           </div>
                           <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.58rem", color: "#4a6080" }}>3 noci (€{hotel.pricePerNight}/noc)</div>
-                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: hotel.isHostel ? "#fb923c" : "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: hotel.isHostel ? "#fb923c" : "#D8B35A", marginTop: "6px", letterSpacing: "0.1em" }}>
                             Rezervovať →
                           </div>
                         </div>
@@ -376,7 +385,7 @@ export default function MatchCard({ match }: { match: Match }) {
                           transition: "border-color 0.15s, background 0.15s", cursor: "pointer", gap: "12px",
                         }}
                         onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = "#e8b84b60";
+                          (e.currentTarget as HTMLElement).style.borderColor = "#D8B35A60";
                           (e.currentTarget as HTMLElement).style.background = "#1a2a42";
                         }}
                         onMouseLeave={(e) => {
@@ -388,11 +397,9 @@ export default function MatchCard({ match }: { match: Match }) {
                           {i === 0 && (
                             <span style={{
                               fontFamily: "var(--font-antonio)", fontSize: "0.5rem", letterSpacing: "0.15em",
-                              color: "#0a0c12", background: "#e8b84b", padding: "2px 6px", borderRadius: "3px",
+                              color: "#0a0c12", background: "#D8B35A", padding: "2px 6px", borderRadius: "3px",
                               display: "inline-block", marginBottom: "6px",
-                            }}>
-                              NAJLACNEJŠÍ
-                            </span>
+                            }}>NAJLACNEJŠÍ</span>
                           )}
                           <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", fontWeight: 700, color: "#eef0f6" }}>
                             {flight.airline}
@@ -402,10 +409,10 @@ export default function MatchCard({ match }: { match: Match }) {
                           </div>
                         </div>
                         <div style={{ textAlign: "right", flexShrink: 0 }}>
-                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: i === 0 ? "#e8b84b" : "#eef0f6" }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: i === 0 ? "#D8B35A" : "#eef0f6" }}>
                             od €{flight.price}
                           </div>
-                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#D8B35A", marginTop: "6px", letterSpacing: "0.1em" }}>
                             Hľadať →
                           </div>
                         </div>
@@ -438,7 +445,7 @@ export default function MatchCard({ match }: { match: Match }) {
                           transition: "border-color 0.15s, background 0.15s", cursor: "pointer", gap: "12px",
                         }}
                         onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = "#e8b84b60";
+                          (e.currentTarget as HTMLElement).style.borderColor = "#D8B35A60";
                           (e.currentTarget as HTMLElement).style.background = "#1a2a42";
                         }}
                         onMouseLeave={(e) => {
@@ -450,7 +457,7 @@ export default function MatchCard({ match }: { match: Match }) {
                           {i === 0 && (
                             <span style={{
                               fontFamily: "var(--font-antonio)", fontSize: "0.5rem", letterSpacing: "0.15em",
-                              color: "#0a0c12", background: "#e8b84b", padding: "2px 6px", borderRadius: "3px",
+                              color: "#0a0c12", background: "#D8B35A", padding: "2px 6px", borderRadius: "3px",
                               display: "inline-block", marginBottom: "6px",
                             }}>NAJLACNEJŠÍ</span>
                           )}
@@ -462,10 +469,10 @@ export default function MatchCard({ match }: { match: Match }) {
                           </div>
                         </div>
                         <div style={{ textAlign: "right", flexShrink: 0 }}>
-                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: i === 0 ? "#e8b84b" : "#eef0f6" }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: i === 0 ? "#D8B35A" : "#eef0f6" }}>
                             od €{Math.round((typeof ev.min_price === "object" ? ev.min_price.price : ev.min_price) * 1.37)}
                           </div>
-                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#D8B35A", marginTop: "6px", letterSpacing: "0.1em" }}>
                             Kúpiť →
                           </div>
                         </div>
@@ -482,7 +489,7 @@ export default function MatchCard({ match }: { match: Match }) {
                           border: "1px solid #243452", borderRadius: "10px", cursor: "pointer",
                         }}
                         onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = "#e8b84b60";
+                          (e.currentTarget as HTMLElement).style.borderColor = "#D8B35A60";
                           (e.currentTarget as HTMLElement).style.background = "#1a2a42";
                         }}
                         onMouseLeave={(e) => {
@@ -499,10 +506,10 @@ export default function MatchCard({ match }: { match: Match }) {
                           </div>
                         </div>
                         <div style={{ textAlign: "right", flexShrink: 0 }}>
-                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: "#e8b84b" }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: "#D8B35A" }}>
                             od €{match.ticketFrom}
                           </div>
-                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", marginTop: "6px", letterSpacing: "0.1em" }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#D8B35A", marginTop: "6px", letterSpacing: "0.1em" }}>
                             Kúpiť →
                           </div>
                         </div>
@@ -527,7 +534,7 @@ export default function MatchCard({ match }: { match: Match }) {
                         transition: "border-color 0.15s, background 0.15s", cursor: "pointer",
                       }}
                       onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.borderColor = "#e8b84b60";
+                        (e.currentTarget as HTMLElement).style.borderColor = "#D8B35A60";
                         (e.currentTarget as HTMLElement).style.background = "#1a2a42";
                       }}
                       onMouseLeave={(e) => {
@@ -547,7 +554,7 @@ export default function MatchCard({ match }: { match: Match }) {
                         </div>
                       </div>
                       <div style={{ textAlign: "right", flexShrink: 0 }}>
-                        <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#e8b84b", letterSpacing: "0.1em" }}>
+                        <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#D8B35A", letterSpacing: "0.1em" }}>
                           Zistiť cenu →
                         </div>
                       </div>
@@ -565,7 +572,7 @@ export default function MatchCard({ match }: { match: Match }) {
             }}>
               <div>
                 <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.58rem", color: "#4a6080", marginBottom: "2px" }}>Celkovo od / na osobu</div>
-                <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.5rem", fontWeight: 700, color: "#e8b84b" }}>€{total}</div>
+                <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.5rem", fontWeight: 700, color: "#D8B35A" }}>€{total}</div>
                 <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.48rem", color: "#3a5070", marginTop: "2px" }}>
                   {isBus ? "bus" : "let"} €{match.flightFrom} + 3 noci €{cheapestHotel * 3} + vstupenka €{ticketPrice}
                 </div>
@@ -577,9 +584,7 @@ export default function MatchCard({ match }: { match: Match }) {
                   padding: "10px 20px", background: "#1a2840", border: "1px solid #243452",
                   color: "#3a4a62", borderRadius: "8px", cursor: "pointer", textTransform: "uppercase",
                 }}
-              >
-                Zavrieť
-              </button>
+              >Zavrieť</button>
             </div>
           </div>
         </div>
