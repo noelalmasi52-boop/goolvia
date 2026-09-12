@@ -152,15 +152,18 @@ const BENEFITS = [
 ];
 
 const MATCH_OPTIONS = [
-  "Espanyol vs Real Madrid – 29 AUG 2026",
-  "Torino vs AC Milan – 12 SEP 2026",
-  "Inter vs Monza – 19 SEP 2026",
-  "Bayern vs Stuttgart – 05 SEP 2026",
-  "Arsenal vs Coventry – 21 AUG 2026",
-  "Hull City vs Man United – 22 AUG 2026",
-  "Nottingham vs Leeds Utd – 22 AUG 2026",
-  "Everton vs Crystal Palace – 22 AUG 2026",
-  "Brentford vs Tottenham – 22 AUG 2026",
+  "Napoli vs Bologna – 13 SEP 2026",
+  "Inter vs Udinese – 14 SEP 2026",
+  "Brentford vs Chelsea – 18 SEP 2026",
+  "Tottenham vs Aston Villa – 19 SEP 2026",
+  "Sevilla vs Barcelona – 19 SEP 2026",
+  "Manchester Utd vs Tottenham – 10 OCT 2026",
+  "Liverpool vs Manchester City – 11 OCT 2026",
+  "Newcastle vs Aston Villa – 17 OCT 2026",
+  "Arsenal vs Everton – 24 OCT 2026",
+  "Barcelona vs Real Madrid – 25 OCT 2026 (El Clásico)",
+  "PSG vs Olympique Lyon – 25 OCT 2026",
+  "Bayern Munich vs Borussia Dortmund – 31 OCT 2026",
   "Iný zápas (napíš do správy)",
 ];
 
@@ -635,49 +638,27 @@ export default function PremiovaSluzbaPage() {
                 Skutočný plán. Žiadne starosti.
               </p>
 
-              {/* City photo placeholder */}
+              {/* Arsenal stadium photo */}
               <div style={{
                 position: "relative",
                 borderRadius: "12px",
                 overflow: "hidden",
                 aspectRatio: "4/3",
-                background: "#1a1f2e",
-                border: "1px solid #243452",
                 marginBottom: "28px",
               }}>
-                {/* Placeholder — replace with a real London/Arsenal photo */}
-                <div style={{
-                  position: "absolute", inset: 0,
-                  display: "flex", flexDirection: "column",
-                  alignItems: "center", justifyContent: "center",
-                  background: "linear-gradient(135deg, #0d1117 0%, #1a2535 100%)",
-                }}>
-                  <div style={{
-                    width: "48px", height: "48px",
-                    border: "1px solid #D8B35A44",
-                    borderRadius: "50%",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    marginBottom: "12px",
-                  }}>
-                    <Icon name="city" size={22} color="#D8B35A66" />
-                  </div>
-                  <p style={{
-                    fontFamily: "var(--font-antonio)",
-                    fontSize: "0.55rem",
-                    letterSpacing: "0.2em",
-                    color: "#4a6080",
-                    textTransform: "uppercase",
-                    textAlign: "center",
-                    padding: "0 20px",
-                  }}>
-                    Foto Londýna<br />doplniť
-                  </p>
-                </div>
+                <img
+                  src="/arsenal%20stadium.jpg"
+                  alt="Emirates Stadium, Londýn"
+                  style={{
+                    width: "100%", height: "100%",
+                    objectFit: "cover", objectPosition: "center 40%",
+                  }}
+                />
                 {/* City label overlay */}
                 <div style={{
                   position: "absolute", bottom: 0, left: 0, right: 0,
                   padding: "20px",
-                  background: "linear-gradient(to top, rgba(8,11,13,0.9) 0%, transparent 100%)",
+                  background: "linear-gradient(to top, rgba(8,11,13,0.88) 0%, transparent 70%)",
                 }}>
                   <p style={{
                     fontFamily: "var(--font-antonio)",
@@ -690,8 +671,8 @@ export default function PremiovaSluzbaPage() {
                   <p style={{
                     fontFamily: "var(--font-geist)",
                     fontSize: "0.68rem",
-                    color: "rgba(247,247,245,0.6)",
-                  }}>Football City Break</p>
+                    color: "rgba(247,247,245,0.65)",
+                  }}>Emirates Stadium</p>
                 </div>
               </div>
 

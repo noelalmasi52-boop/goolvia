@@ -51,7 +51,7 @@ function SearchDropdown({ label, options, value, onChange, placeholder }: {
     <div ref={ref} style={{ position: "relative", flex: 1, minWidth: 0 }}>
       <div style={{
         fontFamily: "var(--font-antonio)", fontSize: "0.52rem", letterSpacing: "0.26em",
-        color: "rgba(255,255,255,0.42)", textTransform: "uppercase", marginBottom: "7px",
+        color: "rgba(255,255,255,0.72)", textTransform: "uppercase", marginBottom: "7px",
       }}>{label}</div>
       <button
         onClick={() => setOpen(o => !o)}
@@ -64,12 +64,12 @@ function SearchDropdown({ label, options, value, onChange, placeholder }: {
         <span style={{
           fontFamily: "var(--font-antonio)", fontSize: "0.88rem", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.03em",
-          color: value ? "#eef0f6" : "rgba(255,255,255,0.32)",
+          color: value ? "#eef0f6" : "rgba(255,255,255,0.58)",
           whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "90%",
         }}>
           {value || placeholder}
         </span>
-        <span style={{ color: "rgba(255,255,255,0.28)", fontSize: "0.5rem", flexShrink: 0 }}>
+        <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.5rem", flexShrink: 0 }}>
           {open ? "▲" : "▼"}
         </span>
       </button>
@@ -187,16 +187,36 @@ export default function HeroUI({ onSearch }: Props) {
         {/* Center nav */}
         {!isMobile && (
           <div style={{ display: "flex", alignItems: "center", gap: "2.4rem" }}>
-            {NAV_LINKS.map(({ label, href }) => (
-              <Link key={label} href={href} style={{
-                fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.18em",
-                textTransform: "uppercase", textDecoration: "none",
-                color: "rgba(255,255,255,0.68)", transition: "color 0.2s",
-              }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#fff"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.68)"; }}
-              >{label}</Link>
-            ))}
+            {NAV_LINKS.map(({ label, href }) => {
+              const isPremium = label === "Prémiová služba";
+              return isPremium ? (
+                <Link key={label} href={href} style={{
+                  fontFamily: "var(--font-antonio)", fontSize: "0.62rem", letterSpacing: "0.18em",
+                  textTransform: "uppercase", textDecoration: "none",
+                  color: "#D8B35A",
+                  border: "1px solid rgba(216,179,90,0.55)",
+                  padding: "0.38rem 0.9rem",
+                  borderRadius: "3px",
+                  transition: "background 0.2s, color 0.2s, border-color 0.2s",
+                  display: "flex", alignItems: "center", gap: "6px",
+                }}
+                  onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = "#D8B35A"; el.style.color = "#080B0D"; el.style.borderColor = "#D8B35A"; }}
+                  onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.color = "#D8B35A"; el.style.borderColor = "rgba(216,179,90,0.55)"; }}
+                >
+                  <span style={{ fontSize: "0.5rem", opacity: 0.8 }}>★</span>
+                  {label}
+                </Link>
+              ) : (
+                <Link key={label} href={href} style={{
+                  fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.18em",
+                  textTransform: "uppercase", textDecoration: "none",
+                  color: "rgba(255,255,255,0.68)", transition: "color 0.2s",
+                }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.68)"; }}
+                >{label}</Link>
+              );
+            })}
           </div>
         )}
 

@@ -64,6 +64,29 @@ export default function SubPageNav() {
         <div style={{ display: "flex", alignItems: "center", gap: "2.4rem" }}>
           {LINKS.map(({ label, href }) => {
             const isActive = pathname === href;
+            const isPremium = label === "Prémiová služba";
+            if (isPremium) {
+              return (
+                <Link key={label} href={href} style={{
+                  fontFamily: "var(--font-antonio)", fontSize: "0.62rem",
+                  letterSpacing: "0.18em", textTransform: "uppercase",
+                  textDecoration: "none",
+                  color: isActive ? "#1A1208" : "#D8B35A",
+                  background: isActive ? "#D8B35A" : "transparent",
+                  border: "1px solid rgba(216,179,90,0.6)",
+                  padding: "0.38rem 0.9rem",
+                  borderRadius: "3px",
+                  display: "flex", alignItems: "center", gap: "5px",
+                  transition: "background 0.2s, color 0.2s",
+                }}
+                  onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; if (!isActive) { el.style.background = "#D8B35A"; el.style.color = "#1A1208"; } }}
+                  onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; if (!isActive) { el.style.background = "transparent"; el.style.color = "#D8B35A"; } }}
+                >
+                  <span style={{ fontSize: "0.5rem" }}>★</span>
+                  {label}
+                </Link>
+              );
+            }
             return (
               <Link key={label} href={href} style={{
                 fontFamily: "var(--font-antonio)", fontSize: "0.7rem",

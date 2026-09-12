@@ -4,16 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 
 const MATCHES = [
-  "Espanyol vs Real Madrid – 29 AUG 2026",
-  "Torino vs AC Milan – 12 SEP 2026",
-  "Inter vs Monza – 19 SEP 2026",
-  "Bayern vs Stuttgart – 05 SEP 2026",
-  "Arsenal vs Coventry – 21 AUG 2026",
-  "Hull City vs Man United – 22 AUG 2026",
-  "Nottingham vs Leeds Utd – 22 AUG 2026",
-  "Everton vs Crystal Palace – 22 AUG 2026",
-  "Ipswich vs Sunderland – 22 AUG 2026",
-  "Brentford vs Tottenham – 22 AUG 2026",
+  "Napoli vs Bologna – 13 SEP 2026",
+  "Inter vs Udinese – 14 SEP 2026",
+  "Brentford vs Chelsea – 18 SEP 2026",
+  "Tottenham vs Aston Villa – 19 SEP 2026",
+  "Sevilla vs Barcelona – 19 SEP 2026",
+  "Manchester Utd vs Tottenham – 10 OCT 2026",
+  "Liverpool vs Manchester City – 11 OCT 2026",
+  "Newcastle vs Aston Villa – 17 OCT 2026",
+  "Arsenal vs Everton – 24 OCT 2026",
+  "Barcelona vs Real Madrid – 25 OCT 2026 (El Clásico)",
+  "PSG vs Olympique Lyon – 25 OCT 2026",
+  "Bayern Munich vs Borussia Dortmund – 31 OCT 2026",
   "Iný zápas (napíš do správy)",
 ];
 
