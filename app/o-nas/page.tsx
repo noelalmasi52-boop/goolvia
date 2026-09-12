@@ -4,22 +4,18 @@ import SubPageNav from "@/components/layout/SubPageNav";
 
 const VALUES = [
   {
-    icon: "⚽",
     title: "Futbal je zážitok",
     desc: "Vieme, aký je rozdiel medzi sledovaním zápasu doma a byť priamo na štadióne. Goolvia existuje preto, aby si tento rozdiel mohol zažiť každý.",
   },
   {
-    icon: "💶",
     title: "Férová cena",
     desc: "Porovnávame reálne ceny letov, hotelov a vstupeniek. Žiadne skryté poplatky, žiadne prehnané prirážky — len najlepšia dostupná ponuka.",
   },
   {
-    icon: "🗺️",
     title: "Komplexný servis",
     desc: "Od prvého kliknutia až po návrat domov. Pre tých, ktorí chcú ísť na zápas bez starostí, zabezpečíme každý detail výletu.",
   },
   {
-    icon: "🤝",
     title: "Dôvera",
     desc: "Spolupracujeme len s overenými partnermi — Kiwi.com, Booking.com, Football Ticket Net. Každé odporúčanie stojí za našou reputáciou.",
   },
@@ -125,14 +121,13 @@ export default function ONasPage() {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            {VALUES.map(({ icon, title, desc }) => (
+            {VALUES.map(({ title, desc }) => (
               <div key={title} style={{
                 background: "#fff",
                 border: "1px solid #EBE6DA",
                 borderRadius: "14px", padding: "22px 24px",
-                display: "flex", gap: "18px", alignItems: "flex-start",
               }}>
-                <span style={{ fontSize: "1.4rem", flexShrink: 0, marginTop: "2px" }}>{icon}</span>
+                <div style={{ width: "20px", height: "2px", background: "#D8B35A", marginBottom: "12px", borderRadius: "2px" }} />
                 <div>
                   <div style={{
                     fontFamily: "var(--font-antonio)", fontWeight: 700,

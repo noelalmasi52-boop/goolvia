@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import HeroUI, { SearchFilter } from "./HeroUI";
-import TopTrips from "@/components/sections/TopTrips";
 import MatchesSection from "@/components/matches/MatchesSection";
 
 export default function HeroWrapper() {
@@ -11,7 +10,6 @@ export default function HeroWrapper() {
   return (
     <>
       <HeroUI onSearch={setHeroFilter} />
-      <TopTrips />
       <MatchesSection heroFilter={heroFilter} />
     </>
   );

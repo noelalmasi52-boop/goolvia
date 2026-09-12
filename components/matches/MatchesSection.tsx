@@ -92,14 +92,14 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
   }
 
   const inputStyle: React.CSSProperties = {
-    width: "100%", background: "#0f1828", border: "1px solid #243452",
-    borderRadius: "8px", padding: "13px 16px", color: "#eef0f6",
+    width: "100%", background: "#F4F1EA", border: "1px solid #DDD7C8",
+    borderRadius: "8px", padding: "13px 16px", color: "#1A1208",
     fontFamily: "var(--font-geist)", fontSize: "0.88rem", outline: "none",
     transition: "border-color 0.18s", boxSizing: "border-box",
   };
   const labelStyle: React.CSSProperties = {
     fontFamily: "var(--font-antonio)", fontSize: "0.58rem", letterSpacing: "0.18em",
-    textTransform: "uppercase", color: "#4a6080", display: "block", marginBottom: "7px",
+    textTransform: "uppercase", color: "#8C7A56", display: "block", marginBottom: "7px",
   };
 
   return (
@@ -199,57 +199,41 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
       </div>
 
       {/* ── Premium section ── */}
-      <div id="ako-to-funguje" style={{ marginTop: isMobile ? "60px" : "120px", borderTop: "1px solid #1a2840", background: "#080b12" }}>
+      <div id="ako-to-funguje" style={{ background: "#1A1208" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px" : "100px 40px" }}>
 
-          {/* Top grid: left headline + right feature cards */}
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? "48px" : "80px", alignItems: "start" }}>
 
             {/* LEFT */}
             <div>
-              {/* Badge + info button */}
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px" }}>
-                <div style={{ display: "inline-flex", alignItems: "center", border: "1px solid #e8b84b55", borderRadius: "6px", padding: "6px 14px" }}>
-                  <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.22em", color: "#e8b84b", textTransform: "uppercase" }}>Prémiová služba</span>
+                <div style={{ display: "inline-flex", alignItems: "center", border: "1px solid #D8B35A55", borderRadius: "6px", padding: "6px 14px" }}>
+                  <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.22em", color: "#D8B35A", textTransform: "uppercase" }}>Prémiová služba</span>
                 </div>
-
-                {/* ⓘ button */}
                 <div style={{ position: "relative" }}>
                   <button
                     onClick={() => setShowInfo(v => !v)}
                     aria-label="Ako to funguje"
                     style={{
                       width: "26px", height: "26px", borderRadius: "50%",
-                      border: "1.5px solid #e8b84b55", background: "transparent",
-                      color: "#e8b84b", fontFamily: "var(--font-geist)", fontSize: "0.75rem",
+                      border: "1.5px solid #D8B35A55", background: "transparent",
+                      color: "#D8B35A", fontFamily: "var(--font-geist)", fontSize: "0.75rem",
                       fontWeight: 700, cursor: "pointer", display: "flex",
                       alignItems: "center", justifyContent: "center",
-                      transition: "background 0.15s, border-color 0.15s",
                     }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#e8b84b18"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
                   >i</button>
-
-                  {/* Bubble */}
                   {showInfo && (
                     <>
-                      {/* overlay to close on outside click */}
                       <div onClick={() => setShowInfo(false)} style={{ position: "fixed", inset: 0, zIndex: 199 }} />
                       <div style={{
                         position: "absolute", top: "calc(100% + 12px)", left: 0,
                         zIndex: 200, width: "300px",
-                        background: "#0f1828", border: "1px solid #243452",
+                        background: "#fff", border: "1px solid #EBE6DA",
                         borderRadius: "14px", padding: "22px 20px",
-                        boxShadow: "0 12px 48px rgba(0,0,0,0.6)",
+                        boxShadow: "0 12px 48px rgba(0,0,0,0.15)",
                       }}>
-                        {/* arrow */}
-                        <div style={{
-                          position: "absolute", top: "-7px", left: "10px",
-                          width: "12px", height: "12px", background: "#0f1828",
-                          border: "1px solid #243452", borderRight: "none", borderBottom: "none",
-                          transform: "rotate(45deg)",
-                        }} />
-                        <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.2em", color: "#e8b84b", textTransform: "uppercase", marginBottom: "14px" }}>
+                        <div style={{ position: "absolute", top: "-7px", left: "10px", width: "12px", height: "12px", background: "#fff", border: "1px solid #EBE6DA", borderRight: "none", borderBottom: "none", transform: "rotate(45deg)" }} />
+                        <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.2em", color: "#D8B35A", textTransform: "uppercase", marginBottom: "14px" }}>
                           Ako to funguje?
                         </p>
                         {[
@@ -258,15 +242,10 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
                           { n: "03", title: "Doraz na štadión", desc: "My vybavíme let, hotel, vstupenky aj transfer." },
                         ].map(({ n, title, desc }) => (
                           <div key={n} style={{ display: "flex", gap: "12px", marginBottom: "14px" }}>
-                            <div style={{
-                              width: "22px", height: "22px", borderRadius: "50%", flexShrink: 0,
-                              background: "#e8b84b18", border: "1px solid #e8b84b44",
-                              display: "flex", alignItems: "center", justifyContent: "center",
-                              fontFamily: "var(--font-antonio)", fontSize: "0.5rem", color: "#e8b84b",
-                            }}>{n}</div>
+                            <div style={{ width: "22px", height: "22px", borderRadius: "50%", flexShrink: 0, background: "#D8B35A18", border: "1px solid #D8B35A44", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-antonio)", fontSize: "0.5rem", color: "#D8B35A" }}>{n}</div>
                             <div>
-                              <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "3px" }}>{title}</div>
-                              <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.65rem", color: "#4a6080", lineHeight: 1.55 }}>{desc}</div>
+                              <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", color: "#1A1208", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "3px" }}>{title}</div>
+                              <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.65rem", color: "#8C7A56", lineHeight: 1.55 }}>{desc}</div>
                             </div>
                           </div>
                         ))}
@@ -278,27 +257,26 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
 
               <h2 style={{ fontFamily: "var(--font-antonio)", fontSize: isMobile ? "clamp(2.4rem,12vw,3.8rem)" : "clamp(2.8rem,4vw,4.2rem)", fontWeight: 700, color: "#eef0f6", lineHeight: 0.95, textTransform: "uppercase", marginBottom: "24px" }}>
                 Ty len prídeš.<br />
-                <span style={{ color: "#e8b84b" }}>Zvysok</span><br />
+                <span style={{ color: "#D8B35A" }}>Zvyšok</span><br />
                 zariadime my.
               </h2>
 
-              <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.92rem", color: "#6080a8", lineHeight: 1.75, marginBottom: "36px", maxWidth: "460px" }}>
+              <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.92rem", color: "#8C7A56", lineHeight: 1.75, marginBottom: "36px", maxWidth: "460px" }}>
                 Pre tých, ktorí chcú zažiť zápas bez starostí — postaráme sa o každý detail tvojho výletu. Od vstupeniek a hotela až po transfer a check-in. Dostupní kedykoľvek, po celý čas.
               </p>
 
               <a
                 href="#ponuka-form"
                 onClick={(e) => { e.preventDefault(); document.getElementById("ponuka-form")?.scrollIntoView({ behavior: "smooth" }); }}
-                style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontFamily: "var(--font-antonio)", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none", color: "#0c1220", background: "#e8b84b", padding: "14px 28px", borderRadius: "8px", transition: "opacity 0.2s" }}
+                style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontFamily: "var(--font-antonio)", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none", color: "#1A1208", background: "#D8B35A", padding: "14px 28px", borderRadius: "8px", transition: "opacity 0.2s" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.88"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
               >
                 Mám záujem →
               </a>
 
-              {/* Prečo s nami */}
-              <div style={{ marginTop: "48px", borderTop: "1px solid #1a2840", paddingTop: "32px" }}>
-                <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.22em", color: "#4a6080", textTransform: "uppercase", marginBottom: "20px" }}>Prečo s nami?</p>
+              <div style={{ marginTop: "48px", borderTop: "1px solid #2a1e0e", paddingTop: "32px" }}>
+                <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.22em", color: "#4a3820", textTransform: "uppercase", marginBottom: "20px" }}>Prečo s nami?</p>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px 24px" }}>
                   {[
                     { title: "Bezpečne", desc: "Overení partneri a spoľahlivý servis" },
@@ -308,7 +286,7 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
                   ].map(({ title, desc }) => (
                     <div key={title}>
                       <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.75rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "2px" }}>{title}</div>
-                      <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#4a6080", lineHeight: 1.5 }}>{desc}</div>
+                      <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#6a5840", lineHeight: 1.5 }}>{desc}</div>
                     </div>
                   ))}
                 </div>
@@ -318,28 +296,28 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
             {/* RIGHT — feature cards */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
               {FEATURES.map(({ title, desc }) => (
-                <div key={title} style={{ background: "#0f1828", border: "1px solid #1a2840", borderRadius: "12px", padding: "22px 18px" }}>
-                  <div style={{ width: "24px", height: "2px", background: "#e8b84b", marginBottom: "14px", borderRadius: "2px" }} />
+                <div key={title} style={{ background: "#241808", border: "1px solid #3a2410", borderRadius: "12px", padding: "22px 18px" }}>
+                  <div style={{ width: "24px", height: "2px", background: "#D8B35A", marginBottom: "14px", borderRadius: "2px" }} />
                   <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.78rem", fontWeight: 700, color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "8px" }}>
                     {title}
                   </div>
-                  <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.7rem", color: "#4a6080", lineHeight: 1.65 }}>{desc}</p>
+                  <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.7rem", color: "#6a5840", lineHeight: 1.65 }}>{desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Bottom stats */}
-          <div style={{ marginTop: isMobile ? "48px" : "64px", borderTop: "1px solid #1a2840", paddingTop: isMobile ? "36px" : "48px", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "24px" }}>
+          <div style={{ marginTop: isMobile ? "48px" : "64px", borderTop: "1px solid #2a1e0e", paddingTop: isMobile ? "36px" : "48px", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "24px" }}>
             {[
               { title: "Bez starostí", desc: "Všetko vybavíme za teba" },
               { title: "50+ Destinácií", desc: "Po celej Európe" },
               { title: "Fair & Transparentne", desc: "Férové ceny, žiadne skryté poplatky" },
             ].map(({ title, desc }) => (
               <div key={title}>
-                <div style={{ width: "20px", height: "2px", background: "#e8b84b", marginBottom: "10px", borderRadius: "2px" }} />
-                <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", color: "#e8b84b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "3px" }}>{title}</div>
-                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.72rem", color: "#4a6080" }}>{desc}</div>
+                <div style={{ width: "20px", height: "2px", background: "#D8B35A", marginBottom: "10px", borderRadius: "2px" }} />
+                <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", color: "#D8B35A", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "3px" }}>{title}</div>
+                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.72rem", color: "#6a5840" }}>{desc}</div>
               </div>
             ))}
           </div>
@@ -347,109 +325,104 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
       </div>
 
       {/* ── Inquiry form ── */}
-      <div id="ponuka-form" style={{ background: "#0c1220", borderTop: "1px solid #1a2840" }}>
+      <div id="ponuka-form" style={{ background: "#F4F1EA", borderTop: "1px solid #DDD7C8" }}>
         <div style={{ maxWidth: "720px", margin: "0 auto", padding: isMobile ? "60px 20px 80px" : "80px 40px 100px" }}>
 
-          <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.3em", color: "#e8b84b", textTransform: "uppercase", marginBottom: "14px" }}>
+          <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.32em", color: "#8C7A56", textTransform: "uppercase", marginBottom: "14px" }}>
             Prémiová ponuka
           </p>
-          <h2 style={{ fontFamily: "var(--font-antonio)", fontSize: isMobile ? "clamp(2rem,9vw,3rem)" : "clamp(2.4rem,4vw,3.6rem)", fontWeight: 700, color: "#eef0f6", lineHeight: 0.95, textTransform: "uppercase", marginBottom: "16px" }}>
-            Pošleme vám<br /><span style={{ color: "#e8b84b" }}>ponuku</span> na mieru.
+          <h2 style={{ fontFamily: "var(--font-antonio)", fontSize: isMobile ? "clamp(2rem,9vw,3rem)" : "clamp(2.4rem,4vw,3.6rem)", fontWeight: 700, color: "#1A1208", lineHeight: 0.95, textTransform: "uppercase", marginBottom: "16px" }}>
+            Pošleme vám<br /><span style={{ color: "#D8B35A" }}>ponuku</span> na mieru.
           </h2>
-          <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.9rem", color: "#6080a8", lineHeight: 1.7, marginBottom: "40px" }}>
+          <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.9rem", color: "#8C7A56", lineHeight: 1.7, marginBottom: "40px" }}>
             Vyberte zápas, napíšte nám kontakt a do 24 hodín dostanete konkrétnu ponuku — letenky, hotel, vstupenky aj transfer.
           </p>
 
           {sent ? (
-            <div style={{ background: "#0f1828", border: "1px solid #243452", borderRadius: "16px", padding: "48px 32px", textAlign: "center" }}>
+            <div style={{ background: "#fff", border: "1px solid #EBE6DA", borderRadius: "16px", padding: "48px 32px", textAlign: "center" }}>
               <div style={{ width: "32px", height: "2px", background: "#16a34a", marginBottom: "20px" }} />
-              <h3 style={{ fontFamily: "var(--font-antonio)", fontSize: "1.6rem", fontWeight: 700, textTransform: "uppercase", color: "#eef0f6", marginBottom: "12px" }}>Odoslané!</h3>
-              <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.88rem", color: "#6080a8", lineHeight: 1.7 }}>
+              <h3 style={{ fontFamily: "var(--font-antonio)", fontSize: "1.6rem", fontWeight: 700, textTransform: "uppercase", color: "#1A1208", marginBottom: "12px" }}>Odoslané!</h3>
+              <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.88rem", color: "#8C7A56", lineHeight: 1.7 }}>
                 Ďakujeme! Ozveme sa vám do 24 hodín s kompletnou ponukou.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
-              <div style={{ background: "#0f1828", border: "1px solid #1a2840", borderRadius: "16px", padding: isMobile ? "28px 20px" : "40px", display: "flex", flexDirection: "column", gap: "20px" }}>
+              <div style={{ background: "#fff", border: "1px solid #EBE6DA", borderRadius: "16px", padding: isMobile ? "28px 20px" : "40px", display: "flex", flexDirection: "column", gap: "20px" }}>
 
-                {/* Zapas */}
                 <div>
                   <label style={labelStyle}>Na aký zápas chcete ísť? *</label>
                   <select required name="zapas" value={form.zapas} onChange={(e) => setForm(p => ({ ...p, zapas: e.target.value }))}
                     style={{ ...inputStyle, cursor: "pointer" }}
-                    onFocus={(e) => { e.target.style.borderColor = "#e8b84b88"; }}
-                    onBlur={(e) => { e.target.style.borderColor = "#243452"; }}
+                    onFocus={(e) => { e.target.style.borderColor = "#D8B35A88"; }}
+                    onBlur={(e) => { e.target.style.borderColor = "#DDD7C8"; }}
                   >
-                    <option value="" style={{ background: "#0f1828" }}>Vyber zápas…</option>
-                    {MATCH_OPTIONS.map((m) => <option key={m} value={m} style={{ background: "#0f1828" }}>{m}</option>)}
-                    <option value="Iný zápas" style={{ background: "#0f1828" }}>Iný zápas (napíš do správy)</option>
+                    <option value="">Vyber zápas…</option>
+                    {MATCH_OPTIONS.map((m) => <option key={m} value={m}>{m}</option>)}
+                    <option value="Iný zápas">Iný zápas (napíš do správy)</option>
                   </select>
                 </div>
 
-                {/* Počet osôb */}
                 <div>
                   <label style={labelStyle}>Počet osôb *</label>
                   <select required value={form.osoby} onChange={(e) => setForm(p => ({ ...p, osoby: e.target.value }))}
                     style={{ ...inputStyle, cursor: "pointer" }}
-                    onFocus={(e) => { e.target.style.borderColor = "#e8b84b88"; }}
-                    onBlur={(e) => { e.target.style.borderColor = "#243452"; }}
+                    onFocus={(e) => { e.target.style.borderColor = "#D8B35A88"; }}
+                    onBlur={(e) => { e.target.style.borderColor = "#DDD7C8"; }}
                   >
                     {[1,2,3,4,5,6,7,8,9,10].map(n => (
-                      <option key={n} value={String(n)} style={{ background: "#0f1828" }}>{n} {n === 1 ? "osoba" : n < 5 ? "osoby" : "osôb"}</option>
+                      <option key={n} value={String(n)}>{n} {n === 1 ? "osoba" : n < 5 ? "osoby" : "osôb"}</option>
                     ))}
                   </select>
                 </div>
 
-                {/* Meno + Telefon */}
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "16px" }}>
                   <div>
                     <label style={labelStyle}>Meno a priezvisko *</label>
                     <input required placeholder="Ján Novák" value={form.meno} onChange={(e) => setForm(p => ({ ...p, meno: e.target.value }))}
                       style={inputStyle}
-                      onFocus={(e) => { e.target.style.borderColor = "#e8b84b88"; }}
-                      onBlur={(e) => { e.target.style.borderColor = "#243452"; }}
+                      onFocus={(e) => { e.target.style.borderColor = "#D8B35A88"; }}
+                      onBlur={(e) => { e.target.style.borderColor = "#DDD7C8"; }}
                     />
                   </div>
                   <div>
                     <label style={labelStyle}>Telefón *</label>
                     <input required placeholder="+421 900 000 000" value={form.telefon} onChange={(e) => setForm(p => ({ ...p, telefon: e.target.value }))}
                       style={inputStyle}
-                      onFocus={(e) => { e.target.style.borderColor = "#e8b84b88"; }}
-                      onBlur={(e) => { e.target.style.borderColor = "#243452"; }}
+                      onFocus={(e) => { e.target.style.borderColor = "#D8B35A88"; }}
+                      onBlur={(e) => { e.target.style.borderColor = "#DDD7C8"; }}
                     />
                   </div>
                 </div>
 
-                {/* Email */}
                 <div>
                   <label style={labelStyle}>Email *</label>
                   <input required type="email" placeholder="jan@example.com" value={form.email} onChange={(e) => setForm(p => ({ ...p, email: e.target.value }))}
                     style={inputStyle}
-                    onFocus={(e) => { e.target.style.borderColor = "#e8b84b88"; }}
-                    onBlur={(e) => { e.target.style.borderColor = "#243452"; }}
+                    onFocus={(e) => { e.target.style.borderColor = "#D8B35A88"; }}
+                    onBlur={(e) => { e.target.style.borderColor = "#DDD7C8"; }}
                   />
                 </div>
 
-                {/* What's included */}
-                <div style={{ background: "#080b12", border: "1px solid #1a2840", borderRadius: "10px", padding: "14px 18px", display: "flex", flexWrap: "wrap", gap: "10px 20px" }}>
+                <div style={{ background: "#F4F1EA", border: "1px solid #EBE6DA", borderRadius: "10px", padding: "14px 18px", display: "flex", flexWrap: "wrap", gap: "10px 20px" }}>
                   {["Letenky", "Hotel", "Vstupenky", "Poistenie", "Transfer", "Itinerár", "Podpora 24/7"].map((item) => (
-                    <span key={item} style={{ fontFamily: "var(--font-antonio)", fontSize: "0.62rem", letterSpacing: "0.12em", color: "#4a6080", textTransform: "uppercase" }}>{item}</span>
+                    <span key={item} style={{ fontFamily: "var(--font-antonio)", fontSize: "0.62rem", letterSpacing: "0.12em", color: "#9E8B68", textTransform: "uppercase" }}>{item}</span>
                   ))}
                 </div>
 
                 <button type="submit" disabled={sending} style={{
                   fontFamily: "var(--font-antonio)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase",
-                  background: sending ? "#a07830" : "#e8b84b", color: "#0c1220", border: "none", borderRadius: "8px",
+                  background: sending ? "#C0B090" : "#D8B35A", color: "#1A1208", border: "none", borderRadius: "8px",
                   padding: "16px 32px", cursor: sending ? "not-allowed" : "pointer", fontWeight: 700, transition: "opacity 0.2s", alignSelf: "flex-start",
                 }}>
                   {sending ? "Odosiela sa…" : "Odoslať dopyt →"}
                 </button>
 
-                <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#2e4060", lineHeight: 1.6, marginTop: "-8px" }}>
+                <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#9E8B68", lineHeight: 1.6, marginTop: "-8px" }}>
                   Odpovieme do 24 hodín. Bez záväzkov. Alebo nás kontaktuj priamo na{" "}
-                  <a href="https://www.instagram.com/goolviaztn/" target="_blank" rel="noopener noreferrer" style={{ color: "#e8b84b", textDecoration: "none" }}>Instagrame</a>
+                  <a href="https://www.instagram.com/goolviaztn/" target="_blank" rel="noopener noreferrer" style={{ color: "#D8B35A", textDecoration: "none" }}>Instagrame</a>
                   {" "}alebo cez{" "}
-                  <a href="https://wa.me/421903118569" target="_blank" rel="noopener noreferrer" style={{ color: "#e8b84b", textDecoration: "none" }}>WhatsApp</a>.
+                  <a href="https://wa.me/421903118569" target="_blank" rel="noopener noreferrer" style={{ color: "#D8B35A", textDecoration: "none" }}>WhatsApp</a>.
                 </p>
               </div>
             </form>

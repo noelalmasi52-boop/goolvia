@@ -242,7 +242,7 @@ export default function HeroUI({ onSearch }: Props) {
           fontFamily: "var(--font-antonio)", fontSize: "0.72rem", letterSpacing: "0.32em",
           color: "rgba(255,255,255,0.5)", textTransform: "uppercase", marginBottom: "1.2rem",
         }}>
-          Futbalové výlety zo Slovenska
+          Futbalové výlety
         </p>
 
         <h1 className="hero-h1" style={{
@@ -251,8 +251,8 @@ export default function HeroUI({ onSearch }: Props) {
           lineHeight: 0.92, letterSpacing: "-0.02em",
           textTransform: "uppercase", marginBottom: "1.6rem",
         }}>
-          <span style={{ color: "#eef0f6", display: "block" }}>ZAŽI ZÁPAS.</span>
-          <span style={{ color: "var(--goolvia-gold)", display: "block" }}>NIE LEN ZÁPAS.</span>
+          <span style={{ color: "#eef0f6", display: "block" }}>ZAŽI TO</span>
+          <span style={{ color: "var(--goolvia-gold)", display: "block" }}>NAŽIVO.</span>
         </h1>
 
         <p className="hero-sub" style={{
