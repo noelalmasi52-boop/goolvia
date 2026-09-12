@@ -9,6 +9,7 @@ const LINKS = [
   { label: "O nás", href: "/o-nas" },
   { label: "Ponuky", href: "/#zapasy" },
   { label: "Vstupenky", href: "/vstupenky" },
+  { label: "Prémiová služba", href: "/premiova-sluzba" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
@@ -31,14 +32,20 @@ export default function SubPageNav() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  const isDark = pathname === "/premiova-sluzba";
+  const navBg = isDark ? "#080B0D" : "#F4F1EA";
+  const borderColor = scrolled ? (isDark ? "#1e2d40" : "#DDD7C8") : "transparent";
+  const linkColor = isDark ? "rgba(247,247,245,0.55)" : "#8C7A56";
+  const linkActive = isDark ? "#F7F7F5" : "#1A1208";
+
   return (
     <nav style={{
       position: "sticky", top: 0, zIndex: 100,
       display: "flex", alignItems: "center", justifyContent: "space-between",
       padding: isMobile ? "1rem 1.2rem" : "1.2rem 3rem",
-      background: "#F4F1EA",
-      borderBottom: scrolled ? "1px solid #DDD7C8" : "1px solid transparent",
-      transition: "border-color 0.2s",
+      background: navBg,
+      borderBottom: `1px solid ${borderColor}`,
+      transition: "border-color 0.2s, background 0.2s",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.9rem" }}>
         {isMobile && <MobileNavMenu links={LINKS} activeHref={pathname} />}
@@ -62,13 +69,13 @@ export default function SubPageNav() {
                 fontFamily: "var(--font-antonio)", fontSize: "0.7rem",
                 letterSpacing: "0.2em", textTransform: "uppercase",
                 textDecoration: "none",
-                color: isActive ? "#1A1208" : "#8C7A56",
+                color: isActive ? linkActive : linkColor,
                 borderBottom: isActive ? "1px solid #D8B35A" : "1px solid transparent",
                 paddingBottom: "3px",
                 transition: "color 0.2s",
               }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#1A1208"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = isActive ? "#1A1208" : "#8C7A56"; }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = linkActive; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = isActive ? linkActive : linkColor; }}
               >
                 {label}
               </Link>

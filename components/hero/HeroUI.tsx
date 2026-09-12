@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { label: "O nás",           href: "/o-nas" },
   { label: "Ponuky",          href: "/#zapasy" },
   { label: "Vstupenky",       href: "/vstupenky" },
-  { label: "Prémiová služba", href: "/#ako-to-funguje" },
+  { label: "Prémiová služba", href: "/premiova-sluzba" },
   { label: "Kontakt",         href: "/kontakt" },
 ];
 
