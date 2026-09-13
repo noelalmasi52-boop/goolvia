@@ -117,6 +117,24 @@ export const MATCHES: Match[] = [
 
   // ─── PREMIER LEAGUE ───
   {
+    home: "CHELSEA", away: "ARSENAL",
+    homeAbbr: "CHE", awayAbbr: "ARS",
+    homeCl: "#034694", awayCl: "#EF0107",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg"),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"),
+    stadium: "Stamford Bridge", city: "London", country: "GBR",
+    date: "27 SEP", time: "16:30", league: "PREMIER LEAGUE",
+    ticketFrom: 75, flightFrom: 200,
+    kiwiCity: "london-united-kingdom", dateISO: "2026-09-27",
+    featured: true,
+    hotels: [
+      { name: "Smart Hyde Park View", stars: 3, distanceKm: 6.0, pricePerNight: 75, url: "https://www.booking.com/hotel/gb/smart-hyde-park-view.sk.html?checkin=2026-09-26&checkout=2026-09-29&group_adults=2" },
+      { name: "287 Green Lanes", stars: 3, distanceKm: 14.0, pricePerNight: 65, url: "https://www.booking.com/hotel/gb/287-green-lanes.sk.html?checkin=2026-09-26&checkout=2026-09-29&group_adults=2" },
+      { name: "YHA London Thameside", stars: 0, distanceKm: 10.0, pricePerNight: 58, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-09-26&checkout=2026-09-29&group_adults=2" },
+    ],
+  },
+
+  {
     home: "BRENTFORD", away: "CHELSEA",
     homeAbbr: "BRE", awayAbbr: "CHE",
     homeCl: "#CC2229", awayCl: "#034694",
@@ -226,6 +244,24 @@ export const MATCHES: Match[] = [
 
   // ─── LA LIGA ───
   {
+    home: "REAL MADRID", away: "ATLETICO MADRID",
+    homeAbbr: "RMA", awayAbbr: "ATM",
+    homeCl: "#00529F", awayCl: "#CB3524",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg"),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg"),
+    stadium: "Santiago Bernabéu", city: "Madrid", country: "ESP",
+    date: "27 SEP", time: "21:00", league: "DERBI MADRILEÑO · LA LIGA",
+    ticketFrom: 120, flightFrom: 85,
+    kiwiCity: "madrid-spain", dateISO: "2026-09-27",
+    featured: true,
+    hotels: [
+      { name: "Hotel Mayorazgo", stars: 3, distanceKm: 3.0, pricePerNight: 95, url: "https://www.booking.com/hotel/es/mayorazgo.sk.html?checkin=2026-09-26&checkout=2026-09-29&group_adults=2" },
+      { name: "Petit Palace Savoy Alfonso XII", stars: 3, distanceKm: 4.5, pricePerNight: 110, url: "https://www.booking.com/hotel/es/petit-palace-savoy-alfonso-xii.sk.html?checkin=2026-09-26&checkout=2026-09-29&group_adults=2" },
+      { name: "Barbieri International Hostel", stars: 0, distanceKm: 5.0, pricePerNight: 48, isHostel: true, url: "https://www.booking.com/hotel/es/barbieri-international-hostel.sk.html?checkin=2026-09-26&checkout=2026-09-29&group_adults=2" },
+    ],
+  },
+
+  {
     home: "SEVILLA", away: "BARCELONA",
     homeAbbr: "SEV", awayAbbr: "FCB",
     homeCl: "#D71920", awayCl: "#A50044",
@@ -261,6 +297,25 @@ export const MATCHES: Match[] = [
     ],
   },
 
+  // ─── SERIE A ───
+  {
+    home: "JUVENTUS", away: "AC MILAN",
+    homeAbbr: "JUV", awayAbbr: "MIL",
+    homeCl: "#000000", awayCl: "#CC0000",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/commons/1/15/Juventus_FC_2017_logo.svg"),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg"),
+    stadium: "Allianz Stadium", city: "Turin", country: "ITA",
+    date: "28 SEP", time: "20:45", league: "SERIE A",
+    ticketFrom: 65, flightFrom: 78,
+    kiwiCity: "turin-italy", dateISO: "2026-09-28",
+    featured: true,
+    hotels: [
+      { name: "Hotel Genio", stars: 3, distanceKm: 5.0, pricePerNight: 80, url: "https://www.booking.com/hotel/it/genio-torino.sk.html?checkin=2026-09-27&checkout=2026-09-30&group_adults=2" },
+      { name: "NH Torino Santo Stefano", stars: 4, distanceKm: 6.0, pricePerNight: 98, url: "https://www.booking.com/hotel/it/nh-santo-stefano-torino.sk.html?checkin=2026-09-27&checkout=2026-09-30&group_adults=2" },
+      { name: "Ostello Torino", stars: 0, distanceKm: 7.0, pricePerNight: 35, isHostel: true, url: "https://www.booking.com/hotel/it/ostello-di-torino.sk.html?checkin=2026-09-27&checkout=2026-09-30&group_adults=2" },
+    ],
+  },
+
   // ─── BUNDESLIGA ───
   {
     home: "BAYERN MUNICH", away: "BORUSSIA DORTMUND",
@@ -283,6 +338,24 @@ export const MATCHES: Match[] = [
   },
 
   // ─── LIGUE 1 ───
+  {
+    home: "PARIS SG", away: "MARSEILLE",
+    homeAbbr: "PSG", awayAbbr: "OM",
+    homeCl: "#004170", awayCl: "#2FAEE0",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg"),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/d/d8/Olympique_Marseille_logo.svg"),
+    stadium: "Parc des Princes", city: "Paris", country: "FRA",
+    date: "28 SEP", time: "20:45", league: "LE CLASSIQUE · LIGUE 1",
+    ticketFrom: 85, flightFrom: 178,
+    kiwiCity: "paris-france", dateISO: "2026-09-28",
+    featured: true,
+    hotels: [
+      { name: "hotelF1 Porte de Châtillon", stars: 2, distanceKm: 4.0, pricePerNight: 66, url: "https://www.booking.com/hotel/fr/hotelf1-paris-porte-de-chatillon-paris.sk.html?checkin=2026-09-27&checkout=2026-09-30&group_adults=2" },
+      { name: "Hotel Lilas Gambetta", stars: 3, distanceKm: 11.0, pricePerNight: 104, url: "https://www.booking.com/hotel/fr/lilasgambetta.sk.html?checkin=2026-09-27&checkout=2026-09-30&group_adults=2" },
+      { name: "Résidence Internationale de Paris", stars: 0, distanceKm: 8.0, pricePerNight: 55, isHostel: true, url: "https://www.booking.com/hotel/fr/residence-internationale-de-paris.sk.html?checkin=2026-09-27&checkout=2026-09-30&group_adults=2" },
+    ],
+  },
+
   {
     home: "PARIS SG", away: "OLYMPIQUE LYON",
     homeAbbr: "PSG", awayAbbr: "OLY",
