@@ -214,66 +214,26 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
 
             {/* LEFT */}
             <div>
-              {/* Label + info button */}
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "28px" }}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid rgba(216,179,90,0.4)", borderRadius: "4px", padding: "6px 14px" }}>
-                  <span style={{ display: "inline-block", width: "16px", height: "1px", background: "#D8B35A" }} />
-                  <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", letterSpacing: "0.26em", color: "#D8B35A", textTransform: "uppercase" }}>Prémiová služba</span>
-                </div>
-                <div style={{ position: "relative" }}>
-                  <button
-                    onClick={() => setShowInfo(v => !v)}
-                    aria-label="Ako to funguje"
-                    style={{
-                      width: "24px", height: "24px", borderRadius: "50%",
-                      border: "1.5px solid rgba(216,179,90,0.4)", background: "transparent",
-                      color: "#D8B35A", fontFamily: "var(--font-geist)", fontSize: "0.72rem",
-                      fontWeight: 700, cursor: "pointer", display: "flex",
-                      alignItems: "center", justifyContent: "center",
-                    }}
-                  >i</button>
-                  {showInfo && (
-                    <>
-                      <div onClick={() => setShowInfo(false)} style={{ position: "fixed", inset: 0, zIndex: 199 }} />
-                      <div style={{
-                        position: "absolute", top: "calc(100% + 10px)", left: 0,
-                        zIndex: 200, width: "280px",
-                        background: "#161a20", border: "1px solid #2a3545",
-                        borderRadius: "12px", padding: "20px",
-                        boxShadow: "0 16px 48px rgba(0,0,0,0.6)",
-                      }}>
-                        <div style={{ position: "absolute", top: "-6px", left: "10px", width: "10px", height: "10px", background: "#161a20", border: "1px solid #2a3545", borderRight: "none", borderBottom: "none", transform: "rotate(45deg)" }} />
-                        <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.56rem", letterSpacing: "0.2em", color: "#D8B35A", textTransform: "uppercase", marginBottom: "14px" }}>
-                          Ako to funguje?
-                        </p>
-                        {[
-                          { n: "01", title: "Vyber zápas", desc: "Prehliadaj zápasy a vyber si ten pravý." },
-                          { n: "02", title: "Pošli dopyt", desc: "Vyplň formulár — do 24h ti pošleme ponuku." },
-                          { n: "03", title: "Doraz na štadión", desc: "My vybavíme let, hotel, vstupenky aj transfer." },
-                        ].map(({ n, title, desc }) => (
-                          <div key={n} style={{ display: "flex", gap: "10px", marginBottom: "12px" }}>
-                            <div style={{ width: "20px", height: "20px", borderRadius: "50%", flexShrink: 0, background: "rgba(216,179,90,0.12)", border: "1px solid rgba(216,179,90,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-antonio)", fontSize: "0.48rem", color: "#D8B35A" }}>{n}</div>
-                            <div>
-                              <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.65rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "2px" }}>{title}</div>
-                              <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.63rem", color: "#5a7090", lineHeight: 1.5 }}>{desc}</div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
+              {/* Overline */}
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
+                <span style={{ display: "inline-block", width: "28px", height: "1px", background: "#D8B35A", flexShrink: 0 }} />
+                <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.56rem", letterSpacing: "0.3em", color: "#D8B35A", textTransform: "uppercase" }}>Plánuješ výlet na zápas?</span>
               </div>
 
-              {/* Headline */}
-              <h2 style={{ fontFamily: "var(--font-antonio)", fontSize: isMobile ? "clamp(2.6rem,13vw,4.2rem)" : "clamp(3rem,4.5vw,5rem)", fontWeight: 700, color: "#eef0f6", lineHeight: 0.92, textTransform: "uppercase", letterSpacing: "-0.01em", marginBottom: "24px" }}>
-                Ty len prídeš.<br />
-                <span style={{ color: "#D8B35A" }}>Zvyšok</span><br />
-                zariadime my.
+              {/* Big headline */}
+              <h2 style={{ fontFamily: "var(--font-antonio)", fontSize: isMobile ? "clamp(2.8rem,14vw,4.8rem)" : "clamp(3.6rem,5.5vw,6.2rem)", fontWeight: 700, color: "#eef0f6", lineHeight: 0.9, textTransform: "uppercase", letterSpacing: "-0.02em", marginBottom: "20px" }}>
+                Máme aj<br />
+                <span style={{ color: "#D8B35A" }}>prémiovú</span><br />
+                službu.
               </h2>
 
-              <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.92rem", color: "rgba(255,255,255,0.45)", lineHeight: 1.75, marginBottom: "36px", maxWidth: "420px" }}>
-                Pre tých, ktorí chcú zažiť zápas bez starostí — postaráme sa o každý detail tvojho výletu. Od vstupeniek a hotela až po transfer a check-in. Dostupní kedykoľvek, po celý čas.
+              {/* Sub-headline */}
+              <p style={{ fontFamily: "var(--font-antonio)", fontSize: isMobile ? "1rem" : "1.15rem", color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.35, marginBottom: "20px" }}>
+                Ty len prídeš. Zvyšok zariadime my.
+              </p>
+
+              <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.9rem", color: "rgba(255,255,255,0.38)", lineHeight: 1.75, marginBottom: "36px", maxWidth: "400px" }}>
+                Postaráme sa o každý detail — od vstupeniek a hotela až po transfer a check-in. Dostupní kedykoľvek, po celý čas.
               </p>
 
               {/* CTAs */}
