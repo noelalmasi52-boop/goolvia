@@ -9,13 +9,12 @@ export { buildKiwiUrl, buildTicketUrl } from "./data";
 const LEAGUES = ["ALL", "PREMIER LEAGUE", "LA LIGA", "SERIE A", "BUNDESLIGA", "LIGUE 1"];
 
 const FEATURES = [
-  { title: "Kompletný itinerár", desc: "Minútu po minúte plán celého výletu — od odchodu z domu až po návrat." },
-  { title: "Transfer zabezpečený", desc: "Uber alebo taxi z letiska priamo k hotelu, aj späť. Žiadne čakanie, žiadny stres." },
-  { title: "Check-in a doklady", desc: "Online check-in na let, potvrdenia a všetky doklady prichystané vopred na telefón." },
-  { title: "Podpora 24/7", desc: "Počas celého výletu sme k dispozícii — stačí zavolať a postaráme sa o zvyšok." },
-  { title: "Výber hotela", desc: "Vyberieme ti najlepší hotel pri štadióne v danej cenovej kategórii a zarezervujeme." },
-  { title: "Vstupenky", desc: "Pomôžeme nájsť a zaobstarať vstupenky — v tribúne, na sektore, kde chceš sedieť." },
-  { title: "Poistenie –50%", desc: "Vybavíme aj cestovné poistenie so 50% zľavou — krytie úrazu, storna aj batožiny počas celého výletu." },
+  { title: "Kompletný itinerár", desc: "Minútu po minúte plán celého výletu — od odchodu z domu až po návrat.", img: "/feat-plane.png", icon: "✈" },
+  { title: "Transfer zabezpečený", desc: "Uber alebo taxi z letiska priamo k hotelu, aj späť. Žiadne čakanie, žiadny stres.", img: "/feat-transfer.png", icon: "🚐" },
+  { title: "Check-in a doklady", desc: "Online check-in na let, potvrdenia a všetky doklady prichystané vopred na telefón.", img: "/feat-checkin.png", icon: "📋" },
+  { title: "Výber hotela", desc: "Vyberieme ti najlepší hotel pri štadióne v danej cenovej kategórii a zarezervujeme.", img: "/feat-hotel.png", icon: "🏨" },
+  { title: "Vstupenky", desc: "Pomôžeme nájsť a zaobstarať vstupenky — v tribúne, na sektore, kde chceš sedieť.", img: "/feat-stadium.png", icon: "🎟" },
+  { title: "Podpora 24/7", desc: "Počas celého výletu sme k dispozícii — stačí zavolať a postaráme sa o zvyšok.", img: "/feat-support.png", icon: "🎧" },
 ];
 
 const MATCH_OPTIONS = MATCHES.map((m) => `${m.home} vs ${m.away} – ${m.date}`);
@@ -199,25 +198,36 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
       </div>
 
       {/* ── Premium section ── */}
-      <div id="ako-to-funguje" style={{ background: "#1A1208" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: isMobile ? "60px 20px" : "100px 40px" }}>
+      <div id="ako-to-funguje" style={{ background: "#0d0f12", position: "relative", overflow: "hidden" }}>
 
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? "48px" : "80px", alignItems: "start" }}>
+        {/* Decorative stadium bg — far right */}
+        <div style={{
+          position: "absolute", top: 0, right: 0, bottom: 0, width: "30%",
+          backgroundImage: "url(/stadium.avif)",
+          backgroundSize: "cover", backgroundPosition: "center left",
+          opacity: 0.08, pointerEvents: "none",
+        }} />
+
+        {/* Main hero split */}
+        <div style={{ maxWidth: "1400px", margin: "0 auto", padding: isMobile ? "64px 24px 0" : "90px 60px 0", position: "relative", zIndex: 1 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1.35fr", gap: isMobile ? "48px" : "70px", alignItems: "center" }}>
 
             {/* LEFT */}
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "28px" }}>
-                <div style={{ display: "inline-flex", alignItems: "center", border: "1px solid #D8B35A55", borderRadius: "6px", padding: "6px 14px" }}>
-                  <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.22em", color: "#D8B35A", textTransform: "uppercase" }}>Prémiová služba</span>
+              {/* Label + info button */}
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "28px" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid rgba(216,179,90,0.4)", borderRadius: "4px", padding: "6px 14px" }}>
+                  <span style={{ display: "inline-block", width: "16px", height: "1px", background: "#D8B35A" }} />
+                  <span style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", letterSpacing: "0.26em", color: "#D8B35A", textTransform: "uppercase" }}>Prémiová služba</span>
                 </div>
                 <div style={{ position: "relative" }}>
                   <button
                     onClick={() => setShowInfo(v => !v)}
                     aria-label="Ako to funguje"
                     style={{
-                      width: "26px", height: "26px", borderRadius: "50%",
-                      border: "1.5px solid #D8B35A55", background: "transparent",
-                      color: "#D8B35A", fontFamily: "var(--font-geist)", fontSize: "0.75rem",
+                      width: "24px", height: "24px", borderRadius: "50%",
+                      border: "1.5px solid rgba(216,179,90,0.4)", background: "transparent",
+                      color: "#D8B35A", fontFamily: "var(--font-geist)", fontSize: "0.72rem",
                       fontWeight: 700, cursor: "pointer", display: "flex",
                       alignItems: "center", justifyContent: "center",
                     }}
@@ -226,26 +236,26 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
                     <>
                       <div onClick={() => setShowInfo(false)} style={{ position: "fixed", inset: 0, zIndex: 199 }} />
                       <div style={{
-                        position: "absolute", top: "calc(100% + 12px)", left: 0,
-                        zIndex: 200, width: "300px",
-                        background: "#fff", border: "1px solid #EBE6DA",
-                        borderRadius: "14px", padding: "22px 20px",
-                        boxShadow: "0 12px 48px rgba(0,0,0,0.15)",
+                        position: "absolute", top: "calc(100% + 10px)", left: 0,
+                        zIndex: 200, width: "280px",
+                        background: "#161a20", border: "1px solid #2a3545",
+                        borderRadius: "12px", padding: "20px",
+                        boxShadow: "0 16px 48px rgba(0,0,0,0.6)",
                       }}>
-                        <div style={{ position: "absolute", top: "-7px", left: "10px", width: "12px", height: "12px", background: "#fff", border: "1px solid #EBE6DA", borderRight: "none", borderBottom: "none", transform: "rotate(45deg)" }} />
-                        <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.2em", color: "#D8B35A", textTransform: "uppercase", marginBottom: "14px" }}>
+                        <div style={{ position: "absolute", top: "-6px", left: "10px", width: "10px", height: "10px", background: "#161a20", border: "1px solid #2a3545", borderRight: "none", borderBottom: "none", transform: "rotate(45deg)" }} />
+                        <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.56rem", letterSpacing: "0.2em", color: "#D8B35A", textTransform: "uppercase", marginBottom: "14px" }}>
                           Ako to funguje?
                         </p>
                         {[
-                          { n: "01", title: "Vyber zápas", desc: "Prehliadaj zápasy, filtruj podľa ligy alebo ceny." },
-                          { n: "02", title: "Pošli dopyt", desc: "Vyplň formulár — do 24h ti pošleme ponuku na mieru." },
+                          { n: "01", title: "Vyber zápas", desc: "Prehliadaj zápasy a vyber si ten pravý." },
+                          { n: "02", title: "Pošli dopyt", desc: "Vyplň formulár — do 24h ti pošleme ponuku." },
                           { n: "03", title: "Doraz na štadión", desc: "My vybavíme let, hotel, vstupenky aj transfer." },
                         ].map(({ n, title, desc }) => (
-                          <div key={n} style={{ display: "flex", gap: "12px", marginBottom: "14px" }}>
-                            <div style={{ width: "22px", height: "22px", borderRadius: "50%", flexShrink: 0, background: "#D8B35A18", border: "1px solid #D8B35A44", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-antonio)", fontSize: "0.5rem", color: "#D8B35A" }}>{n}</div>
+                          <div key={n} style={{ display: "flex", gap: "10px", marginBottom: "12px" }}>
+                            <div style={{ width: "20px", height: "20px", borderRadius: "50%", flexShrink: 0, background: "rgba(216,179,90,0.12)", border: "1px solid rgba(216,179,90,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-antonio)", fontSize: "0.48rem", color: "#D8B35A" }}>{n}</div>
                             <div>
-                              <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.68rem", color: "#1A1208", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "3px" }}>{title}</div>
-                              <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.65rem", color: "#8C7A56", lineHeight: 1.55 }}>{desc}</div>
+                              <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.65rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "2px" }}>{title}</div>
+                              <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.63rem", color: "#5a7090", lineHeight: 1.5 }}>{desc}</div>
                             </div>
                           </div>
                         ))}
@@ -255,69 +265,115 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
                 </div>
               </div>
 
-              <h2 style={{ fontFamily: "var(--font-antonio)", fontSize: isMobile ? "clamp(2.4rem,12vw,3.8rem)" : "clamp(2.8rem,4vw,4.2rem)", fontWeight: 700, color: "#eef0f6", lineHeight: 0.95, textTransform: "uppercase", marginBottom: "24px" }}>
+              {/* Headline */}
+              <h2 style={{ fontFamily: "var(--font-antonio)", fontSize: isMobile ? "clamp(2.6rem,13vw,4.2rem)" : "clamp(3rem,4.5vw,5rem)", fontWeight: 700, color: "#eef0f6", lineHeight: 0.92, textTransform: "uppercase", letterSpacing: "-0.01em", marginBottom: "24px" }}>
                 Ty len prídeš.<br />
                 <span style={{ color: "#D8B35A" }}>Zvyšok</span><br />
                 zariadime my.
               </h2>
 
-              <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.92rem", color: "#8C7A56", lineHeight: 1.75, marginBottom: "36px", maxWidth: "460px" }}>
+              <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.92rem", color: "rgba(255,255,255,0.45)", lineHeight: 1.75, marginBottom: "36px", maxWidth: "420px" }}>
                 Pre tých, ktorí chcú zažiť zápas bez starostí — postaráme sa o každý detail tvojho výletu. Od vstupeniek a hotela až po transfer a check-in. Dostupní kedykoľvek, po celý čas.
               </p>
 
-              <a
-                href="#ponuka-form"
-                onClick={(e) => { e.preventDefault(); document.getElementById("ponuka-form")?.scrollIntoView({ behavior: "smooth" }); }}
-                style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontFamily: "var(--font-antonio)", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none", color: "#1A1208", background: "#D8B35A", padding: "14px 28px", borderRadius: "8px", transition: "opacity 0.2s" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.88"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
-              >
-                Mám záujem →
-              </a>
-
-              <div style={{ marginTop: "48px", borderTop: "1px solid #2a1e0e", paddingTop: "32px" }}>
-                <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.6rem", letterSpacing: "0.22em", color: "#4a3820", textTransform: "uppercase", marginBottom: "20px" }}>Prečo s nami?</p>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px 24px" }}>
-                  {[
-                    { title: "Bezpečne", desc: "Overení partneri a spoľahlivý servis" },
-                    { title: "Rýchlo", desc: "Vybavíme všetko za teba" },
-                    { title: "Podpora 24/7", desc: "Sme tu pred, počas aj po výlete" },
-                    { title: "Na mieru", desc: "Každý výlet prispôsobíme tebe" },
-                  ].map(({ title, desc }) => (
-                    <div key={title}>
-                      <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.75rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "2px" }}>{title}</div>
-                      <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#6a5840", lineHeight: 1.5 }}>{desc}</div>
-                    </div>
-                  ))}
-                </div>
+              {/* CTAs */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center" }}>
+                <a
+                  href="#ponuka-form"
+                  onClick={(e) => { e.preventDefault(); document.getElementById("ponuka-form")?.scrollIntoView({ behavior: "smooth" }); }}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontFamily: "var(--font-antonio)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none", color: "#0d0f12", background: "#D8B35A", padding: "14px 28px", borderRadius: "4px", transition: "opacity 0.2s", whiteSpace: "nowrap" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.88"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
+                >
+                  Mám záujem →
+                </a>
+                <a
+                  href="/premiova-sluzba"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontFamily: "var(--font-antonio)", fontSize: "0.65rem", letterSpacing: "0.18em", textTransform: "uppercase", textDecoration: "none", color: "rgba(255,255,255,0.55)", transition: "color 0.2s", whiteSpace: "nowrap" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.55)"; }}
+                >
+                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "28px", height: "28px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.25)" }}>▶</span>
+                  Ako to funguje?
+                </a>
               </div>
             </div>
 
-            {/* RIGHT — feature cards */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-              {FEATURES.map(({ title, desc }) => (
-                <div key={title} style={{ background: "#241808", border: "1px solid #3a2410", borderRadius: "12px", padding: "22px 18px" }}>
-                  <div style={{ width: "24px", height: "2px", background: "#D8B35A", marginBottom: "14px", borderRadius: "2px" }} />
-                  <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.78rem", fontWeight: 700, color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "8px" }}>
-                    {title}
+            {/* RIGHT — 2×3 feature card grid with photos */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: isMobile ? "10px" : "12px" }}>
+              {FEATURES.map(({ title, desc, img, icon }) => (
+                <div key={title} style={{
+                  background: "#161a20",
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  transition: "transform 0.2s",
+                }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "none"; }}
+                >
+                  {/* Photo */}
+                  <div style={{ position: "relative", height: isMobile ? "80px" : "110px", overflow: "hidden", flexShrink: 0 }}>
+                    <img src={img} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(13,15,18,0) 30%, rgba(13,15,18,0.7) 100%)" }} />
                   </div>
-                  <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.7rem", color: "#6a5840", lineHeight: 1.65 }}>{desc}</p>
+                  {/* Content */}
+                  <div style={{ padding: isMobile ? "12px" : "16px 18px", flex: 1, display: "flex", flexDirection: "column" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <span style={{ fontSize: isMobile ? "0.9rem" : "1rem" }}>{icon}</span>
+                        <span style={{ fontFamily: "var(--font-antonio)", fontSize: isMobile ? "0.68rem" : "0.76rem", fontWeight: 700, color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.2 }}>{title}</span>
+                      </div>
+                      <span style={{ color: "#D8B35A", fontSize: "0.7rem", flexShrink: 0, marginLeft: "4px", marginTop: "1px" }}>→</span>
+                    </div>
+                    <p style={{ fontFamily: "var(--font-geist)", fontSize: isMobile ? "0.62rem" : "0.68rem", color: "rgba(255,255,255,0.38)", lineHeight: 1.55, margin: 0 }}>{desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Bottom stats */}
-          <div style={{ marginTop: isMobile ? "48px" : "64px", borderTop: "1px solid #2a1e0e", paddingTop: isMobile ? "36px" : "48px", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "24px" }}>
+        {/* Benefits strip */}
+        <div style={{ maxWidth: "1400px", margin: "0 auto", padding: isMobile ? "48px 24px 0" : "56px 60px 0", position: "relative", zIndex: 1 }}>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: isMobile ? "36px" : "44px" }}>
+            <p style={{ fontFamily: "var(--font-antonio)", fontSize: "0.52rem", letterSpacing: "0.26em", color: "rgba(255,255,255,0.28)", textTransform: "uppercase", marginBottom: isMobile ? "24px" : "28px" }}>Prečo s nami?</p>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? "20px" : "40px" }}>
+              {[
+                { icon: "🛡", title: "Bezpečné", desc: "Overení partneri a spoľahlivý servis" },
+                { icon: "⚡", title: "Rýchlo", desc: "Vybavíme všetko za teba" },
+                { icon: "📞", title: "Podpora 24/7", desc: "Sme tu pred, počas aj po výlete" },
+                { icon: "💎", title: "Na mieru", desc: "Každý výlet prispôsobíme tebe" },
+              ].map(({ icon, title, desc }) => (
+                <div key={title} style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(216,179,90,0.1)", border: "1px solid rgba(216,179,90,0.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "1rem" }}>
+                    {icon}
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.72rem", color: "#eef0f6", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "3px" }}>{title}</div>
+                    <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.66rem", color: "rgba(255,255,255,0.35)", lineHeight: 1.5 }}>{desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Stats strip */}
+        <div style={{ maxWidth: "1400px", margin: "0 auto", padding: isMobile ? "40px 24px 56px" : "48px 60px 72px", position: "relative", zIndex: 1 }}>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: isMobile ? "32px" : "40px", display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: isMobile ? "20px" : "40px" }}>
             {[
-              { title: "Bez starostí", desc: "Všetko vybavíme za teba" },
-              { title: "50+ Destinácií", desc: "Po celej Európe" },
-              { title: "Fair & Transparentne", desc: "Férové ceny, žiadne skryté poplatky" },
-            ].map(({ title, desc }) => (
-              <div key={title}>
-                <div style={{ width: "20px", height: "2px", background: "#D8B35A", marginBottom: "10px", borderRadius: "2px" }} />
-                <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", color: "#D8B35A", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "3px" }}>{title}</div>
-                <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.72rem", color: "#6a5840" }}>{desc}</div>
+              { icon: "🏆", title: "Bez starostí", desc: "Ty si užiješ zápas, my riešime detaily." },
+              { icon: "🌍", title: "500+ Destinácií", desc: "Top ligy a štadióny v celej Európe." },
+              { icon: "💬", title: "Fair & Transparentne", desc: "Žiadne skryté poplatky, vždy vieš, za čo platíš." },
+            ].map(({ icon, title, desc }) => (
+              <div key={title} style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+                <span style={{ fontSize: "1.4rem", lineHeight: 1, marginTop: "2px" }}>{icon}</span>
+                <div>
+                  <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.78rem", color: "#D8B35A", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "4px" }}>{title}</div>
+                  <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.7rem", color: "rgba(255,255,255,0.35)", lineHeight: 1.5 }}>{desc}</div>
+                </div>
               </div>
             ))}
           </div>
