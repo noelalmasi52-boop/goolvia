@@ -54,7 +54,7 @@ const TOP_CLUBS = [
   {
     name: "Bayern Munich",
     query: "Bayern Munich",
-    badge: "https://upload.wikimedia.org/wikipedia/commons/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282002%E2%80%932017%29.svg",
+    badge: "https://upload.wikimedia.org/wikipedia/commons/1/1f/FC_Bayern_M%C3%BCnchen_2017.svg",
     color: "#DC052D",
   },
 ];

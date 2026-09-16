@@ -4,8 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 
 const MATCHES = [
-  "Napoli vs Bologna – 13 SEP 2026",
-  "Inter vs Udinese – 14 SEP 2026",
   "Brentford vs Chelsea – 18 SEP 2026",
   "Tottenham vs Aston Villa – 19 SEP 2026",
   "Sevilla vs Barcelona – 19 SEP 2026",

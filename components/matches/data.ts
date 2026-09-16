@@ -321,7 +321,7 @@ export const MATCHES: Match[] = [
     home: "BAYERN MUNICH", away: "BORUSSIA DORTMUND",
     homeAbbr: "BAY", awayAbbr: "DOR",
     homeCl: "#DC052D", awayCl: "#FDE100",
-    homeBadge: W("https://upload.wikimedia.org/wikipedia/commons/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282002%E2%80%932017%29.svg"),
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/commons/1/1f/FC_Bayern_M%C3%BCnchen_2017.svg"),
     awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg"),
     stadium: "Allianz Arena", city: "Munich", country: "GER",
     date: "31 OCT", time: "18:30", league: "BUNDESLIGA · DER KLASSIKER",
