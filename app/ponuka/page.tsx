@@ -7,6 +7,8 @@ const MATCHES = [
   "Brentford vs Chelsea – 18 SEP 2026",
   "Tottenham vs Aston Villa – 19 SEP 2026",
   "Sevilla vs Barcelona – 19 SEP 2026",
+  "Manchester Utd vs Arsenal – 20 SEP 2026",
+  "Inter vs AC Milan – 21 SEP 2026 (Derby della Madonnina)",
   "Chelsea vs Arsenal – 27 SEP 2026",
   "Real Madrid vs Atletico Madrid – 27 SEP 2026 (Derbi Madrileño)",
   "Juventus vs AC Milan – 28 SEP 2026",

@@ -27,36 +27,26 @@ function getCurrency(min_price: FtnEvent["min_price"]): string {
 }
 
 const TOP_CLUBS = [
-  {
-    name: "Real Madrid",
-    query: "Real Madrid",
-    badge: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
-    color: "#00529F",
-  },
-  {
-    name: "Barcelona",
-    query: "Barcelona",
-    badge: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg",
-    color: "#A50044",
-  },
-  {
-    name: "Manchester City",
-    query: "Manchester City",
-    badge: "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg",
-    color: "#6CABDD",
-  },
-  {
-    name: "Liverpool",
-    query: "Liverpool",
-    badge: "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",
-    color: "#C8102E",
-  },
-  {
-    name: "Bayern Munich",
-    query: "Bayern Munich",
-    badge: "https://upload.wikimedia.org/wikipedia/commons/1/1f/FC_Bayern_M%C3%BCnchen_2017.svg",
-    color: "#DC052D",
-  },
+  { name: "Real Madrid",      query: "Real Madrid",      badge: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",                                                           color: "#00529F" },
+  { name: "Barcelona",        query: "Barcelona",        badge: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg",                                                 color: "#A50044" },
+  { name: "Arsenal",          query: "Arsenal",          badge: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg",                                                               color: "#EF0107" },
+  { name: "Chelsea",          query: "Chelsea",          badge: "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg",                                                               color: "#034694" },
+  { name: "Man. United",      query: "Manchester United",badge: "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg",                                               color: "#DA020E" },
+  { name: "Liverpool",        query: "Liverpool",        badge: "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",                                                             color: "#C8102E" },
+  { name: "Man. City",        query: "Manchester City",  badge: "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg",                                                 color: "#6CABDD" },
+  { name: "Tottenham",        query: "Tottenham",        badge: "https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg",                                                       color: "#132257" },
+  { name: "Bayern Munich",    query: "Bayern Munich",    badge: "https://upload.wikimedia.org/wikipedia/commons/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282002%E2%80%932017%29.svg",                color: "#DC052D" },
+  { name: "B. Dortmund",      query: "Borussia Dortmund",badge: "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg",                                             color: "#FDE100" },
+  { name: "Juventus",         query: "Juventus",         badge: "https://upload.wikimedia.org/wikipedia/commons/1/15/Juventus_FC_2017_logo.svg",                                              color: "#000000" },
+  { name: "AC Milan",         query: "AC Milan",         badge: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg",                                                   color: "#CC0000" },
+  { name: "Inter Milan",      query: "Inter Milan",      badge: "https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg",                                      color: "#0068A8" },
+  { name: "Napoli",           query: "Napoli",           badge: "https://upload.wikimedia.org/wikipedia/commons/b/ba/SSC_Napoli.svg",                                                         color: "#12A0D7" },
+  { name: "PSG",              query: "Paris Saint-Germain", badge: "https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg",                                             color: "#004170" },
+  { name: "Atletico Madrid",  query: "Atletico Madrid",  badge: "https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg",                                               color: "#CB3524" },
+  { name: "Sevilla",          query: "Sevilla",          badge: "https://upload.wikimedia.org/wikipedia/en/3/3b/Sevilla_FC_logo.svg",                                                         color: "#D71920" },
+  { name: "Newcastle",        query: "Newcastle United", badge: "https://upload.wikimedia.org/wikipedia/en/5/56/Newcastle_United_Logo.svg",                                                   color: "#241F20" },
+  { name: "Aston Villa",      query: "Aston Villa",      badge: "https://upload.wikimedia.org/wikipedia/en/f/f9/Aston_Villa_FC_crest_%282016%29.svg",                                         color: "#670E36" },
+  { name: "AS Roma",          query: "Roma",             badge: "https://upload.wikimedia.org/wikipedia/en/f/f7/AS_Roma_logo_%282017%29.svg",                                                 color: "#CC0000" },
 ];
 
 export default function VstupenkyPage() {

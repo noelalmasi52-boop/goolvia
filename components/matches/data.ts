@@ -59,62 +59,6 @@ const W = (url: string) => url;
 
 export const MATCHES: Match[] = [
 
-  // ─── SERIE A ───
-  {
-    home: "AS ROMA", away: "ATALANTA",
-    homeAbbr: "ROM", awayAbbr: "ATA",
-    homeCl: "#CC0000", awayCl: "#1C5EA6",
-    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/f/f7/AS_Roma_logo_%282017%29.svg"),
-    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/f/f2/Atalanta_BC_new_logo.svg"),
-    stadium: "Stadio Olimpico", city: "Rome", country: "ITA",
-    date: "05 SEP", time: "20:45", league: "SERIE A",
-    ticketFrom: 55, flightFrom: 110,
-    kiwiCity: "rome-italy", dateISO: "2026-09-05",
-    featured: true,
-    hotels: [
-      { name: "Hotel Center 3", stars: 3, distanceKm: 7.0, pricePerNight: 72, url: "https://www.booking.com/hotel/it/vicious.sk.html?checkin=2026-09-04&checkout=2026-09-07&group_adults=2" },
-      { name: "LunaBlù", stars: 3, distanceKm: 6.0, pricePerNight: 82, url: "https://www.booking.com/hotel/it/lunablu.sk.html?checkin=2026-09-04&checkout=2026-09-07&group_adults=2" },
-      { name: "Palace Rome", stars: 0, distanceKm: 11.0, pricePerNight: 59, isHostel: true, url: "https://www.booking.com/hotel/it/hostel-prima-base.sk.html?checkin=2026-09-04&checkout=2026-09-07&group_adults=2" },
-    ],
-  },
-
-  {
-    home: "NAPOLI", away: "BOLOGNA",
-    homeAbbr: "NAP", awayAbbr: "BOL",
-    homeCl: "#12A0D7", awayCl: "#BD2424",
-    homeBadge: W("https://upload.wikimedia.org/wikipedia/commons/b/ba/SSC_Napoli.svg"),
-    awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/5/5b/Bologna_F.C._1909_logo.svg"),
-    stadium: "Stadio Diego Armando Maradona", city: "Naples", country: "ITA",
-    date: "13 SEP", time: "18:00", league: "SERIE A",
-    ticketFrom: 45, flightFrom: 113,
-    kiwiCity: "naples-italy", dateISO: "2026-09-13",
-    featured: true,
-    hotels: [
-      { name: "Hotel Ginevra", stars: 3, distanceKm: 4.5, pricePerNight: 65, url: "https://www.booking.com/hotel/it/hotelginevranapoli.sk.html?checkin=2026-09-12&checkout=2026-09-15&group_adults=2" },
-      { name: "Sweet Dreams Napoli", stars: 3, distanceKm: 5.5, pricePerNight: 70, url: "https://www.booking.com/hotel/it/sweet-dreams-napoli12.sk.html?checkin=2026-09-12&checkout=2026-09-15&group_adults=2" },
-      { name: "Hostel B&B ALMA", stars: 0, distanceKm: 4.5, pricePerNight: 38, isHostel: true, url: "https://www.booking.com/hotel/it/hostel-b-amp-b-alma.sk.html?checkin=2026-09-12&checkout=2026-09-15&group_adults=2" },
-    ],
-  },
-
-  {
-    home: "INTER", away: "UDINESE",
-    homeAbbr: "INT", awayAbbr: "UDI",
-    homeCl: "#0068A8", awayCl: "#2B2B2B",
-    homeBadge: B(108),
-    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/c/ce/Udinese_Calcio_logo.svg"),
-    stadium: "Stadio Giuseppe Meazza", city: "Milan", country: "ITA",
-    date: "14 SEP", time: "20:45", league: "SERIE A",
-    ticketFrom: 50, flightFrom: 61,
-    returnDaysAfter: 1,
-    kiwiCity: "milan-italy", dateISO: "2026-09-14",
-    featured: true,
-    hotels: [
-      { name: "Hotel Alessander", stars: 3, distanceKm: 5.5, pricePerNight: 94, url: "https://www.booking.com/hotel/it/alessander.sk.html?checkin=2026-09-13&checkout=2026-09-15&group_adults=2" },
-      { name: "Hotel RossoVino Milano", stars: 3, distanceKm: 5.0, pricePerNight: 98, url: "https://www.booking.com/hotel/it/rossovino.sk.html?checkin=2026-09-13&checkout=2026-09-15&group_adults=2" },
-      { name: "Babila Hostel & Bistrot", stars: 0, distanceKm: 5.5, pricePerNight: 68, isHostel: true, url: "https://www.booking.com/hotel/it/babila-hostel.sk.html?checkin=2026-09-13&checkout=2026-09-15&group_adults=2" },
-    ],
-  },
-
   // ─── PREMIER LEAGUE ───
   {
     home: "CHELSEA", away: "ARSENAL",
@@ -242,6 +186,24 @@ export const MATCHES: Match[] = [
     ],
   },
 
+  {
+    home: "MANCHESTER UTD", away: "ARSENAL",
+    homeAbbr: "MUN", awayAbbr: "ARS",
+    homeCl: "#DA020E", awayCl: "#EF0107",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg"),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"),
+    stadium: "Old Trafford", city: "Manchester", country: "GBR",
+    date: "20 SEP", time: "16:30", league: "PREMIER LEAGUE",
+    ticketFrom: 85, flightFrom: 184,
+    kiwiCity: "manchester-united-kingdom", dateISO: "2026-09-20",
+    featured: true,
+    hotels: [
+      { name: "Rainsough Cottage Guest House", stars: 3, distanceKm: 8.0, pricePerNight: 60, url: "https://www.booking.com/hotel/gb/rainsough-cottage-guest-house.sk.html?checkin=2026-09-19&checkout=2026-09-22&group_adults=2" },
+      { name: "Home Away From Home", stars: 3, distanceKm: 7.0, pricePerNight: 55, url: "https://www.booking.com/hotel/gb/home-away-from-home-greater-manchester7.sk.html?checkin=2026-09-19&checkout=2026-09-22&group_adults=2" },
+      { name: "Hendham Rooms", stars: 0, distanceKm: 5.0, pricePerNight: 53, isHostel: true, url: "https://www.booking.com/hotel/gb/hendham-rooms.sk.html?checkin=2026-09-19&checkout=2026-09-22&group_adults=2" },
+    ],
+  },
+
   // ─── LA LIGA ───
   {
     home: "REAL MADRID", away: "ATLETICO MADRID",
@@ -298,6 +260,24 @@ export const MATCHES: Match[] = [
   },
 
   // ─── SERIE A ───
+  {
+    home: "INTER", away: "AC MILAN",
+    homeAbbr: "INT", awayAbbr: "MIL",
+    homeCl: "#0068A8", awayCl: "#CC0000",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg"),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg"),
+    stadium: "Stadio Giuseppe Meazza", city: "Milan", country: "ITA",
+    date: "21 SEP", time: "18:00", league: "DERBY DELLA MADONNINA · SERIE A",
+    ticketFrom: 80, flightFrom: 61,
+    kiwiCity: "milan-italy", dateISO: "2026-09-21",
+    featured: true,
+    hotels: [
+      { name: "Hotel Alessander", stars: 3, distanceKm: 5.5, pricePerNight: 94, url: "https://www.booking.com/hotel/it/alessander.sk.html?checkin=2026-09-20&checkout=2026-09-23&group_adults=2" },
+      { name: "Hotel RossoVino Milano", stars: 3, distanceKm: 5.0, pricePerNight: 98, url: "https://www.booking.com/hotel/it/rossovino.sk.html?checkin=2026-09-20&checkout=2026-09-23&group_adults=2" },
+      { name: "Babila Hostel & Bistrot", stars: 0, distanceKm: 5.5, pricePerNight: 68, isHostel: true, url: "https://www.booking.com/hotel/it/babila-hostel.sk.html?checkin=2026-09-20&checkout=2026-09-23&group_adults=2" },
+    ],
+  },
+
   {
     home: "JUVENTUS", away: "AC MILAN",
     homeAbbr: "JUV", awayAbbr: "MIL",
