@@ -493,7 +493,7 @@ export default function MatchCard({ match }: { match: Match }) {
                       >
                         <div>
                           <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", fontWeight: 700, color: "#1A1208", marginBottom: "6px" }}>
-                            Viagogo — {match.home} vs {match.away}
+                            Football Ticket Net — {match.home} vs {match.away}
                           </div>
                           <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.62rem", color: "#9E8B68" }}>
                             {match.stadium} · {match.date} · {match.time}
