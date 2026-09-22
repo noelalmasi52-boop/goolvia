@@ -7,6 +7,15 @@ export type Hotel = {
   isHostel?: boolean;
 };
 
+export type GroundConnection = {
+  fromCity: string;
+  toCity: string;
+  duration: string;
+  provider: string;
+  price: number;
+  url: string;
+};
+
 export type Match = {
   home: string;
   away: string;
@@ -30,11 +39,17 @@ export type Match = {
   transportUrl?: string;
   hotels: Hotel[];
   kiwiCity: string;
+  // Keď v meste zápasu nie je priame letisko, lietadlo smeruje sem
+  // (najbližšie mesto s priamym letom z Bratislavy) a odtiaľ pokračuje
+  // pozemná doprava (groundConnection) do mesta zápasu — nikdy prestup v lietadle.
+  flightCity?: string;
+  groundConnection?: GroundConnection;
   dateISO: string;
   featured?: boolean;
 };
 
 export const CJ_CLICK_URL = "https://www.dpbolvw.net/click-101856071-12624156";
+export const FLIXBUS_URL = "https://www.flixbus.sk/search";
 
 export function buildKiwiUrl(toCity: string, dateISO: string, returnDaysAfter = 2) {
   const match = new Date(dateISO);
@@ -53,6 +68,10 @@ export function buildKiwiUrl(toCity: string, dateISO: string, returnDaysAfter = 
 export function buildTicketUrl(home: string, away: string) {
   const query = encodeURIComponent(`${home} vs ${away}`);
   return `https://www.footballticketnet.com/search-results?q=${query}`;
+}
+
+function ground(fromCity: string, toCity: string, duration: string, price: number): GroundConnection {
+  return { fromCity, toCity, duration, provider: "FlixBus", price, url: FLIXBUS_URL };
 }
 
 const B = (id: number) => `/crests/${id}.svg`;
@@ -150,7 +169,9 @@ export const MATCHES: Match[] = [
   },
 
   // ═══════════════════════════════════════════
-  // LA LIGA — priamy let Bratislava → Barcelona / Valencia / Sevilla
+  // LA LIGA — priamy let iba do Barcelony. Girona, Valencia a Sevilla
+  // nemajú priame letisko z Bratislavy → let na najbližšie priame
+  // letisko + autobus (FlixBus) do mesta zápasu, nikdy prestup v lietadle.
   // ═══════════════════════════════════════════
   {
     home: "BARCELONA", away: "ATHLETIC BILBAO",
@@ -177,8 +198,10 @@ export const MATCHES: Match[] = [
     awayBadge: W("https://upload.wikimedia.org/wikipedia/en/c/c1/Atletico_Madrid_logo.svg"),
     stadium: "Estadi Montilivi", city: "Girona", country: "ESP",
     date: "18 OCT", time: "19:00", league: "LA LIGA",
-    ticketFrom: 55, flightFrom: 79,
-    kiwiCity: "girona-spain", dateISO: "2026-10-18",
+    ticketFrom: 55, flightFrom: 85,
+    flightCity: "Barcelona",
+    groundConnection: ground("Barcelona", "Girona", "1 h 15 min", 10),
+    kiwiCity: "barcelona-spain", dateISO: "2026-10-18",
     featured: true,
     hotels: [
       { name: "Hotel Ultonia", stars: 3, distanceKm: 2.0, pricePerNight: 74, url: "https://www.booking.com/hotel/es/ultonia.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
@@ -195,7 +218,9 @@ export const MATCHES: Match[] = [
     stadium: "Mestalla", city: "Valencia", country: "ESP",
     date: "24 OCT", time: "18:30", league: "LA LIGA",
     ticketFrom: 60, flightFrom: 88,
-    kiwiCity: "valencia-spain", dateISO: "2026-10-24",
+    flightCity: "Alicante",
+    groundConnection: ground("Alicante", "Valencia", "2 h 15 min", 13),
+    kiwiCity: "alicante-spain", dateISO: "2026-10-24",
     featured: true,
     hotels: [
       { name: "Home Youth Hostel", stars: 3, distanceKm: 1.5, pricePerNight: 68, url: "https://www.booking.com/hotel/es/home-hostel-valencia.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
@@ -211,8 +236,10 @@ export const MATCHES: Match[] = [
     awayBadge: W("https://upload.wikimedia.org/wikipedia/en/2/2f/Real_Betis_2022_logo.svg"),
     stadium: "Ramón Sánchez-Pizjuán", city: "Seville", country: "ESP",
     date: "31 OCT", time: "21:00", league: "DERBI SEVILLANO · LA LIGA",
-    ticketFrom: 110, flightFrom: 118,
-    kiwiCity: "seville-spain", dateISO: "2026-10-31",
+    ticketFrom: 110, flightFrom: 96,
+    flightCity: "Málaga",
+    groundConnection: ground("Málaga", "Sevilla", "2 h 30 min", 18),
+    kiwiCity: "malaga-spain", dateISO: "2026-10-31",
     featured: true,
     hotels: [
       { name: "Futurotel Sevilla", stars: 3, distanceKm: 3.0, pricePerNight: 73, url: "https://www.booking.com/hotel/es/futurotel-sevilla-space.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
@@ -239,7 +266,8 @@ export const MATCHES: Match[] = [
   },
 
   // ═══════════════════════════════════════════
-  // SERIE A — priamy let Bratislava → Miláno (Bergamo) / Rím / Neapol
+  // SERIE A — priamy let do Neapola / Ríma / Milána (Malpensa).
+  // Bergamo nemá priame letisko → let do Milána + autobus.
   // ═══════════════════════════════════════════
   {
     home: "NAPOLI", away: "AS ROMA",
@@ -283,8 +311,10 @@ export const MATCHES: Match[] = [
     awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg"),
     stadium: "Gewiss Stadium", city: "Bergamo", country: "ITA",
     date: "24 OCT", time: "18:00", league: "SERIE A",
-    ticketFrom: 55, flightFrom: 58,
-    kiwiCity: "bergamo-italy", dateISO: "2026-10-24",
+    ticketFrom: 55, flightFrom: 63,
+    flightCity: "Miláno (Malpensa)",
+    groundConnection: ground("Miláno (Malpensa)", "Bergamo", "1 h", 8),
+    kiwiCity: "milan-italy", dateISO: "2026-10-24",
     featured: true,
     hotels: [
       { name: "Hotel Piazza Vecchia", stars: 3, distanceKm: 3.0, pricePerNight: 76, url: "https://www.booking.com/hotel/it/piazza-vecchia.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
@@ -328,23 +358,24 @@ export const MATCHES: Match[] = [
   },
 
   // ═══════════════════════════════════════════
-  // BUNDESLIGA — priamy let Bratislava → Kolín nad Rýnom / Frankfurt (Hahn)
+  // BUNDESLIGA — jediné priame letisko blízko veľkých klubov je Dortmund.
+  // Ostatné mestá (Leverkusen, Kolín, Frankfurt) → let do Dortmundu + autobus.
   // ═══════════════════════════════════════════
   {
-    home: "EINTRACHT FRANKFURT", away: "BAYERN MUNICH",
-    homeAbbr: "SGE", awayAbbr: "BAY",
-    homeCl: "#E1000F", awayCl: "#DC052D",
-    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/7/7e/Eintracht_Frankfurt_crest.svg"),
+    home: "BORUSSIA DORTMUND", away: "BAYERN MUNICH",
+    homeAbbr: "BVB", awayAbbr: "BAY",
+    homeCl: "#FDE100", awayCl: "#DC052D",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg"),
     awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/8/8d/FC_Bayern_M%C3%BCnchen_logo_%282024%29.svg"),
-    stadium: "Deutsche Bank Park", city: "Frankfurt", country: "GER",
-    date: "17 OCT", time: "18:30", league: "BUNDESLIGA",
-    ticketFrom: 75, flightFrom: 69,
-    kiwiCity: "frankfurt-germany", dateISO: "2026-10-17",
+    stadium: "Signal Iduna Park", city: "Dortmund", country: "GER",
+    date: "18 OCT", time: "18:30", league: "DER KLASSIKER · BUNDESLIGA",
+    ticketFrom: 100, flightFrom: 62,
+    kiwiCity: "dortmund-germany", dateISO: "2026-10-18",
     featured: true,
     hotels: [
-      { name: "Hotel Concorde Frankfurt", stars: 3, distanceKm: 5.0, pricePerNight: 79, url: "https://www.booking.com/hotel/de/concorde-frankfurt.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
-      { name: "Frankfurt City Apartments Ostend", stars: 3, distanceKm: 3.5, pricePerNight: 85, url: "https://www.booking.com/hotel/de/frankfurt-city-apartments-ostend.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
-      { name: "Five Elements Hostel", stars: 0, distanceKm: 4.0, pricePerNight: 36, isHostel: true, url: "https://www.booking.com/hotel/de/five-elements-hostel.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
+      { name: "Hotel Esplanade Dortmund", stars: 3, distanceKm: 2.0, pricePerNight: 84, url: "https://www.booking.com/hotel/de/esplanade-dortmund.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
+      { name: "Dortmund City Apartments", stars: 3, distanceKm: 1.5, pricePerNight: 90, url: "https://www.booking.com/hotel/de/dortmund-city-apartments.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
+      { name: "Meininger Dortmund Hostel", stars: 0, distanceKm: 2.5, pricePerNight: 34, isHostel: true, url: "https://www.booking.com/hotel/de/meininger-dortmund.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
     ],
   },
   {
@@ -354,14 +385,16 @@ export const MATCHES: Match[] = [
     homeBadge: W("https://upload.wikimedia.org/wikipedia/en/5/59/Bayer_04_Leverkusen_logo.svg"),
     awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/8/8d/FC_Bayern_M%C3%BCnchen_logo_%282024%29.svg"),
     stadium: "BayArena", city: "Leverkusen", country: "GER",
-    date: "18 OCT", time: "18:30", league: "BUNDESLIGA",
-    ticketFrom: 85, flightFrom: 64,
-    kiwiCity: "cologne-germany", dateISO: "2026-10-18",
+    date: "17 OCT", time: "18:30", league: "BUNDESLIGA",
+    ticketFrom: 85, flightFrom: 62,
+    flightCity: "Dortmund",
+    groundConnection: ground("Dortmund", "Leverkusen", "50 min", 12),
+    kiwiCity: "dortmund-germany", dateISO: "2026-10-17",
     featured: true,
     hotels: [
-      { name: "Hotel Uerige am Rhein", stars: 3, distanceKm: 12.0, pricePerNight: 74, url: "https://www.booking.com/hotel/de/uerige-am-rhein.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "Leverkusen City Apartments", stars: 3, distanceKm: 3.0, pricePerNight: 80, url: "https://www.booking.com/hotel/de/leverkusen-city-apartments.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "Backpackers Cologne Hostel", stars: 0, distanceKm: 13.0, pricePerNight: 30, isHostel: true, url: "https://www.booking.com/hotel/de/backpackers-cologne.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
+      { name: "Hotel Uerige am Rhein", stars: 3, distanceKm: 12.0, pricePerNight: 74, url: "https://www.booking.com/hotel/de/uerige-am-rhein.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
+      { name: "Leverkusen City Apartments", stars: 3, distanceKm: 3.0, pricePerNight: 80, url: "https://www.booking.com/hotel/de/leverkusen-city-apartments.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
+      { name: "Backpackers Cologne Hostel", stars: 0, distanceKm: 13.0, pricePerNight: 30, isHostel: true, url: "https://www.booking.com/hotel/de/backpackers-cologne.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
     ],
   },
   {
@@ -372,8 +405,10 @@ export const MATCHES: Match[] = [
     awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/8/81/Borussia_Mönchengladbach_logo.svg"),
     stadium: "BayArena", city: "Leverkusen", country: "GER",
     date: "24 OCT", time: "15:30", league: "BUNDESLIGA",
-    ticketFrom: 60, flightFrom: 64,
-    kiwiCity: "cologne-germany", dateISO: "2026-10-24",
+    ticketFrom: 60, flightFrom: 62,
+    flightCity: "Dortmund",
+    groundConnection: ground("Dortmund", "Leverkusen", "50 min", 12),
+    kiwiCity: "dortmund-germany", dateISO: "2026-10-24",
     featured: true,
     hotels: [
       { name: "Hotel Uerige am Rhein", stars: 3, distanceKm: 12.0, pricePerNight: 72, url: "https://www.booking.com/hotel/de/uerige-am-rhein.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
@@ -389,8 +424,10 @@ export const MATCHES: Match[] = [
     awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg"),
     stadium: "RheinEnergieStadion", city: "Cologne", country: "GER",
     date: "25 OCT", time: "15:30", league: "BUNDESLIGA",
-    ticketFrom: 70, flightFrom: 64,
-    kiwiCity: "cologne-germany", dateISO: "2026-10-25",
+    ticketFrom: 70, flightFrom: 62,
+    flightCity: "Dortmund",
+    groundConnection: ground("Dortmund", "Kolín nad Rýnom", "1 h 10 min", 14),
+    kiwiCity: "dortmund-germany", dateISO: "2026-10-25",
     featured: true,
     hotels: [
       { name: "Hotel Uerige am Rhein", stars: 3, distanceKm: 4.0, pricePerNight: 76, url: "https://www.booking.com/hotel/de/uerige-am-rhein.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
@@ -406,8 +443,10 @@ export const MATCHES: Match[] = [
     awayBadge: W("https://upload.wikimedia.org/wikipedia/en/0/04/RB_Leipzig_2014_logo.svg"),
     stadium: "Deutsche Bank Park", city: "Frankfurt", country: "GER",
     date: "31 OCT", time: "18:30", league: "BUNDESLIGA",
-    ticketFrom: 70, flightFrom: 69,
-    kiwiCity: "frankfurt-germany", dateISO: "2026-10-31",
+    ticketFrom: 70, flightFrom: 62,
+    flightCity: "Dortmund",
+    groundConnection: ground("Dortmund", "Frankfurt", "2 h 15 min", 22),
+    kiwiCity: "dortmund-germany", dateISO: "2026-10-31",
     featured: true,
     hotels: [
       { name: "Hotel Concorde Frankfurt", stars: 3, distanceKm: 5.0, pricePerNight: 82, url: "https://www.booking.com/hotel/de/concorde-frankfurt.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
@@ -417,7 +456,8 @@ export const MATCHES: Match[] = [
   },
 
   // ═══════════════════════════════════════════
-  // LIGUE 1 — priamy let Bratislava → Paríž (Beauvais)
+  // LIGUE 1 — Nice má priame letisko z Bratislavy (bez prestupu).
+  // Paríž priame letisko nemá → let do Bruselu (Charleroi) + autobus.
   // ═══════════════════════════════════════════
   {
     home: "PARIS FC", away: "LILLE",
@@ -427,8 +467,10 @@ export const MATCHES: Match[] = [
     awayBadge: W("https://upload.wikimedia.org/wikipedia/en/3/3f/Lille_OSC_2018_logo.svg"),
     stadium: "Stade Jean-Bouin", city: "Paris", country: "FRA",
     date: "17 OCT", time: "17:00", league: "LIGUE 1",
-    ticketFrom: 45, flightFrom: 92,
-    kiwiCity: "paris-france", dateISO: "2026-10-17",
+    ticketFrom: 45, flightFrom: 74,
+    flightCity: "Brusel (Charleroi)",
+    groundConnection: ground("Brusel (Charleroi)", "Paríž", "3 h 15 min", 20),
+    kiwiCity: "brussels-belgium", dateISO: "2026-10-17",
     featured: true,
     hotels: [
       { name: "hotelF1 Porte de Châtillon", stars: 2, distanceKm: 3.0, pricePerNight: 64, url: "https://www.booking.com/hotel/fr/hotelf1-paris-porte-de-chatillon-paris.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
@@ -444,13 +486,32 @@ export const MATCHES: Match[] = [
     awayBadge: W("https://upload.wikimedia.org/wikipedia/commons/d/d8/Olympique_Marseille_logo.svg"),
     stadium: "Parc des Princes", city: "Paris", country: "FRA",
     date: "18 OCT", time: "20:45", league: "LE CLASSIQUE · LIGUE 1",
-    ticketFrom: 95, flightFrom: 92,
-    kiwiCity: "paris-france", dateISO: "2026-10-18",
+    ticketFrom: 95, flightFrom: 74,
+    flightCity: "Brusel (Charleroi)",
+    groundConnection: ground("Brusel (Charleroi)", "Paríž", "3 h 15 min", 20),
+    kiwiCity: "brussels-belgium", dateISO: "2026-10-18",
     featured: true,
     hotels: [
       { name: "hotelF1 Porte de Châtillon", stars: 2, distanceKm: 4.0, pricePerNight: 68, url: "https://www.booking.com/hotel/fr/hotelf1-paris-porte-de-chatillon-paris.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
       { name: "Hotel Lilas Gambetta", stars: 3, distanceKm: 11.0, pricePerNight: 106, url: "https://www.booking.com/hotel/fr/lilasgambetta.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
       { name: "Résidence Internationale de Paris", stars: 0, distanceKm: 8.0, pricePerNight: 56, isHostel: true, url: "https://www.booking.com/hotel/fr/residence-internationale-de-paris.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
+    ],
+  },
+  {
+    home: "OGC NICE", away: "MONACO",
+    homeAbbr: "NCE", awayAbbr: "ASM",
+    homeCl: "#CC1E22", awayCl: "#E7002A",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/2/2e/OGC_Nice_logo.svg"),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/c/cf/LogoASMonacoFC2021.svg"),
+    stadium: "Allianz Riviera", city: "Nice", country: "FRA",
+    date: "24 OCT", time: "17:00", league: "DERBY DE LA CÔTE D'AZUR · LIGUE 1",
+    ticketFrom: 55, flightFrom: 79,
+    kiwiCity: "nice-france", dateISO: "2026-10-24",
+    featured: true,
+    hotels: [
+      { name: "Hotel Splendid Nice", stars: 3, distanceKm: 3.0, pricePerNight: 92, url: "https://www.booking.com/hotel/fr/splendid-nice.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
+      { name: "Nice Riviera Apartments", stars: 3, distanceKm: 2.2, pricePerNight: 98, url: "https://www.booking.com/hotel/fr/nice-riviera-apartments.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
+      { name: "Villa Saint-Exupéry Beach Hostel", stars: 0, distanceKm: 4.0, pricePerNight: 40, isHostel: true, url: "https://www.booking.com/hotel/fr/villa-saint-exupery-beach.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
     ],
   },
   {
@@ -460,48 +521,33 @@ export const MATCHES: Match[] = [
     homeBadge: W("https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg"),
     awayBadge: W("https://upload.wikimedia.org/wikipedia/en/1/1c/Olympique_Lyonnais_logo.svg"),
     stadium: "Parc des Princes", city: "Paris", country: "FRA",
-    date: "24 OCT", time: "17:00", league: "LIGUE 1",
-    ticketFrom: 65, flightFrom: 92,
-    kiwiCity: "paris-france", dateISO: "2026-10-24",
+    date: "25 OCT", time: "17:00", league: "LIGUE 1",
+    ticketFrom: 65, flightFrom: 74,
+    flightCity: "Brusel (Charleroi)",
+    groundConnection: ground("Brusel (Charleroi)", "Paríž", "3 h 15 min", 20),
+    kiwiCity: "brussels-belgium", dateISO: "2026-10-25",
     featured: true,
     hotels: [
-      { name: "hotelF1 Porte de Châtillon", stars: 2, distanceKm: 4.0, pricePerNight: 66, url: "https://www.booking.com/hotel/fr/hotelf1-paris-porte-de-chatillon-paris.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Hotel Lilas Gambetta", stars: 3, distanceKm: 11.0, pricePerNight: 100, url: "https://www.booking.com/hotel/fr/lilasgambetta.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Résidence Internationale de Paris", stars: 0, distanceKm: 8.0, pricePerNight: 55, isHostel: true, url: "https://www.booking.com/hotel/fr/residence-internationale-de-paris.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
+      { name: "hotelF1 Porte de Châtillon", stars: 2, distanceKm: 4.0, pricePerNight: 66, url: "https://www.booking.com/hotel/fr/hotelf1-paris-porte-de-chatillon-paris.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
+      { name: "Hotel Lilas Gambetta", stars: 3, distanceKm: 11.0, pricePerNight: 100, url: "https://www.booking.com/hotel/fr/lilasgambetta.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
+      { name: "Résidence Internationale de Paris", stars: 0, distanceKm: 8.0, pricePerNight: 55, isHostel: true, url: "https://www.booking.com/hotel/fr/residence-internationale-de-paris.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
     ],
   },
   {
-    home: "PARIS FC", away: "MONACO",
-    homeAbbr: "PFC", awayAbbr: "ASM",
-    homeCl: "#004A93", awayCl: "#E7002A",
-    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/9/9f/Paris_FC_logo.svg"),
-    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/c/cf/LogoASMonacoFC2021.svg"),
-    stadium: "Stade Jean-Bouin", city: "Paris", country: "FRA",
-    date: "25 OCT", time: "15:00", league: "LIGUE 1",
-    ticketFrom: 50, flightFrom: 92,
-    kiwiCity: "paris-france", dateISO: "2026-10-25",
-    featured: true,
-    hotels: [
-      { name: "hotelF1 Porte de Châtillon", stars: 2, distanceKm: 3.0, pricePerNight: 65, url: "https://www.booking.com/hotel/fr/hotelf1-paris-porte-de-chatillon-paris.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Hotel Lilas Gambetta", stars: 3, distanceKm: 9.0, pricePerNight: 99, url: "https://www.booking.com/hotel/fr/lilasgambetta.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Résidence Internationale de Paris", stars: 0, distanceKm: 6.0, pricePerNight: 54, isHostel: true, url: "https://www.booking.com/hotel/fr/residence-internationale-de-paris.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-    ],
-  },
-  {
-    home: "PSG", away: "NICE",
-    homeAbbr: "PSG", awayAbbr: "OGCN",
-    homeCl: "#004170", awayCl: "#CC1E22",
-    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg"),
-    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/2/2e/OGC_Nice_logo.svg"),
-    stadium: "Parc des Princes", city: "Paris", country: "FRA",
+    home: "OGC NICE", away: "LYON",
+    homeAbbr: "NCE", awayAbbr: "OL",
+    homeCl: "#CC1E22", awayCl: "#0D3CA1",
+    homeBadge: W("https://upload.wikimedia.org/wikipedia/en/2/2e/OGC_Nice_logo.svg"),
+    awayBadge: W("https://upload.wikimedia.org/wikipedia/en/1/1c/Olympique_Lyonnais_logo.svg"),
+    stadium: "Allianz Riviera", city: "Nice", country: "FRA",
     date: "31 OCT", time: "20:45", league: "LIGUE 1",
-    ticketFrom: 60, flightFrom: 95,
-    kiwiCity: "paris-france", dateISO: "2026-10-31",
+    ticketFrom: 60, flightFrom: 79,
+    kiwiCity: "nice-france", dateISO: "2026-10-31",
     featured: true,
     hotels: [
-      { name: "hotelF1 Porte de Châtillon", stars: 2, distanceKm: 4.0, pricePerNight: 70, url: "https://www.booking.com/hotel/fr/hotelf1-paris-porte-de-chatillon-paris.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "Hotel Lilas Gambetta", stars: 3, distanceKm: 11.0, pricePerNight: 104, url: "https://www.booking.com/hotel/fr/lilasgambetta.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "Résidence Internationale de Paris", stars: 0, distanceKm: 8.0, pricePerNight: 57, isHostel: true, url: "https://www.booking.com/hotel/fr/residence-internationale-de-paris.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
+      { name: "Hotel Splendid Nice", stars: 3, distanceKm: 3.0, pricePerNight: 96, url: "https://www.booking.com/hotel/fr/splendid-nice.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
+      { name: "Nice Riviera Apartments", stars: 3, distanceKm: 2.2, pricePerNight: 102, url: "https://www.booking.com/hotel/fr/nice-riviera-apartments.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
+      { name: "Villa Saint-Exupéry Beach Hostel", stars: 0, distanceKm: 4.0, pricePerNight: 42, isHostel: true, url: "https://www.booking.com/hotel/fr/villa-saint-exupery-beach.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
     ],
   },
 
