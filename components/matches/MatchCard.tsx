@@ -371,15 +371,25 @@ export default function MatchCard({ match }: { match: Match }) {
                       </span>
                     </div>
                   )}
+                  {isBus && !match.groundConnection && (
+                    <div style={{
+                      display: "flex", alignItems: "center", gap: "8px",
+                      background: "#FBF3DC", border: "1px solid #D8B35A55", borderRadius: "8px",
+                      padding: "9px 12px", marginBottom: "2px",
+                    }}>
+                      <span style={{ fontSize: "0.85rem" }}>🚌</span>
+                      <span style={{ fontFamily: "var(--font-geist)", fontSize: "0.66rem", color: "#8C6A1F", lineHeight: 1.4 }}>
+                        Bez lietadla — priamy diaľkový autobus z Bratislavy až do {match.city} ({match.busDuration}), bez prestupu.
+                      </span>
+                    </div>
+                  )}
                   <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#8C7A56", marginBottom: "4px", paddingLeft: "4px" }}>
                     {match.groundConnection
                       ? `1. Priamy let z Bratislavy · spiatočný`
-                      : (isBus ? "Autobus z Bratislavy · spiatočný · deň pred zápasom" : "Lety z Bratislavy · spiatočné · deň pred zápasom")}
+                      : (isBus ? `Autobus z Bratislavy · spiatočný · ~${match.busDuration} · dostatočná rezerva pred zápasom` : "Lety z Bratislavy · spiatočné · deň pred zápasom")}
                   </div>
                   {(isBus ? [
-                    { airline: "FlixBus (priamy)", dep: "06:00", arr: "10:30", price: match.flightFrom },
-                    { airline: "FlixBus (priamy)", dep: "10:00", arr: "14:30", price: match.flightFrom + 8 },
-                    { airline: "RegioJet (priamy)", dep: "14:00", arr: "19:00", price: match.flightFrom + 11 },
+                    { airline: match.busProvider ?? "FlixBus", dep: "priamy spoj", arr: match.busDuration ?? "", price: match.flightFrom },
                   ] : [
                     { airline: "Ryanair", dep: "06:45", arr: "08:30", price: match.flightFrom },
                     { airline: "Wizz Air", dep: "11:20", arr: "13:10", price: match.flightFrom + 12 },
@@ -414,7 +424,9 @@ export default function MatchCard({ match }: { match: Match }) {
                             {flight.airline}
                           </div>
                           <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.62rem", color: "#9E8B68", marginTop: "4px" }}>
-                            BTS → {match.flightCity ?? match.city} · {flight.dep} – {flight.arr} · spiatočný
+                            {isBus
+                              ? `BTS → ${match.city} · ${flight.arr} · bez prestupu`
+                              : `BTS → ${match.flightCity ?? match.city} · ${flight.dep} – ${flight.arr} · spiatočný`}
                           </div>
                         </div>
                         <div style={{ textAlign: "right", flexShrink: 0 }}>
