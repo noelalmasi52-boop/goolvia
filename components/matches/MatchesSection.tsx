@@ -114,7 +114,7 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
             Najlacnejšie<br /><span style={{ color: "#D8B35A" }}>miesta</span> v Európe.
           </h2>
           <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.95rem", color: "#8C7A56", lineHeight: 1.7 }}>
-            Vyber zápas — uvidíš konkrétne hotely, lety aj vstupenky s najlepšími cenami. Všetko na jednom mieste.
+            Pripravili sme vám tie najlacnejšie možnosti, ako sa dostať na vaše zápasy, o ktorých ste snívali. Vyber zápas — uvidíš konkrétne hotely, lety aj vstupenky s najlepšími cenami, všetko na jednom mieste.
           </p>
         </div>
 

@@ -102,9 +102,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "london-united-kingdom", dateISO: "2026-10-17",
     featured: true,
     hotels: [
-      { name: "Barclay House Fulham", stars: 3, distanceKm: 1.2, pricePerNight: 89, url: "https://www.booking.com/hotel/gb/barclay-house-fulham.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
-      { name: "The Fulham Boutique Apartments", stars: 3, distanceKm: 1.8, pricePerNight: 96, url: "https://www.booking.com/hotel/gb/fulham-boutique-apartments.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
-      { name: "YHA London Thameside", stars: 0, distanceKm: 9.0, pricePerNight: 58, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
+      { name: "Alross Guest House with Free Italian Breakfast", stars: 3, distanceKm: 7.5, pricePerNight: 46, url: "https://www.booking.com/hotel/gb/alross-guest-house-with-breakfast-free.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
+      { name: "Goldy's place in E17", stars: 3, distanceKm: 13.4, pricePerNight: 48, url: "https://www.booking.com/hotel/gb/goldys-place-in-e17.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
+      { name: "YHA London Thameside", stars: 0, distanceKm: 5.7, pricePerNight: 29, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
     ],
   },
   {
@@ -119,9 +119,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "london-united-kingdom", dateISO: "2026-10-18",
     featured: true,
     hotels: [
-      { name: "287 Green Lanes", stars: 3, distanceKm: 2.5, pricePerNight: 65, url: "https://www.booking.com/hotel/gb/287-green-lanes.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "Holiday Villa Highbury", stars: 3, distanceKm: 1.5, pricePerNight: 78, url: "https://www.booking.com/hotel/gb/holiday-villa-highbury.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "YHA London Thameside", stars: 0, distanceKm: 10.0, pricePerNight: 58, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
+      { name: "Alross Guest House with Free Italian Breakfast", stars: 3, distanceKm: 7.5, pricePerNight: 46, url: "https://www.booking.com/hotel/gb/alross-guest-house-with-breakfast-free.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
+      { name: "Goldy's place in E17", stars: 3, distanceKm: 13.4, pricePerNight: 48, url: "https://www.booking.com/hotel/gb/goldys-place-in-e17.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
+      { name: "YHA London Thameside", stars: 0, distanceKm: 5.7, pricePerNight: 29, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
     ],
   },
   {
@@ -136,9 +136,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "london-united-kingdom", dateISO: "2026-10-24",
     featured: true,
     hotels: [
-      { name: "Stratford Manor Apartments", stars: 3, distanceKm: 1.5, pricePerNight: 82, url: "https://www.booking.com/hotel/gb/stratford-manor-apartments.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Ibis London Stratford", stars: 3, distanceKm: 1.0, pricePerNight: 88, url: "https://www.booking.com/hotel/gb/ibis-london-stratford.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "YHA London Thameside", stars: 0, distanceKm: 6.5, pricePerNight: 58, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
+      { name: "Alross Guest House with Free Italian Breakfast", stars: 3, distanceKm: 7.5, pricePerNight: 46, url: "https://www.booking.com/hotel/gb/alross-guest-house-with-breakfast-free.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
+      { name: "Goldy's place in E17", stars: 3, distanceKm: 13.4, pricePerNight: 48, url: "https://www.booking.com/hotel/gb/goldys-place-in-e17.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
+      { name: "YHA London Thameside", stars: 0, distanceKm: 5.7, pricePerNight: 29, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
     ],
   },
   {
@@ -153,9 +153,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "london-united-kingdom", dateISO: "2026-10-25",
     featured: true,
     hotels: [
-      { name: "Smart Hyde Park View", stars: 3, distanceKm: 4.0, pricePerNight: 75, url: "https://www.booking.com/hotel/gb/smart-hyde-park-view.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Fulham Road Studios", stars: 3, distanceKm: 1.8, pricePerNight: 92, url: "https://www.booking.com/hotel/gb/fulham-road-studios.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "YHA London Thameside", stars: 0, distanceKm: 9.5, pricePerNight: 58, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
+      { name: "Alross Guest House with Free Italian Breakfast", stars: 3, distanceKm: 7.5, pricePerNight: 46, url: "https://www.booking.com/hotel/gb/alross-guest-house-with-breakfast-free.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
+      { name: "Goldy's place in E17", stars: 3, distanceKm: 13.4, pricePerNight: 48, url: "https://www.booking.com/hotel/gb/goldys-place-in-e17.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
+      { name: "YHA London Thameside", stars: 0, distanceKm: 5.7, pricePerNight: 29, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
     ],
   },
   {
@@ -170,9 +170,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "london-united-kingdom", dateISO: "2026-10-31",
     featured: true,
     hotels: [
-      { name: "287 Green Lanes", stars: 3, distanceKm: 3.5, pricePerNight: 65, url: "https://www.booking.com/hotel/gb/287-green-lanes.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "Holiday Villa Highbury", stars: 3, distanceKm: 3.0, pricePerNight: 78, url: "https://www.booking.com/hotel/gb/holiday-villa-highbury.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "YHA London Thameside", stars: 0, distanceKm: 11.0, pricePerNight: 58, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
+      { name: "Alross Guest House with Free Italian Breakfast", stars: 3, distanceKm: 7.5, pricePerNight: 46, url: "https://www.booking.com/hotel/gb/alross-guest-house-with-breakfast-free.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
+      { name: "Goldy's place in E17", stars: 3, distanceKm: 13.4, pricePerNight: 48, url: "https://www.booking.com/hotel/gb/goldys-place-in-e17.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
+      { name: "YHA London Thameside", stars: 0, distanceKm: 5.7, pricePerNight: 29, isHostel: true, url: "https://www.booking.com/hotel/gb/yha-london-thameside.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
     ],
   },
 
@@ -193,9 +193,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "barcelona-spain", dateISO: "2026-10-17",
     featured: true,
     hotels: [
-      { name: "Hostal Girona", stars: 3, distanceKm: 3.0, pricePerNight: 78, url: "https://www.booking.com/hotel/es/girona54.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
-      { name: "Catalonia La Maquinista", stars: 3, distanceKm: 6.0, pricePerNight: 89, url: "https://www.booking.com/hotel/es/catalonialamaquinista.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
-      { name: "Ten To Go Hostel", stars: 0, distanceKm: 4.0, pricePerNight: 42, isHostel: true, url: "https://www.booking.com/hotel/es/ten-to-go-hostel.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
+      { name: "Fabrizzio's Petit (Petit Palace)", stars: 4, distanceKm: 0.7, pricePerNight: 57, url: "https://www.booking.com/hotel/es/fabrizzio-petit-palace-barcelona.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
+      { name: "The Loft House Barcelona", stars: 3, distanceKm: 1.2, pricePerNight: 47, url: "https://www.booking.com/hotel/es/la-flor-de-gaudi-hostel-la-pedrera.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
+      { name: "Ten To Go Hostel", stars: 0, distanceKm: 2.9, pricePerNight: 36, isHostel: true, url: "https://www.booking.com/hotel/es/ten-to-go-hostel.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
     ],
   },
   {
@@ -212,9 +212,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "barcelona-spain", dateISO: "2026-10-18",
     featured: true,
     hotels: [
-      { name: "Hotel Ultonia", stars: 3, distanceKm: 2.0, pricePerNight: 74, url: "https://www.booking.com/hotel/es/ultonia.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "Girona Apartments Rambla", stars: 3, distanceKm: 1.6, pricePerNight: 80, url: "https://www.booking.com/hotel/es/girona-apartments-rambla.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "Alberg Rocaferil", stars: 0, distanceKm: 2.5, pricePerNight: 33, isHostel: true, url: "https://www.booking.com/hotel/es/alberg-rocaferil.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
+      { name: "BYPILLOW The Bloom", stars: 3, distanceKm: 0.45, pricePerNight: 99, url: "https://www.booking.com/hotel/es/condal-girona.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
+      { name: "Peninsular", stars: 3, distanceKm: 0.2, pricePerNight: 117, url: "https://www.booking.com/hotel/es/peninsular.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
+      { name: "Hotel Ultonia", stars: 3, distanceKm: 0.4, pricePerNight: 137, url: "https://www.booking.com/hotel/es/ultonia.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
     ],
   },
   {
@@ -231,9 +231,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "alicante-spain", dateISO: "2026-10-24",
     featured: true,
     hotels: [
-      { name: "Home Youth Hostel", stars: 3, distanceKm: 1.5, pricePerNight: 68, url: "https://www.booking.com/hotel/es/home-hostel-valencia.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Petit Palace Bristol", stars: 3, distanceKm: 2.2, pricePerNight: 84, url: "https://www.booking.com/hotel/es/petit-palace-bristol.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Purple Nest Hostel", stars: 0, distanceKm: 1.0, pricePerNight: 30, isHostel: true, url: "https://www.booking.com/hotel/es/purple-nest-hostel.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
+      { name: "Room Valencia", stars: 3, distanceKm: 0.9, pricePerNight: 46, url: "https://www.booking.com/hotel/es/center-valencia.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
+      { name: "Home Youth Hostel by Feetup Hostels", stars: 3, distanceKm: 0.5, pricePerNight: 90, url: "https://www.booking.com/hotel/es/home-youth-hostel.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
+      { name: "Purple Nest Hostel", stars: 0, distanceKm: 0.8, pricePerNight: 58, isHostel: true, url: "https://www.booking.com/hotel/es/purple-nest-hostel.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
     ],
   },
   {
@@ -250,9 +250,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "malaga-spain", dateISO: "2026-10-31",
     featured: true,
     hotels: [
-      { name: "Futurotel Sevilla", stars: 3, distanceKm: 3.0, pricePerNight: 73, url: "https://www.booking.com/hotel/es/futurotel-sevilla-space.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "Pension Azahar", stars: 2, distanceKm: 2.5, pricePerNight: 80, url: "https://www.booking.com/hotel/es/pension-azahar.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "Hostel Triana Backpackers", stars: 0, distanceKm: 3.5, pricePerNight: 50, isHostel: true, url: "https://www.booking.com/hotel/es/albergue-triana-backpackers.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
+      { name: "The Loft House Sevilla", stars: 3, distanceKm: 0.4, pricePerNight: 41, url: "https://www.booking.com/hotel/es/the-loft-house-sevilla.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
+      { name: "Room Salvador", stars: 3, distanceKm: 0.4, pricePerNight: 27, url: "https://www.booking.com/hotel/es/koisi-hostel-sevilla.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
+      { name: "Hostel Triana Backpackers", stars: 0, distanceKm: 0.8, pricePerNight: 24, isHostel: true, url: "https://www.booking.com/hotel/es/albergue-triana-backpackers.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
     ],
   },
   {
@@ -267,9 +267,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "barcelona-spain", dateISO: "2026-10-25",
     featured: true,
     hotels: [
-      { name: "Hostal Argo", stars: 2, distanceKm: 4.0, pricePerNight: 146, url: "https://www.booking.com/hotel/es/hostal-argo.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Catalonia La Maquinista", stars: 3, distanceKm: 8.0, pricePerNight: 165, url: "https://www.booking.com/hotel/es/catalonialamaquinista.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Ten To Go Hostel", stars: 0, distanceKm: 4.5, pricePerNight: 68, isHostel: true, url: "https://www.booking.com/hotel/es/ten-to-go-hostel.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
+      { name: "The Loft House Barcelona", stars: 3, distanceKm: 1.2, pricePerNight: 46, url: "https://www.booking.com/hotel/es/la-flor-de-gaudi-hostel-la-pedrera.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
+      { name: "Hola Hostal Eixample", stars: 3, distanceKm: 1.3, pricePerNight: 34, url: "https://www.booking.com/hotel/es/hola-hostal-eixample.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
+      { name: "Leevin Stay Hostel", stars: 0, distanceKm: 3.6, pricePerNight: 32, isHostel: true, url: "https://www.booking.com/hotel/es/leevin-hostel-barcelona.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
     ],
   },
 
@@ -289,9 +289,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "naples-italy", dateISO: "2026-10-17",
     featured: true,
     hotels: [
-      { name: "Hotel Ginevra", stars: 3, distanceKm: 4.5, pricePerNight: 65, url: "https://www.booking.com/hotel/it/hotelginevranapoli.sk.html?checkin=2026-10-15&checkout=2026-10-18&group_adults=2" },
-      { name: "Sweet Dreams Napoli", stars: 3, distanceKm: 5.5, pricePerNight: 70, url: "https://www.booking.com/hotel/it/sweet-dreams-napoli12.sk.html?checkin=2026-10-15&checkout=2026-10-18&group_adults=2" },
-      { name: "Hostel B&B ALMA", stars: 0, distanceKm: 4.5, pricePerNight: 38, isHostel: true, url: "https://www.booking.com/hotel/it/hostel-b-amp-b-alma.sk.html?checkin=2026-10-15&checkout=2026-10-18&group_adults=2" },
+      { name: "B&B S Home", stars: 3, distanceKm: 6.5, pricePerNight: 44, url: "https://www.booking.com/hotel/it/b-amp-b-4-39-s-home-mr-rino-martinelli.sk.html?checkin=2026-10-15&checkout=2026-10-18&group_adults=1" },
+      { name: "CX Naples Centrale", stars: 3, distanceKm: 2.1, pricePerNight: 46, url: "https://www.booking.com/hotel/it/cx-naples-centrale.sk.html?checkin=2026-10-15&checkout=2026-10-18&group_adults=1" },
+      { name: "La Controra Hostel Naples", stars: 0, distanceKm: 1.4, pricePerNight: 28, isHostel: true, url: "https://www.booking.com/hotel/it/hostel-naples-la-controra.sk.html?checkin=2026-10-15&checkout=2026-10-18&group_adults=1" },
     ],
   },
   {
@@ -306,9 +306,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "milan-italy", dateISO: "2026-10-18",
     featured: true,
     hotels: [
-      { name: "Hotel Alessander", stars: 3, distanceKm: 5.5, pricePerNight: 94, url: "https://www.booking.com/hotel/it/alessander.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "Hotel RossoVino Milano", stars: 3, distanceKm: 5.0, pricePerNight: 98, url: "https://www.booking.com/hotel/it/rossovino.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "Babila Hostel & Bistrot", stars: 0, distanceKm: 5.5, pricePerNight: 68, isHostel: true, url: "https://www.booking.com/hotel/it/babila-hostel.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
+      { name: "MEININGER Milano Lambrate", stars: 3, distanceKm: 4.5, pricePerNight: 34, url: "https://www.booking.com/hotel/it/meininger-milano-lambrate.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
+      { name: "MEININGER Milano Garibaldi", stars: 3, distanceKm: 3.2, pricePerNight: 37, url: "https://www.booking.com/hotel/it/meininger-milano-garibaldi.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
+      { name: "Babila Hostel & Bar", stars: 0, distanceKm: 1.1, pricePerNight: 47, isHostel: true, url: "https://www.booking.com/hotel/it/babila-hostel.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
     ],
   },
   {
@@ -325,9 +325,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "milan-italy", dateISO: "2026-10-24",
     featured: true,
     hotels: [
-      { name: "Hotel Piazza Vecchia", stars: 3, distanceKm: 3.0, pricePerNight: 76, url: "https://www.booking.com/hotel/it/piazza-vecchia.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Bergamo City Apartments", stars: 3, distanceKm: 2.2, pricePerNight: 82, url: "https://www.booking.com/hotel/it/bergamo-city-apartments.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Ostello di Bergamo", stars: 0, distanceKm: 3.5, pricePerNight: 32, isHostel: true, url: "https://www.booking.com/hotel/it/ostello-di-bergamo.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
+      { name: "Bed Station -self check in-", stars: 3, distanceKm: 0.7, pricePerNight: 70, url: "https://www.booking.com/hotel/it/bed-station.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
+      { name: "Casa Valle D'Astino", stars: 3, distanceKm: 2.7, pricePerNight: 73, url: "https://www.booking.com/hotel/it/b-amp-b-valle-d-astino.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
+      { name: "Namasté - BGY", stars: 3, distanceKm: 1.7, pricePerNight: 77, url: "https://www.booking.com/hotel/it/namaste-bgy.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
     ],
   },
   {
@@ -342,9 +342,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "milan-italy", dateISO: "2026-10-25",
     featured: true,
     hotels: [
-      { name: "Hotel Alessander", stars: 3, distanceKm: 5.5, pricePerNight: 98, url: "https://www.booking.com/hotel/it/alessander.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Hotel RossoVino Milano", stars: 3, distanceKm: 5.0, pricePerNight: 105, url: "https://www.booking.com/hotel/it/rossovino.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Babila Hostel & Bistrot", stars: 0, distanceKm: 5.5, pricePerNight: 72, isHostel: true, url: "https://www.booking.com/hotel/it/babila-hostel.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
+      { name: "MEININGER Milano Lambrate", stars: 3, distanceKm: 4.5, pricePerNight: 31, url: "https://www.booking.com/hotel/it/meininger-milano-lambrate.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
+      { name: "MEININGER Milano Garibaldi", stars: 3, distanceKm: 3.2, pricePerNight: 35, url: "https://www.booking.com/hotel/it/meininger-milano-garibaldi.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
+      { name: "Babila Hostel & Bar", stars: 0, distanceKm: 1.1, pricePerNight: 43, isHostel: true, url: "https://www.booking.com/hotel/it/babila-hostel.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
     ],
   },
   {
@@ -359,9 +359,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "rome-italy", dateISO: "2026-10-31",
     featured: true,
     hotels: [
-      { name: "Hotel Center 3", stars: 3, distanceKm: 7.0, pricePerNight: 78, url: "https://www.booking.com/hotel/it/vicious.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "LunaBlù", stars: 3, distanceKm: 6.0, pricePerNight: 88, url: "https://www.booking.com/hotel/it/lunablu.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "Palace Rome", stars: 0, distanceKm: 11.0, pricePerNight: 59, isHostel: true, url: "https://www.booking.com/hotel/it/hostel-prima-base.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
+      { name: "Melting Pot Rome", stars: 3, distanceKm: 2.2, pricePerNight: 42, url: "https://www.booking.com/hotel/it/melting-pot-rome.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
+      { name: "Soha's Holiday", stars: 3, distanceKm: 1.8, pricePerNight: 45, url: "https://www.booking.com/hotel/it/sohas-holiday.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
+      { name: "Roma Scout Center", stars: 0, distanceKm: 3.7, pricePerNight: 49, isHostel: true, url: "https://www.booking.com/hotel/it/roma-scout-center.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
     ],
   },
 
@@ -385,9 +385,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "munich-germany", dateISO: "2026-10-18",
     featured: true,
     hotels: [
-      { name: "Tulip Inn München Messe", stars: 3, distanceKm: 12.0, pricePerNight: 62, url: "https://www.booking.com/hotel/de/nordic-pure-munich.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "ibis Styles München Perlach", stars: 3, distanceKm: 14.0, pricePerNight: 68, url: "https://www.booking.com/hotel/de/ibis-styles-muenchen-perlach.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "THE 4YOU Hostel Munich", stars: 0, distanceKm: 8.0, pricePerNight: 34, isHostel: true, url: "https://www.booking.com/hotel/de/4-you.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
+      { name: "Jugendherberge München City", stars: 3, distanceKm: 3.9, pricePerNight: 41, url: "https://www.booking.com/hotel/de/jugendherberge-munchen-city.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
+      { name: "Hotel Pension Schmellergarten", stars: 3, distanceKm: 2.2, pricePerNight: 42, url: "https://www.booking.com/hotel/de/pension-schmellergarten.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
+      { name: "Wombat's City Hostel Munich Werksviertel", stars: 0, distanceKm: 2.6, pricePerNight: 18, isHostel: true, url: "https://www.booking.com/hotel/de/wombats-the-city-hostel-munich-werksviertel.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
     ],
   },
   {
@@ -404,9 +404,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "leipzig-germany", dateISO: "2026-10-17",
     featured: true,
     hotels: [
-      { name: "Motel One Leipzig-Nikolaikirche", stars: 3, distanceKm: 3.0, pricePerNight: 71, url: "https://www.booking.com/hotel/de/motel-one-leipzig.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
-      { name: "Leipzig Zentrum Apartments", stars: 3, distanceKm: 2.2, pricePerNight: 77, url: "https://www.booking.com/hotel/de/leipzig-zentrum-apartments.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
-      { name: "Hostel Sleepy Lion", stars: 0, distanceKm: 1.5, pricePerNight: 28, isHostel: true, url: "https://www.booking.com/hotel/de/sleepy-lion-leipzig.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
+      { name: "GRONERS Leipzig City Center", stars: 3, distanceKm: 0.15, pricePerNight: 22, url: "https://www.booking.com/hotel/de/groners-leipzig.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
+      { name: "Spirit Lodge Leipzig", stars: 3, distanceKm: 2.7, pricePerNight: 24, url: "https://www.booking.com/hotel/de/spirit-lodge-leipzig.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
+      { name: "Hostel Multitude", stars: 0, distanceKm: 2.6, pricePerNight: 19, isHostel: true, url: "https://www.booking.com/hotel/de/hostel-multitude.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
     ],
   },
   {
@@ -423,9 +423,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "frankfurt-germany", dateISO: "2026-10-24",
     featured: true,
     hotels: [
-      { name: "Hotel Concorde Frankfurt", stars: 3, distanceKm: 5.0, pricePerNight: 79, url: "https://www.booking.com/hotel/de/concorde-frankfurt.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Frankfurt City Apartments Ostend", stars: 3, distanceKm: 3.5, pricePerNight: 85, url: "https://www.booking.com/hotel/de/frankfurt-city-apartments-ostend.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Five Elements Hostel", stars: 0, distanceKm: 4.0, pricePerNight: 36, isHostel: true, url: "https://www.booking.com/hotel/de/five-elements-hostel.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
+      { name: "LyvInn Hotel Frankfurt", stars: 3, distanceKm: 2.6, pricePerNight: 33, url: "https://www.booking.com/hotel/de/lyvinn-frankfurt-messe.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
+      { name: "Arena Villa am Wasserpark", stars: 3, distanceKm: 2.9, pricePerNight: 51, url: "https://www.booking.com/hotel/de/villa-am-wasserpark.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
+      { name: "Jugendherberge Frankfurt - Haus der Jugend", stars: 0, distanceKm: 1.1, pricePerNight: 42, isHostel: true, url: "https://www.booking.com/hotel/de/haus-der-jugend-jugendherberge-frankfurt.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
     ],
   },
   {
@@ -442,9 +442,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "cologne-germany", dateISO: "2026-10-25",
     featured: true,
     hotels: [
-      { name: "Hotel Uerige am Rhein", stars: 3, distanceKm: 4.0, pricePerNight: 76, url: "https://www.booking.com/hotel/de/uerige-am-rhein.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Cologne Riverside Apartments", stars: 3, distanceKm: 3.2, pricePerNight: 82, url: "https://www.booking.com/hotel/de/cologne-riverside-apartments.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Backpackers Cologne Hostel", stars: 0, distanceKm: 3.5, pricePerNight: 30, isHostel: true, url: "https://www.booking.com/hotel/de/backpackers-cologne.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
+      { name: "MEININGER Hotel Köln West", stars: 3, distanceKm: 4.8, pricePerNight: 34, url: "https://www.booking.com/hotel/de/meininger-koln-west-koln.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
+      { name: "Köln Vermietung Schwermer", stars: 3, distanceKm: 5.4, pricePerNight: 48, url: "https://www.booking.com/hotel/de/koln-vermietung-schwermer.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
+      { name: "Hostel die Wohngemeinschaft", stars: 0, distanceKm: 1.7, pricePerNight: 39, isHostel: true, url: "https://www.booking.com/hotel/de/hostel-die-wohngemeinschaft.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
     ],
   },
   {
@@ -461,9 +461,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "dortmund-germany", dateISO: "2026-10-31",
     featured: true,
     hotels: [
-      { name: "Hotel Esplanade Dortmund", stars: 3, distanceKm: 2.0, pricePerNight: 84, url: "https://www.booking.com/hotel/de/esplanade-dortmund.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "Dortmund City Apartments", stars: 3, distanceKm: 1.5, pricePerNight: 90, url: "https://www.booking.com/hotel/de/dortmund-city-apartments.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "Meininger Dortmund Hostel", stars: 0, distanceKm: 2.5, pricePerNight: 34, isHostel: true, url: "https://www.booking.com/hotel/de/meininger-dortmund.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
+      { name: "PLAZA INN stays design Dortmund", stars: 3, distanceKm: 2.5, pricePerNight: 59, url: "https://www.booking.com/hotel/de/stays-design-hotel-dortmund.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
+      { name: "Tondose Apartment", stars: 3, distanceKm: 0.3, pricePerNight: 69, url: "https://www.booking.com/hotel/de/tondose-apartment.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
+      { name: "DJH Jugendgästehaus Adolph Kolping", stars: 0, distanceKm: 0.5, pricePerNight: 42, isHostel: true, url: "https://www.booking.com/hotel/de/djh-jugendga-stehaus-adolph-kolping.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
     ],
   },
 
@@ -486,9 +486,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "paris-france", dateISO: "2026-10-17",
     featured: true,
     hotels: [
-      { name: "hotelF1 Porte de Châtillon", stars: 2, distanceKm: 3.0, pricePerNight: 64, url: "https://www.booking.com/hotel/fr/hotelf1-paris-porte-de-chatillon-paris.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
-      { name: "Hotel Lilas Gambetta", stars: 3, distanceKm: 9.0, pricePerNight: 98, url: "https://www.booking.com/hotel/fr/lilasgambetta.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
-      { name: "Résidence Internationale de Paris", stars: 0, distanceKm: 6.0, pricePerNight: 54, isHostel: true, url: "https://www.booking.com/hotel/fr/residence-internationale-de-paris.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=2" },
+      { name: "Beau M Paris", stars: 3, distanceKm: 4.3, pricePerNight: 53, url: "https://www.booking.com/hotel/fr/beau-m-paris.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
+      { name: "The People - Paris Bercy", stars: 3, distanceKm: 3.6, pricePerNight: 57, url: "https://www.booking.com/hotel/fr/the-people-hostel-paris-12.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
+      { name: "MEININGER Hotel Paris Porte de Vincennes", stars: 0, distanceKm: 4.7, pricePerNight: 39, isHostel: true, url: "https://www.booking.com/hotel/fr/meininger-paris-porte-de-vincennes.sk.html?checkin=2026-10-16&checkout=2026-10-19&group_adults=1" },
     ],
   },
   {
@@ -505,9 +505,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "paris-france", dateISO: "2026-10-18",
     featured: true,
     hotels: [
-      { name: "hotelF1 Porte de Châtillon", stars: 2, distanceKm: 4.0, pricePerNight: 68, url: "https://www.booking.com/hotel/fr/hotelf1-paris-porte-de-chatillon-paris.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "Hotel Lilas Gambetta", stars: 3, distanceKm: 11.0, pricePerNight: 106, url: "https://www.booking.com/hotel/fr/lilasgambetta.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
-      { name: "Résidence Internationale de Paris", stars: 0, distanceKm: 8.0, pricePerNight: 56, isHostel: true, url: "https://www.booking.com/hotel/fr/residence-internationale-de-paris.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=2" },
+      { name: "Beau M Paris", stars: 3, distanceKm: 4.3, pricePerNight: 53, url: "https://www.booking.com/hotel/fr/beau-m-paris.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
+      { name: "The People - Paris Bercy", stars: 3, distanceKm: 3.6, pricePerNight: 57, url: "https://www.booking.com/hotel/fr/the-people-hostel-paris-12.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
+      { name: "MEININGER Hotel Paris Porte de Vincennes", stars: 0, distanceKm: 4.7, pricePerNight: 39, isHostel: true, url: "https://www.booking.com/hotel/fr/meininger-paris-porte-de-vincennes.sk.html?checkin=2026-10-17&checkout=2026-10-20&group_adults=1" },
     ],
   },
   {
@@ -524,9 +524,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "lyon-france", dateISO: "2026-10-24",
     featured: true,
     hotels: [
-      { name: "ibis Lyon Centre Confluence", stars: 3, distanceKm: 3.0, pricePerNight: 82, url: "https://www.booking.com/hotel/fr/ibis-lyon-centre-confluence.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Lyon Part-Dieu Apartments", stars: 3, distanceKm: 4.0, pricePerNight: 88, url: "https://www.booking.com/hotel/fr/lyon-part-dieu-apartments.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
-      { name: "Slo Living Hostel Lyon", stars: 0, distanceKm: 2.5, pricePerNight: 38, isHostel: true, url: "https://www.booking.com/hotel/fr/slo-living-hostel.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=2" },
+      { name: "MEININGER Hotel Lyon Centre Berthelot", stars: 3, distanceKm: 1.4, pricePerNight: 28, url: "https://www.booking.com/hotel/fr/meininger-lyon-centre-berthelot.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
+      { name: "Studio Lyon 1er", stars: 3, distanceKm: 1.6, pricePerNight: 55, url: "https://www.booking.com/hotel/fr/studio-lyon-1er.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
+      { name: "HO36 Hostel Lyon", stars: 0, distanceKm: 0.9, pricePerNight: 26, isHostel: true, url: "https://www.booking.com/hotel/fr/ho36-hostels-lyon.sk.html?checkin=2026-10-23&checkout=2026-10-26&group_adults=1" },
     ],
   },
   {
@@ -543,9 +543,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "paris-france", dateISO: "2026-10-31",
     featured: true,
     hotels: [
-      { name: "hotelF1 Porte de Châtillon", stars: 2, distanceKm: 4.0, pricePerNight: 70, url: "https://www.booking.com/hotel/fr/hotelf1-paris-porte-de-chatillon-paris.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "Hotel Lilas Gambetta", stars: 3, distanceKm: 11.0, pricePerNight: 104, url: "https://www.booking.com/hotel/fr/lilasgambetta.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
-      { name: "Résidence Internationale de Paris", stars: 0, distanceKm: 8.0, pricePerNight: 57, isHostel: true, url: "https://www.booking.com/hotel/fr/residence-internationale-de-paris.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=2" },
+      { name: "The People - Paris Bercy", stars: 3, distanceKm: 3.6, pricePerNight: 44, url: "https://www.booking.com/hotel/fr/the-people-hostel-paris-12.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
+      { name: "FRATERNiTY-HOTEL", stars: 3, distanceKm: 2.8, pricePerNight: 46, url: "https://www.booking.com/hotel/fr/fraternity.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
+      { name: "MEININGER Hotel Paris Porte de Vincennes", stars: 0, distanceKm: 4.7, pricePerNight: 33, isHostel: true, url: "https://www.booking.com/hotel/fr/meininger-paris-porte-de-vincennes.sk.html?checkin=2026-10-30&checkout=2026-11-02&group_adults=1" },
     ],
   },
   {
@@ -562,9 +562,9 @@ export const MATCHES: Match[] = [
     kiwiCity: "lyon-france", dateISO: "2026-10-25",
     featured: true,
     hotels: [
-      { name: "ibis Lyon Centre Confluence", stars: 3, distanceKm: 3.0, pricePerNight: 85, url: "https://www.booking.com/hotel/fr/ibis-lyon-centre-confluence.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Lyon Part-Dieu Apartments", stars: 3, distanceKm: 4.0, pricePerNight: 92, url: "https://www.booking.com/hotel/fr/lyon-part-dieu-apartments.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
-      { name: "Slo Living Hostel Lyon", stars: 0, distanceKm: 2.5, pricePerNight: 40, isHostel: true, url: "https://www.booking.com/hotel/fr/slo-living-hostel.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=2" },
+      { name: "MEININGER Hotel Lyon Centre Berthelot", stars: 3, distanceKm: 1.4, pricePerNight: 27, url: "https://www.booking.com/hotel/fr/meininger-lyon-centre-berthelot.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
+      { name: "Le Flâneur Guesthouse", stars: 3, distanceKm: 1.1, pricePerNight: 27, url: "https://www.booking.com/hotel/fr/le-flaneur-guesthouse.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
+      { name: "HO36 Hostel Lyon", stars: 0, distanceKm: 0.9, pricePerNight: 25, isHostel: true, url: "https://www.booking.com/hotel/fr/ho36-hostels-lyon.sk.html?checkin=2026-10-24&checkout=2026-10-27&group_adults=1" },
     ],
   },
 
