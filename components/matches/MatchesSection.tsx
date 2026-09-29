@@ -17,8 +17,6 @@ const FEATURES = [
   { title: "Podpora 24/7", desc: "Počas celého výletu sme k dispozícii — stačí zavolať a postaráme sa o zvyšok.", img: "/feat-support.png", icon: "🎧" },
 ];
 
-const MATCH_OPTIONS = MATCHES.map((m) => `${m.home} vs ${m.away} – ${m.date}`);
-
 type HeroFilter = { city: string; match: string; date: string } | null;
 
 export default function MatchesSection({ heroFilter = null }: { heroFilter?: HeroFilter }) {
@@ -351,7 +349,7 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
             Pošleme vám<br /><span style={{ color: "#D8B35A" }}>ponuku</span> na mieru.
           </h2>
           <p style={{ fontFamily: "var(--font-geist)", fontSize: "0.9rem", color: "#8C7A56", lineHeight: 1.7, marginBottom: "40px" }}>
-            Vyberte zápas, napíšte nám kontakt a do 24 hodín dostanete konkrétnu ponuku — letenky, hotel, vstupenky aj transfer.
+            Napíšte nám, na aký zápas chcete ísť, nechajte nám kontakt a do 24 hodín dostanete konkrétnu ponuku — letenky, hotel, vstupenky aj transfer.
           </p>
 
           {sent ? (
@@ -368,15 +366,11 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
 
                 <div>
                   <label style={labelStyle}>Na aký zápas chcete ísť? *</label>
-                  <select required name="zapas" value={form.zapas} onChange={(e) => setForm(p => ({ ...p, zapas: e.target.value }))}
-                    style={{ ...inputStyle, cursor: "pointer" }}
+                  <input required name="zapas" placeholder="napr. Real Madrid vs Barcelona, október 2026" value={form.zapas} onChange={(e) => setForm(p => ({ ...p, zapas: e.target.value }))}
+                    style={inputStyle}
                     onFocus={(e) => { e.target.style.borderColor = "#D8B35A88"; }}
                     onBlur={(e) => { e.target.style.borderColor = "#DDD7C8"; }}
-                  >
-                    <option value="">Vyber zápas…</option>
-                    {MATCH_OPTIONS.map((m) => <option key={m} value={m}>{m}</option>)}
-                    <option value="Iný zápas">Iný zápas (napíš do správy)</option>
-                  </select>
+                  />
                 </div>
 
                 <div>
