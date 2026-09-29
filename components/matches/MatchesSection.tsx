@@ -6,7 +6,7 @@ import { MATCHES } from "./data";
 export type { Hotel, Match } from "./data";
 export { buildKiwiUrl, buildTicketUrl } from "./data";
 
-const LEAGUES = ["ALL", "PREMIER LEAGUE", "LA LIGA", "SERIE A", "BUNDESLIGA", "LIGUE 1"];
+const LEAGUES = ["ALL", "CHAMPIONS LEAGUE", "PREMIER LEAGUE", "LA LIGA", "SERIE A", "BUNDESLIGA", "LIGUE 1"];
 
 const FEATURES = [
   { title: "Kompletný itinerár", desc: "Minútu po minúte plán celého výletu — od odchodu z domu až po návrat.", img: "/feat-plane.png", icon: "✈" },
@@ -52,7 +52,7 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
         const dateOk  = !heroFilter!.date  || m.date === heroFilter!.date;
         return cityOk && matchOk && dateOk;
       }
-      return selectedLeagues.length === 0 || selectedLeagues.includes(m.league);
+      return selectedLeagues.length === 0 || selectedLeagues.some(l => m.league.includes(l));
     })
     .slice()
     .sort((a, b) => {
@@ -138,23 +138,26 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
           <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", flex: 1 }}>
             {LEAGUES.filter(l => l !== "ALL").map((league) => {
               const on = selectedLeagues.includes(league);
+              const isCL = league === "CHAMPIONS LEAGUE";
+              const accent = isCL ? "#1E3A8A" : "#D8B35A";
               return (
                 <button key={league} onClick={() => toggleLeague(league)} style={{
                   fontFamily: "var(--font-antonio)", fontSize: "0.68rem", letterSpacing: "0.18em",
                   padding: "8px 16px", display: "flex", alignItems: "center", gap: "7px",
-                  background: on ? "#D8B35A18" : "#fff",
-                  color: on ? "#8C5E1A" : "#8C7A56",
-                  border: `1px solid ${on ? "#D8B35A88" : "#DDD7C8"}`,
+                  background: on ? `${accent}18` : "#fff",
+                  color: on ? (isCL ? "#1E3A8A" : "#8C5E1A") : "#8C7A56",
+                  border: `1px solid ${on ? `${accent}88` : "#DDD7C8"}`,
                   borderRadius: "6px", cursor: "pointer", transition: "all 0.15s ease", textTransform: "uppercase",
                 }}>
                   <span style={{
                     width: "13px", height: "13px", borderRadius: "3px", flexShrink: 0,
-                    border: `1.5px solid ${on ? "#D8B35A" : "#C0B090"}`,
-                    background: on ? "#D8B35A" : "transparent",
+                    border: `1.5px solid ${on ? accent : "#C0B090"}`,
+                    background: on ? accent : "transparent",
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
                     {on && <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                   </span>
+                  {isCL && <span style={{ fontSize: "0.6rem" }}>★</span>}
                   {league}
                 </button>
               );

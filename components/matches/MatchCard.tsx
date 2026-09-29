@@ -93,7 +93,8 @@ export default function MatchCard({ match }: { match: Match }) {
           background: "#ffffff",
           borderRadius: "16px",
           overflow: "hidden",
-          boxShadow: "0 2px 16px rgba(0,0,0,0.06)",
+          boxShadow: match.isCL ? "0 2px 20px rgba(11,29,90,0.18)" : "0 2px 16px rgba(0,0,0,0.06)",
+          border: match.isCL ? "1px solid #1E3A8A33" : "1px solid transparent",
           cursor: "pointer",
           transition: "transform 0.22s ease, box-shadow 0.22s ease",
         }}
@@ -118,7 +119,9 @@ export default function MatchCard({ match }: { match: Match }) {
         }}>
           <div style={{
             position: "absolute", inset: 0,
-            background: `linear-gradient(135deg, ${match.homeCl}55 0%, transparent 55%, ${match.awayCl}33 100%)`,
+            background: match.isCL
+              ? "linear-gradient(135deg, #0B1D5A99 0%, #0B1D5A22 55%, #1E3A8A55 100%)"
+              : `linear-gradient(135deg, ${match.homeCl}55 0%, transparent 55%, ${match.awayCl}33 100%)`,
           }} />
           <div style={{
             position: "absolute", inset: 0,
@@ -127,10 +130,13 @@ export default function MatchCard({ match }: { match: Match }) {
           <div style={{
             position: "absolute", top: "12px", left: "14px",
             fontFamily: "var(--font-antonio)", fontSize: "0.5rem", letterSpacing: "0.18em",
-            textTransform: "uppercase", color: "#D8B35A",
-            background: "rgba(8,11,13,0.72)", backdropFilter: "blur(4px)",
+            textTransform: "uppercase",
+            color: match.isCL ? "#A8C4FF" : "#D8B35A",
+            background: match.isCL ? "linear-gradient(135deg, #0B1D5A, #1E3A8A)" : "rgba(8,11,13,0.72)",
+            backdropFilter: "blur(4px)",
             borderRadius: "5px", padding: "3px 9px",
-          }}>{match.league}</div>
+            display: "flex", alignItems: "center", gap: "5px",
+          }}>{match.isCL && <span style={{ fontSize: "0.55rem" }}>★</span>}{match.league}</div>
           <div style={{
             position: "absolute", bottom: "10px", right: "12px",
             fontFamily: "var(--font-geist)", fontSize: "0.6rem",
@@ -179,7 +185,7 @@ export default function MatchCard({ match }: { match: Match }) {
               }}>od osoby</div>
               <div style={{
                 fontFamily: "var(--font-antonio)", fontSize: "1.5rem",
-                fontWeight: 700, color: "#D8B35A", lineHeight: 1,
+                fontWeight: 700, color: match.isCL ? "#1E3A8A" : "#D8B35A", lineHeight: 1,
               }}>€{total}</div>
               <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.55rem", color: "#9E8B68", marginTop: "3px" }}>
                 {isBus ? "bus" : "let"} + 3 noci + vstupenka
@@ -187,8 +193,8 @@ export default function MatchCard({ match }: { match: Match }) {
             </div>
             <div style={{
               fontFamily: "var(--font-antonio)", fontSize: "0.65rem", letterSpacing: "0.12em",
-              textTransform: "uppercase", color: "#D8B35A",
-              border: "1px solid #D8B35A", padding: "7px 14px", borderRadius: "7px",
+              textTransform: "uppercase", color: match.isCL ? "#1E3A8A" : "#D8B35A",
+              border: `1px solid ${match.isCL ? "#1E3A8A" : "#D8B35A"}`, padding: "7px 14px", borderRadius: "7px",
             }}>
               Mám záujem →
             </div>
@@ -219,19 +225,19 @@ export default function MatchCard({ match }: { match: Match }) {
             {/* Modal header */}
             <div style={{
               padding: "0 24px 18px", flexShrink: 0,
-              background: "#1A1208", position: "relative",
+              background: match.isCL ? "#0B1230" : "#1A1208", position: "relative",
             }}>
               {/* Team color strip */}
               <div style={{
                 position: "absolute", top: 0, left: 0, right: 0, height: "3px",
-                background: `linear-gradient(90deg, ${match.homeCl}, ${match.awayCl})`,
+                background: match.isCL ? "linear-gradient(90deg, #0B1D5A, #1E3A8A, #A8C4FF)" : `linear-gradient(90deg, ${match.homeCl}, ${match.awayCl})`,
               }} />
               <div style={{ paddingTop: "20px", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: 1, minWidth: 0 }}>
                   <Badge src={match.homeBadge} abbr={match.homeAbbr} color={match.homeCl} />
                   <div style={{ minWidth: 0 }}>
-                    <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.52rem", letterSpacing: "0.2em", color: "#8C7A56", textTransform: "uppercase", marginBottom: "4px" }}>
-                      {match.league} · {match.date}
+                    <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.52rem", letterSpacing: "0.2em", color: match.isCL ? "#7B9EFF" : "#8C7A56", textTransform: "uppercase", marginBottom: "4px", display: "flex", alignItems: "center", gap: "5px" }}>
+                      {match.isCL && <span>★</span>}{match.league} · {match.date}
                     </div>
                     <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.15rem", fontWeight: 700, color: "#eef0f6", textTransform: "uppercase", lineHeight: 1.1 }}>
                       {match.home} <span style={{ color: "#4a3820" }}>vs</span> {match.away}
@@ -636,7 +642,7 @@ export default function MatchCard({ match }: { match: Match }) {
             }}>
               <div>
                 <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.58rem", color: "#9E8B68", marginBottom: "2px" }}>Celkovo od / na osobu</div>
-                <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.5rem", fontWeight: 700, color: "#D8B35A" }}>€{total}</div>
+                <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.5rem", fontWeight: 700, color: match.isCL ? "#1E3A8A" : "#D8B35A" }}>€{total}</div>
                 <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.48rem", color: "#C0B090", marginTop: "2px" }}>
                   {isBus ? "bus" : "let"} €{match.flightFrom}{match.groundConnection ? ` + bus €${groundPrice}` : ""} + 3 noci €{cheapestHotel * 3} + vstupenka €{ticketPrice}
                 </div>

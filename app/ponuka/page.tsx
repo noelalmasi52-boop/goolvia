@@ -4,6 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 
 const MATCHES = [
+  "PSG vs Barcelona – 20 OCT 2026 (Liga majstrov)",
+  "AS Roma vs Slovan Bratislava – 20 OCT 2026 (Liga majstrov)",
+  "Napoli vs Bodo Glimt – 20 OCT 2026 (Liga majstrov)",
+  "Bayern Munich vs Arsenal – 21 OCT 2026 (Liga majstrov)",
+  "Inter vs Shakhtar Donetsk – 21 OCT 2026 (Liga majstrov)",
   "Brentford vs Liverpool – 17 OCT 2026",
   "Fulham vs Hull City – 17 OCT 2026",
   "RCD Espanyol vs Atletico Madrid – 17 OCT 2026",
