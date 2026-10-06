@@ -58,14 +58,16 @@ export default function VstupenkyPage() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [sort, setSort] = useState<"date" | "price">("date");
 
-  const search = useCallback(async (q: string, p = 1) => {
+  const search = useCallback(async (q: string, p = 1, s: "date" | "price" = sort) => {
     setLoading(true);
     setSearched(true);
     const params = new URLSearchParams({ page: String(p), per_page: "20" });
     if (q) params.set("query", q);
     if (fromDate) params.set("from", fromDate);
     if (toDate) params.set("to", toDate);
+    if (s === "price") params.set("sort", "price");
     try {
       const res = await fetch(`/api/tickets?${params}`);
       const data = await res.json();
@@ -77,9 +79,13 @@ export default function VstupenkyPage() {
     } finally {
       setLoading(false);
     }
-  }, [fromDate, toDate]);
+  }, [fromDate, toDate, sort]);
 
   const handleSearch = () => search(query, 1);
+  const handleSortChange = (s: "date" | "price") => {
+    setSort(s);
+    search(query, 1, s);
+  };
   const handleClubClick = (clubQuery: string) => {
     setQuery(clubQuery);
     search(clubQuery, 1);
@@ -189,6 +195,40 @@ export default function VstupenkyPage() {
                 />
               </div>
             </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "14px", flexWrap: "wrap" }}>
+              <span style={{
+                fontFamily: "var(--font-antonio)", fontSize: "0.58rem",
+                letterSpacing: "0.18em", color: "#8C7A56", textTransform: "uppercase",
+              }}>
+                Zoradiť
+              </span>
+              {([
+                { value: "date", label: "Podľa dátumu" },
+                { value: "price", label: "Najlacnejšie vstupenky" },
+              ] as const).map((opt) => {
+                const active = sort === opt.value;
+                return (
+                  <button
+                    key={opt.value}
+                    onClick={() => handleSortChange(opt.value)}
+                    disabled={loading}
+                    style={{
+                      fontFamily: "var(--font-antonio)", fontSize: "0.62rem",
+                      letterSpacing: "0.12em", textTransform: "uppercase",
+                      padding: "8px 14px", borderRadius: "999px",
+                      border: `1px solid ${active ? "#D8B35A" : "#DDD7C8"}`,
+                      background: active ? "#D8B35A22" : "#F4F1EA",
+                      color: active ? "#1A1208" : "#8C7A56",
+                      fontWeight: active ? 700 : 400,
+                      cursor: loading ? "not-allowed" : "pointer",
+                      transition: "all 0.15s",
+                    }}
+                  >
+                    {opt.label}
+                  </button>
+                );
+              })}
+            </div>
             <button
               onClick={handleSearch}
               disabled={loading}
@@ -285,7 +325,7 @@ export default function VstupenkyPage() {
                 fontFamily: "var(--font-geist)", fontSize: "0.68rem",
                 color: "#9E8B68", marginBottom: "12px",
               }}>
-                Nájdených: {total} zápasov · strana {page} z {totalPages}
+                Nájdených: {total} zápasov{sort === "price" && " · od najlacnejších"} · strana {page} z {totalPages}
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {events.map((ev) => (
