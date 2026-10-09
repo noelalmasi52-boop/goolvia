@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import MatchCard from "./MatchCard";
-import { MATCHES } from "./data";
+import { MATCHES, transportTotal } from "./data";
 export type { Hotel, Match } from "./data";
 export { buildKiwiUrl, buildTicketUrl } from "./data";
 
@@ -59,7 +59,7 @@ export default function MatchesSection({ heroFilter = null }: { heroFilter?: Her
       if (sortBy === "price") {
         const cheapA = Math.min(...a.hotels.map(h => h.pricePerNight));
         const cheapB = Math.min(...b.hotels.map(h => h.pricePerNight));
-        return (a.ticketFrom + cheapA * 2 + a.flightFrom) - (b.ticketFrom + cheapB * 2 + b.flightFrom);
+        return (a.ticketFrom + cheapA * 2 + transportTotal(a)) - (b.ticketFrom + cheapB * 2 + transportTotal(b));
       }
       return new Date(a.dateISO).getTime() - new Date(b.dateISO).getTime();
     });

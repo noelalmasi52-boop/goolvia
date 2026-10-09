@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import type { Match } from "./data";
-import { buildKiwiUrl, buildTicketUrl } from "./data";
+import { buildKiwiUrl, buildTicketUrl, transportTotal } from "./data";
 
 function Stars({ n }: { n: number }) {
   return (
@@ -81,8 +81,9 @@ export default function MatchCard({ match }: { match: Match }) {
     ? Math.round(Math.min(...ftnEvents.slice(0, 4).map((ev) => typeof ev.min_price === "object" ? ev.min_price.price : ev.min_price)) * 1.37)
     : null;
   const ticketPrice = ftnMinPrice ?? match.ticketFrom;
-  const groundPrice = match.groundConnection?.price ?? 0;
-  const total = ticketPrice + (cheapestHotel * 3) + match.flightFrom + groundPrice;
+  const groundPrice = (match.groundConnection?.price ?? 0) + (match.groundConnection?.returnPrice ?? 0);
+  const busPrice = match.flightFrom + (match.returnBus?.price ?? 0);
+  const total = ticketPrice + (cheapestHotel * 3) + transportTotal(match);
 
   return (
     <>
@@ -188,7 +189,7 @@ export default function MatchCard({ match }: { match: Match }) {
                 fontWeight: 700, color: match.isCL ? "#1E3A8A" : "#D8B35A", lineHeight: 1,
               }}>€{total}</div>
               <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.55rem", color: "#9E8B68", marginTop: "3px" }}>
-                {isBus ? "bus" : "let"} + 3 noci + vstupenka
+                {isBus ? "bus tam aj späť" : "let"} + 3 noci + vstupenka
               </div>
             </div>
             <div style={{
@@ -392,15 +393,20 @@ export default function MatchCard({ match }: { match: Match }) {
                   <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#8C7A56", marginBottom: "4px", paddingLeft: "4px" }}>
                     {match.groundConnection
                       ? `1. Priamy let z Bratislavy · spiatočný`
-                      : (isBus ? `Autobus z Bratislavy · spiatočný · ~${match.busDuration} · dostatočná rezerva pred zápasom` : "Lety z Bratislavy · spiatočné · deň pred zápasom")}
+                      : (isBus ? `Autobus tam a späť · spolu od €${busPrice} · dostatočná rezerva pred zápasom` : "Lety z Bratislavy · spiatočné · deň pred zápasom")}
                   </div>
                   {(isBus ? [
-                    { airline: match.busProvider ?? "FlixBus", dep: "priamy spoj", arr: match.busDuration ?? "", price: match.flightFrom },
+                    { airline: match.busProvider ?? "FlixBus", badge: "TAM", desc: `BTS → ${match.city} · ${match.busDuration} · bez prestupu`, price: match.flightFrom },
+                    ...(match.returnBus ? [{
+                      airline: match.busProvider ?? "FlixBus", badge: "SPÄŤ",
+                      desc: `${match.city} → BTS · ${match.returnBus.duration} · ${match.returnBus.transfers ? `s prestupom (${match.returnBus.transfers}×)` : "bez prestupu"}`,
+                      price: match.returnBus.price,
+                    }] : []),
                   ] : [
                     { airline: "Ryanair", dep: "06:45", arr: "08:30", price: match.flightFrom },
                     { airline: "Wizz Air", dep: "11:20", arr: "13:10", price: match.flightFrom + 12 },
                     { airline: "easyJet", dep: "14:55", arr: "16:45", price: match.flightFrom + 24 },
-                  ]).map((flight, i) => (
+                  ].map((f) => ({ ...f, badge: undefined as string | undefined, desc: `BTS → ${match.flightCity ?? match.city} · ${f.dep} – ${f.arr} · spiatočný` }))).map((flight, i) => (
                     <a key={i} href={flightUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                       <div
                         style={{
@@ -419,24 +425,22 @@ export default function MatchCard({ match }: { match: Match }) {
                         }}
                       >
                         <div style={{ flex: 1 }}>
-                          {i === 0 && (
+                          {(flight.badge || i === 0) && (
                             <span style={{
                               fontFamily: "var(--font-antonio)", fontSize: "0.5rem", letterSpacing: "0.15em",
                               color: "#fff", background: "#D8B35A", padding: "2px 6px", borderRadius: "3px",
                               display: "inline-block", marginBottom: "6px",
-                            }}>NAJLACNEJŠÍ</span>
+                            }}>{flight.badge ?? "NAJLACNEJŠÍ"}</span>
                           )}
                           <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.9rem", fontWeight: 700, color: "#1A1208" }}>
                             {flight.airline}
                           </div>
                           <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.62rem", color: "#9E8B68", marginTop: "4px" }}>
-                            {isBus
-                              ? `BTS → ${match.city} · ${flight.arr} · bez prestupu`
-                              : `BTS → ${match.flightCity ?? match.city} · ${flight.dep} – ${flight.arr} · spiatočný`}
+                            {flight.desc}
                           </div>
                         </div>
                         <div style={{ textAlign: "right", flexShrink: 0 }}>
-                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: i === 0 ? "#D8B35A" : "#1A1208" }}>
+                          <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: i === 0 || isBus ? "#D8B35A" : "#1A1208" }}>
                             od €{flight.price}
                           </div>
                           <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#D8B35A", marginTop: "6px", letterSpacing: "0.1em" }}>
@@ -450,7 +454,7 @@ export default function MatchCard({ match }: { match: Match }) {
                   {match.groundConnection && (
                     <>
                       <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.68rem", color: "#8C7A56", margin: "10px 0 4px", paddingLeft: "4px" }}>
-                        2. Autobus {match.groundConnection.fromCity} → {match.groundConnection.toCity}
+                        2. Autobus {match.groundConnection.fromCity} ⇄ {match.groundConnection.toCity} · tam aj späť
                       </div>
                       <a href={match.groundConnection.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                         <div style={{
@@ -480,6 +484,11 @@ export default function MatchCard({ match }: { match: Match }) {
                             <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.1rem", fontWeight: 700, color: "#1A1208" }}>
                               od €{match.groundConnection.price}
                             </div>
+                            {match.groundConnection.returnPrice != null && (
+                              <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.6rem", color: "#9E8B68", marginTop: "2px" }}>
+                                + späť €{match.groundConnection.returnPrice}
+                              </div>
+                            )}
                             <div style={{ fontFamily: "var(--font-antonio)", fontSize: "0.58rem", color: "#D8B35A", marginTop: "6px", letterSpacing: "0.1em" }}>
                               Hľadať →
                             </div>
@@ -644,7 +653,7 @@ export default function MatchCard({ match }: { match: Match }) {
                 <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.58rem", color: "#9E8B68", marginBottom: "2px" }}>Celkovo od / na osobu</div>
                 <div style={{ fontFamily: "var(--font-antonio)", fontSize: "1.5rem", fontWeight: 700, color: match.isCL ? "#1E3A8A" : "#D8B35A" }}>€{total}</div>
                 <div style={{ fontFamily: "var(--font-geist)", fontSize: "0.48rem", color: "#C0B090", marginTop: "2px" }}>
-                  {isBus ? "bus" : "let"} €{match.flightFrom}{match.groundConnection ? ` + bus €${groundPrice}` : ""} + 3 noci €{cheapestHotel * 3} + vstupenka €{ticketPrice}
+                  {isBus ? (match.returnBus ? `bus tam €${match.flightFrom} + späť €${match.returnBus.price}` : `bus €${match.flightFrom}`) : `let €${match.flightFrom}`}{match.groundConnection ? ` + bus €${groundPrice}` : ""} + 3 noci €{cheapestHotel * 3} + vstupenka €{ticketPrice}
                 </div>
               </div>
               <button

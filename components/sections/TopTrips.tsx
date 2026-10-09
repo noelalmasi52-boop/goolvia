@@ -1,6 +1,6 @@
 "use client";
 
-import { MATCHES } from "@/components/matches/data";
+import { MATCHES, transportTotal } from "@/components/matches/data";
 
 export default function TopTrips() {
   const featured = MATCHES.filter(m => m.featured).slice(0, 3);
@@ -36,7 +36,7 @@ export default function TopTrips() {
         }}>
           {featured.map((match) => {
             const cheapestHotel = Math.min(...match.hotels.filter(h => !h.isHostel).map(h => h.pricePerNight));
-            const total = match.ticketFrom + cheapestHotel * 3 + match.flightFrom;
+            const total = match.ticketFrom + cheapestHotel * 3 + transportTotal(match);
 
             return (
               <a

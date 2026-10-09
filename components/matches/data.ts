@@ -13,7 +13,16 @@ export type GroundConnection = {
   duration: string;
   provider: string;
   price: number;
+  // Cena spiatočného spoja (toCity → fromCity) v deň odchodu domov.
+  returnPrice?: number;
   url: string;
+};
+
+// Spiatočný autobus domov do Bratislavy (deň odchodu = dateISO + 2, ako checkout v hoteli).
+export type ReturnBus = {
+  price: number;
+  duration: string;
+  transfers: number;
 };
 
 export type Match = {
@@ -41,6 +50,7 @@ export type Match = {
   // používa sa pri transportType "bus", kde cesta trvá výrazne dlhšie ako let.
   busDuration?: string;
   busProvider?: string;
+  returnBus?: ReturnBus;
   hotels: Hotel[];
   kiwiCity: string;
   // Keď v meste zápasu nie je priame letisko, lietadlo smeruje sem
@@ -51,6 +61,13 @@ export type Match = {
   dateISO: string;
   featured?: boolean;
 };
+
+// Celková cena dopravy tam aj späť. flightFrom je pri letoch už spiatočná cena (Kiwi),
+// pri autobuse len cesta tam — spiatočný spoj sa pripočíta z returnBus.
+export function transportTotal(m: Match) {
+  return m.flightFrom + (m.returnBus?.price ?? 0)
+    + (m.groundConnection?.price ?? 0) + (m.groundConnection?.returnPrice ?? 0);
+}
 
 export const CJ_CLICK_URL = "https://www.dpbolvw.net/click-101856071-12624156";
 export const FLIXBUS_URL = "https://www.flixbus.sk/search";
@@ -76,8 +93,8 @@ export function buildTicketUrl(home: string, away: string) {
 
 const ALSA_URL = "https://www.alsa.com/en/web/bus/search";
 
-function ground(fromCity: string, toCity: string, duration: string, price: number, provider = "FlixBus", url = FLIXBUS_URL): GroundConnection {
-  return { fromCity, toCity, duration, provider, price, url };
+function ground(fromCity: string, toCity: string, duration: string, price: number, provider = "FlixBus", url = FLIXBUS_URL, returnPrice?: number): GroundConnection {
+  return { fromCity, toCity, duration, provider, price, returnPrice, url };
 }
 
 const B = (id: number) => `/crests/${id}.svg`;
@@ -104,6 +121,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 400, flightFrom: 62,
     transportType: "bus", busDuration: "18 h 40 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-pariz",
+    returnBus: { price: 67, duration: "20 h", transfers: 0 },
     kiwiCity: "paris-france", dateISO: "2026-10-20",
     featured: true,
     hotels: [
@@ -160,6 +178,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 340, flightFrom: 24,
     transportType: "bus", busDuration: "6 h 15 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-mnichov",
+    returnBus: { price: 26, duration: "7 h 10 min", transfers: 0 },
     kiwiCity: "munich-germany", dateISO: "2026-10-21",
     featured: true,
     hotels: [
@@ -446,7 +465,7 @@ export const MATCHES: Match[] = [
     date: "25 OCT", time: "15:00", league: "SERIE A",
     ticketFrom: 50, flightFrom: 106,
     flightCity: "Miláno (Malpensa)",
-    groundConnection: ground("Miláno (Malpensa)", "Bergamo", "45 min", 3, "FlixBus", "https://global.flixbus.com/bus-routes/bus-milan-bergamo"),
+    groundConnection: ground("Miláno (Malpensa)", "Bergamo", "45 min", 3, "FlixBus", "https://global.flixbus.com/bus-routes/bus-milan-bergamo", 2),
     kiwiCity: "milan-italy", dateISO: "2026-10-25",
     featured: true,
     hotels: [
@@ -468,6 +487,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 163, flightFrom: 24,
     transportType: "bus", busDuration: "6 h 15 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-mnichov",
+    returnBus: { price: 24, duration: "6 h 55 min", transfers: 0 },
     kiwiCity: "munich-germany", dateISO: "2026-10-17",
     featured: true,
     hotels: [
@@ -487,6 +507,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 75, flightFrom: 30,
     transportType: "bus", busDuration: "7 h 25 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-lipsko",
+    returnBus: { price: 40, duration: "8 h 50 min", transfers: 0 },
     kiwiCity: "leipzig-germany", dateISO: "2026-10-24",
     featured: true,
     hotels: [
@@ -506,6 +527,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 179, flightFrom: 48,
     transportType: "bus", busDuration: "13 h 5 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-kolin-nad-rynom",
+    returnBus: { price: 73, duration: "14 h 5 min", transfers: 0 },
     kiwiCity: "cologne-germany", dateISO: "2026-10-24",
     featured: true,
     hotels: [
@@ -525,6 +547,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 91, flightFrom: 48,
     transportType: "bus", busDuration: "15 h 20 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-dortmund",
+    returnBus: { price: 50, duration: "16 h 45 min", transfers: 2 },
     kiwiCity: "dortmund-germany", dateISO: "2026-10-24",
     featured: true,
     hotels: [
@@ -544,6 +567,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 259, flightFrom: 24,
     transportType: "bus", busDuration: "6 h 15 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-mnichov",
+    returnBus: { price: 32, duration: "6 h 51 min", transfers: 0 },
     kiwiCity: "munich-germany", dateISO: "2026-10-31",
     featured: true,
     hotels: [
@@ -565,6 +589,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 20, flightFrom: 62,
     transportType: "bus", busDuration: "18 h 40 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-pariz",
+    returnBus: { price: 71, duration: "20 h", transfers: 0 },
     kiwiCity: "paris-france", dateISO: "2026-10-18",
     featured: true,
     hotels: [
@@ -584,6 +609,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 40, flightFrom: 69,
     transportType: "bus", busDuration: "17 h 20 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-lyon",
+    returnBus: { price: 64, duration: "18 h 25 min", transfers: 0 },
     kiwiCity: "lyon-france", dateISO: "2026-10-18",
     featured: true,
     hotels: [
@@ -603,6 +629,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 108, flightFrom: 62,
     transportType: "bus", busDuration: "18 h 40 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-pariz",
+    returnBus: { price: 83, duration: "20 h", transfers: 0 },
     kiwiCity: "paris-france", dateISO: "2026-10-25",
     featured: true,
     hotels: [
@@ -622,6 +649,7 @@ export const MATCHES: Match[] = [
     ticketFrom: 40, flightFrom: 69,
     transportType: "bus", busDuration: "17 h 20 min", busProvider: "FlixBus",
     transportUrl: "https://www.flixbus.sk/autobusove-spoje/bratislava-lyon",
+    returnBus: { price: 72, duration: "18 h 25 min", transfers: 0 },
     kiwiCity: "lyon-france", dateISO: "2026-10-31",
     featured: true,
     hotels: [
