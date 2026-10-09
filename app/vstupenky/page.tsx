@@ -51,8 +51,6 @@ const TOP_CLUBS = [
 
 export default function VstupenkyPage() {
   const [query, setQuery] = useState("");
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
   const [events, setEvents] = useState<FtnEvent[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -65,8 +63,6 @@ export default function VstupenkyPage() {
     setSearched(true);
     const params = new URLSearchParams({ page: String(p), per_page: "20" });
     if (q) params.set("query", q);
-    if (fromDate) params.set("from", fromDate);
-    if (toDate) params.set("to", toDate);
     if (s === "price") params.set("sort", "price");
     try {
       const res = await fetch(`/api/tickets?${params}`);
@@ -79,7 +75,7 @@ export default function VstupenkyPage() {
     } finally {
       setLoading(false);
     }
-  }, [fromDate, toDate, sort]);
+  }, [sort]);
 
   const handleSearch = () => search(query, 1);
   const handleSortChange = (s: "date" | "price") => {
@@ -133,8 +129,7 @@ export default function VstupenkyPage() {
             borderRadius: "16px", padding: "24px 28px", marginBottom: "20px",
             boxShadow: "0 2px 16px rgba(0,0,0,0.05)",
           }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: "12px", alignItems: "end" }}>
-              <div>
+            <div>
                 <div style={{
                   fontFamily: "var(--font-antonio)", fontSize: "0.58rem",
                   letterSpacing: "0.18em", color: "#8C7A56",
@@ -151,49 +146,12 @@ export default function VstupenkyPage() {
                   style={{
                     width: "100%", background: "#F4F1EA", border: "1px solid #DDD7C8",
                     borderRadius: "8px", padding: "11px 14px", color: "#1A1208",
-                    fontFamily: "var(--font-geist)", fontSize: "0.85rem", outline: "none",
+                    fontFamily: "var(--font-geist)", fontSize: "16px", outline: "none",
                     boxSizing: "border-box", transition: "border-color 0.15s",
                   }}
                   onFocus={(e) => { e.target.style.borderColor = "#D8B35A88"; }}
                   onBlur={(e) => { e.target.style.borderColor = "#DDD7C8"; }}
                 />
-              </div>
-              <div>
-                <div style={{
-                  fontFamily: "var(--font-antonio)", fontSize: "0.58rem",
-                  letterSpacing: "0.18em", color: "#8C7A56",
-                  marginBottom: "7px", textTransform: "uppercase",
-                }}>Od</div>
-                <input
-                  type="date"
-                  value={fromDate}
-                  onChange={(e) => setFromDate(e.target.value)}
-                  style={{
-                    background: "#F4F1EA", border: "1px solid #DDD7C8",
-                    borderRadius: "8px", padding: "11px 14px", color: "#1A1208",
-                    fontFamily: "var(--font-geist)", fontSize: "0.85rem", outline: "none",
-                    colorScheme: "light",
-                  }}
-                />
-              </div>
-              <div>
-                <div style={{
-                  fontFamily: "var(--font-antonio)", fontSize: "0.58rem",
-                  letterSpacing: "0.18em", color: "#8C7A56",
-                  marginBottom: "7px", textTransform: "uppercase",
-                }}>Do</div>
-                <input
-                  type="date"
-                  value={toDate}
-                  onChange={(e) => setToDate(e.target.value)}
-                  style={{
-                    background: "#F4F1EA", border: "1px solid #DDD7C8",
-                    borderRadius: "8px", padding: "11px 14px", color: "#1A1208",
-                    fontFamily: "var(--font-geist)", fontSize: "0.85rem", outline: "none",
-                    colorScheme: "light",
-                  }}
-                />
-              </div>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "14px", flexWrap: "wrap" }}>
               <span style={{
