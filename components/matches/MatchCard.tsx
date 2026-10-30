@@ -386,7 +386,9 @@ export default function MatchCard({ match }: { match: Match }) {
                     }}>
                       <span style={{ fontSize: "0.85rem" }}>🚌</span>
                       <span style={{ fontFamily: "var(--font-geist)", fontSize: "0.66rem", color: "#8C6A1F", lineHeight: 1.4 }}>
-                        Bez lietadla — priamy diaľkový autobus z Bratislavy až do {match.city} ({match.busDuration}), bez prestupu.
+                        {match.busTransfers
+                          ? `Bez lietadla — diaľkový autobus z Bratislavy do ${match.city} (${match.busDuration}, ${match.busTransfers}× prestup).`
+                          : `Bez lietadla — priamy diaľkový autobus z Bratislavy až do ${match.city} (${match.busDuration}), bez prestupu.`}
                       </span>
                     </div>
                   )}
@@ -396,7 +398,7 @@ export default function MatchCard({ match }: { match: Match }) {
                       : (isBus ? `Autobus tam a späť · spolu od €${busPrice} · dostatočná rezerva pred zápasom` : "Lety z Bratislavy · spiatočné · deň pred zápasom")}
                   </div>
                   {(isBus ? [
-                    { airline: match.busProvider ?? "FlixBus", badge: "TAM", desc: `BTS → ${match.city} · ${match.busDuration} · bez prestupu`, price: match.flightFrom },
+                    { airline: match.busProvider ?? "FlixBus", badge: "TAM", desc: `BTS → ${match.city} · ${match.busDuration} · ${match.busTransfers ? `s prestupom (${match.busTransfers}×)` : "bez prestupu"}`, price: match.flightFrom },
                     ...(match.returnBus ? [{
                       airline: match.busProvider ?? "FlixBus", badge: "SPÄŤ",
                       desc: `${match.city} → BTS · ${match.returnBus.duration} · ${match.returnBus.transfers ? `s prestupom (${match.returnBus.transfers}×)` : "bez prestupu"}`,
